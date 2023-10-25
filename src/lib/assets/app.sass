@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri&display=swap')
+$color-primary: #009759
+$color-bg-primary: #363636
+$color-bg-secondary: #474747
+@mixin inner-shadow()
+    box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.75) inset
+    -webkit-box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.75) inset
+    -moz-box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.75) inset
+@mixin outer-shadow()
+    box-shadow: 5px 5px 16px -3px rgba(0, 0, 0, 0.75)
+    -webkit-box-shadow: 5px 5px 16px -3px rgba(0, 0, 0, 0.75)
+    -moz-box-shadow: 5px 5px 16px -3px rgba(0, 0, 0, 0.75)
+    
+*
+    padding: 0
+    margin: 0
+    box-sizing: border-box
+button
+    all: unset
+    cursor: pointer
+    *
+        pointer-events: none
+input[type="number"],
+input[type="text"]
+    all: unset
+    direction: rtl
+    &[type="number"]
+        -moz-appearance: textfield
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button 
+            -webkit-appearance: none
+            margin: 0
+input[type="checkbox"]
+    all: unset
+    appearance: none
+    width: 20px
+    height: 20px
+    border-radius: 5px
+    border: 3px solid 
+    border-color: #fff
+    background-color: #fff
+    transition: border-color 0.2s ease-in-out
+    cursor: pointer
+    &:checked
+        border-color: $color-primary

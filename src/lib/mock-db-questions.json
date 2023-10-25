@@ -1,0 +1,2091 @@
+{
+	"question-2fd5sBxVkWiutnKGsSa9": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 0
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gJUNFrgzruBZLQJDyYiz",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "عدد غير مصابين بالسمنة في أمريكا ؟",
+		"questionAnswers": {
+			"0": "66%",
+			"1": "77%"
+		},
+		"correctAnswer": "66%",
+		"lastUpdateDate": ""
+	},
+	"question-CzEdAI2C6OZlbHFEDQiZ": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 1
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gJUNFrgzruBZLQJDyYiz",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يفهم من النص أن أسباب الإصابة بالسمنة؟",
+		"questionAnswers": {
+			"0": "مشاكل صحية",
+			"1": "طبيعة البيئة(البيئة المحيطة)",
+			"2": "قله التوعية(إجابة غير مؤكدة - لابد من الرجوع للنص في هذا السؤال)",
+			"3": "عوامل وراثيه"
+		},
+		"correctAnswer": "قله التوعية(إجابة غير مؤكدة - لابد من الرجوع للنص في هذا السؤال)",
+		"lastUpdateDate": ""
+	},
+	"question-dsa0LrOcdZUX6XBx5H3e": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 2
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gJUNFrgzruBZLQJDyYiz",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "العلاقة بين السمنة وزيادة الوزن",
+		"questionAnswers": {
+			"0": "ترادف",
+			"1": "تتابعية",
+			"2": "من العموم إلى الخصوص",
+			"3": "إطنابية"
+		},
+		"correctAnswer": "ترادف",
+		"lastUpdateDate": ""
+	},
+	"question-mdcyJgJ8u6zDIauiTq8E": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 3
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gJUNFrgzruBZLQJDyYiz",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": " (والطاقة المستهلكة)  تعني :",
+		"questionAnswers": {
+			"0": "السعرات الحرارية"
+		},
+		"correctAnswer": "السعرات الحرارية",
+		"lastUpdateDate": ""
+	},
+	"question-oEl2OewD0Px8doKGI1S6": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 4
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gJUNFrgzruBZLQJDyYiz",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "كيف يمكن معالجة السمنة ؟",
+		"questionAnswers": {
+			"0": "زيادة الوعي الصحي"
+		},
+		"correctAnswer": "زيادة الوعي الصحي",
+		"lastUpdateDate": ""
+	},
+	"question-EQ3ByI8Fj6R49gNU2F45": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 5
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gJUNFrgzruBZLQJDyYiz",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "السمنة لدى الشباب : ",
+		"questionAnswers": {
+			"0": "متناقصه",
+			"1": "متنامية",
+			"2": "متوازنة",
+			"3": "ثابتة"
+		},
+		"correctAnswer": "متنامية",
+		"lastUpdateDate": ""
+	},
+	"question-1rYxkGCSBikCb1ngQ0N0": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 6
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gJUNFrgzruBZLQJDyYiz",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يرجع النص أسباب الإصابة بالسمنة في الدول المتقدمة إلى",
+		"questionAnswers": {
+			"0": "التطور التقني"
+		},
+		"correctAnswer": "التطور التقني",
+		"lastUpdateDate": ""
+	},
+	"question-Dx3nnIfrcsTgpKCHTVJj": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 7
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gJUNFrgzruBZLQJDyYiz",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "وفقا للنص فإن السبب في زيادة السمنة؟",
+		"questionAnswers": {
+			"0": "الفقر",
+			"1": "غلاء الأسعار",
+			"2": "التقنية"
+		},
+		"correctAnswer": "التقنية",
+		"lastUpdateDate": ""
+	},
+	"question-dXN48tFnsCFCWNlS92nu": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 8
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gJUNFrgzruBZLQJDyYiz",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يجب الابتعاد عن السمنة لأنها :",
+		"questionAnswers": {
+			"0": "تشوه المنظر ( تشوه المظهر العام )"
+		},
+		"correctAnswer": "تشوه المنظر ( تشوه المظهر العام )",
+		"lastUpdateDate": ""
+	},
+	"question-eQuQvTcBHwSpHEHs0rYn": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 9
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "w4nO87zP6dYcHxKQEqkl",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يتحدث النص عن ...............\n",
+		"questionAnswers": {
+			"0": "المراسلة",
+			"1": "الحوار",
+			"2": "المشافهة",
+			"3": "المحادثة"
+		},
+		"correctAnswer": "المراسلة",
+		"lastUpdateDate": ""
+	},
+	"question-SR1ayWPaSzREwTCK0zRk": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 10
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "w4nO87zP6dYcHxKQEqkl",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الشيء الأساسي في عملية المكاتبة هو ...............\n",
+		"questionAnswers": {
+			"0": "النقد",
+			"1": "اللسان",
+			"2": "الفصحى",
+			"3": "التبرير"
+		},
+		"correctAnswer": "الفصحى",
+		"lastUpdateDate": ""
+	},
+	"question-rpGb8gEpaXv4KqhJcfEM": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 11
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "w4nO87zP6dYcHxKQEqkl",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "معنى كلمة ( الجنان )الواردة بالنص هو...............\n",
+		"questionAnswers": {
+			"0": "الأسرار",
+			"1": "القلب",
+			"2": "اللغة",
+			"3": "الضمير"
+		},
+		"correctAnswer": "القلب",
+		"lastUpdateDate": ""
+	},
+	"question-d03UtBJiiyWplmIPdldW": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 12
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "w4nO87zP6dYcHxKQEqkl",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "ورد بالنص عدة فوائد للمكاتبة عددها ...............\n",
+		"questionAnswers": {
+			"0": "5",
+			"1": "4",
+			"2": "3",
+			"3": "2"
+		},
+		"correctAnswer": "3",
+		"lastUpdateDate": ""
+	},
+	"question-NVckFi77HprsnIJAaAxw": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 13
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "w4nO87zP6dYcHxKQEqkl",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "حث النص على مراعاة أحوال الكاتب والمكتوب إليه ...............\n",
+		"questionAnswers": {
+			"0": "قبل السفر",
+			"1": "قبل الحديث",
+			"2": "حينما يتكلم بالفصحى",
+			"3": "في جميع أموره"
+		},
+		"correctAnswer": "في جميع أموره",
+		"lastUpdateDate": ""
+	},
+	"question-BvDXxuY7Ul3VruOM2TUr": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 14
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "w4nO87zP6dYcHxKQEqkl",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "معنى ( أوطاره ) الواردة بالنص ...............\n",
+		"questionAnswers": {
+			"0": "لغته",
+			"1": "لياليه",
+			"2": "طموحاته",
+			"3": "شؤونه"
+		},
+		"correctAnswer": "شؤونه",
+		"lastUpdateDate": ""
+	},
+	"question-rGHkMbt5I5UYThqmuPs1": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 15
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "w4nO87zP6dYcHxKQEqkl",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الأداة الأساسية في عملية المكاتبة هي  ...............\n",
+		"questionAnswers": {
+			"0": "السفر",
+			"1": "الكلام",
+			"2": "التأمل",
+			"3": "القلم"
+		},
+		"correctAnswer": "القلم",
+		"lastUpdateDate": ""
+	},
+	"question-0eJrnfxO5rJndbS9cwYx": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 16
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "w4nO87zP6dYcHxKQEqkl",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الضمير في  (أنها ) يعود على : \n",
+		"questionAnswers": {
+			"0": "المكاتبة"
+		},
+		"correctAnswer": "المكاتبة",
+		"lastUpdateDate": ""
+	},
+	"question-ul0udXNgBu9ssfcgj5Ev": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 17
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "7x36JFWPxBQalXwoFLtx",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "العلاقة بين ساعات المشاهدة والدرجات الطلاب :",
+		"questionAnswers": {
+			"0": "سببية",
+			"1": "نتيجة",
+			"2": "طردية",
+			"3": "عكسية"
+		},
+		"correctAnswer": "عكسية",
+		"lastUpdateDate": ""
+	},
+	"question-LWTLhJ9IJNfSXDmENkA6": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 18
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "NqH1wORDFWFIH5YP4kAL",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يستنتج من النص أن .............\n",
+		"questionAnswers": {
+			"0": "الثروة الصناعية قائمة على وقود الطحالب ( الطحالب لا يستخدم للوقود حاليا )",
+			"1": "( الطحالب من الممكن أن تكون مصدرا للوقود ، لكنها قيد العمل ) الطحالب من الممكن أن تكون مصدرا للوقود بعد فترة زمنية",
+			"2": "الطحالب لها قيمة غذائية",
+			"3": "الطحالب مضرة للإنسان"
+		},
+		"correctAnswer": "( الطحالب من الممكن أن تكون مصدرا للوقود ، لكنها قيد العمل ) الطحالب من الممكن أن تكون مصدرا للوقود بعد فترة زمنية",
+		"lastUpdateDate": ""
+	},
+	"question-PKrRiFoNTgPrmR4BvyLQ": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 19
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "NqH1wORDFWFIH5YP4kAL",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "(ولكن مازالت التجارب في بدايتها ) ماذا تعني ؟ العبارة تدل على.........\n",
+		"questionAnswers": {
+			"0": "التأكد من النجاح",
+			"1": "احتمالية النجاح",
+			"2": "تعليل للنجاح",
+			"3": "الأسباب والنتائج"
+		},
+		"correctAnswer": "احتمالية النجاح",
+		"lastUpdateDate": ""
+	},
+	"question-qWRMdDKl1KpFoGTKhhCT": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 20
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "NqH1wORDFWFIH5YP4kAL",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "علاقة  جملة ( ليحل محل الوقود) بما قبلها ...........\n",
+		"questionAnswers": {
+			"0": "تخمين",
+			"1": "تعليل",
+			"2": "تشبيه",
+			"3": "تفصيل"
+		},
+		"correctAnswer": "تعليل",
+		"lastUpdateDate": ""
+	},
+	"question-YP1iVrOt0CiFRKA0qQWx": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 21
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "NqH1wORDFWFIH5YP4kAL",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الفكرة من النص:",
+		"questionAnswers": {
+			"0": "إنتاج الطاقة بالطحالب ممكنا ويحتاج وقت",
+			"1": "الاعتماد على الطحالب في إنتاج الطاقة غير ممكن حاليا"
+		},
+		"correctAnswer": "إنتاج الطاقة بالطحالب ممكنا ويحتاج وقت",
+		"lastUpdateDate": ""
+	},
+	"question-eQOOHDj2LCQpwDChbefu": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 22
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "3cOE8QtYW6ElNQDMhy4R",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "التمركز حسب ما ورد في نهاية الفقرة (1) يؤدي إلى ............(التمركز يؤدي إلى ...........)",
+		"questionAnswers": {
+			"0": "الاستسلام",
+			"1": "الجمود( الثبات)",
+			"2": "الكسل"
+		},
+		"correctAnswer": "الجمود( الثبات)",
+		"lastUpdateDate": ""
+	},
+	"question-4IYz0U7BBY7T7kNMzeMP": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 23
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "VMiqoL2lUz9lPySWdtFa",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "ما المشكلة التي تناولها الموضوع :\n",
+		"questionAnswers": {
+			"0": "التطور الصناعي",
+			"1": "........... الاقتصادي",
+			"2": "الزحف السكاني",
+			"3": "الانفجار السكاني"
+		},
+		"correctAnswer": "الانفجار السكاني",
+		"lastUpdateDate": ""
+	},
+	"question-icCqx7TBdSoFdSy8XcV7": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 24
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "cf9Ecs1tkl1wLzv1Wawp",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "نسبة الأطفال الفقراء :\n",
+		"questionAnswers": {
+			"0": "قلت ست اضعاف",
+			"1": "زادت ثلاثة أضعاف",
+			"2": "قلت ثلاث اضعاف",
+			"3": "زادت ست اضعاف"
+		},
+		"correctAnswer": "زادت ثلاثة أضعاف",
+		"lastUpdateDate": ""
+	},
+	"question-xSJZgLHwD3XdyaT4uFyw": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 25
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "J6sH07OFMPIq85rANvy3",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "أنسب عنوان للنص ........",
+		"questionAnswers": {
+			"0": "الظلام",
+			"1": "العلاج بالضوء",
+			"2": "نهار الشتاء ونهار الصيف",
+			"3": "مدى تأثر الإنسان بالضوء (أثر الضوء على الإنسان)"
+		},
+		"correctAnswer": "مدى تأثر الإنسان بالضوء (أثر الضوء على الإنسان)",
+		"lastUpdateDate": ""
+	},
+	"question-rOXrj1AyH8Qhdn4ssEG1": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 26
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "UcG1va6JE1dcU4w7kZXQ",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يستنتج من الفقرة (4) أن البحث التطبيقي اختار عينة من بين  ............            \n",
+		"questionAnswers": {
+			"0": "الحوامل",
+			"1": "الأطفال حديثي الولادة",
+			"2": "الرجل البالغ",
+			"3": "الأمهات"
+		},
+		"correctAnswer": "الأطفال حديثي الولادة",
+		"lastUpdateDate": ""
+	},
+	"question-6Gq4WSUeSulaFPtYa1kg": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 27
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "WjRKbrjBIXUQZ6ia9AlG",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "معنى ( شتى ) المذكورة في النص :\n",
+		"questionAnswers": {
+			"0": "متفرقة(مختلف)",
+			"1": "بعيدة",
+			"2": "متشابهة",
+			"3": "متقاربة (قريبة)"
+		},
+		"correctAnswer": "متفرقة(مختلف)",
+		"lastUpdateDate": ""
+	},
+	"question-yjXPncaP71A809aJzl5J": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 28
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "WjRKbrjBIXUQZ6ia9AlG",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "معنى ( شتى ) المذكورة في النص :\n",
+		"questionAnswers": {
+			"0": "مجتمعة",
+			"1": "متفرقة"
+		},
+		"correctAnswer": "متفرقة",
+		"lastUpdateDate": ""
+	},
+	"question-BaJcea9wcXYkDOSypGEY": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 29
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "WjRKbrjBIXUQZ6ia9AlG",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "أنسب عنوان للنص   // عموم النص يتحدث عن ........\n",
+		"questionAnswers": {
+			"0": "المسطحات المائية",
+			"1": "أهمية الأنهار",
+			"2": "البيئة الساحلية",
+			"3": "الأنهار الصناعية"
+		},
+		"correctAnswer": "أهمية الأنهار",
+		"lastUpdateDate": ""
+	},
+	"question-pFi75yDN9TXULIVHo2OK": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 30
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "WjRKbrjBIXUQZ6ia9AlG",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الضمير في كلمه ( ضفافها)  تعني ........\n",
+		"questionAnswers": {
+			"0": "البيئة",
+			"1": "السدود",
+			"2": "الأنهار",
+			"3": "الأراضي الزراعية"
+		},
+		"correctAnswer": "الأنهار",
+		"lastUpdateDate": ""
+	},
+	"question-dvdEfbaP7NL0DzFNzVKq": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 31
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "WjRKbrjBIXUQZ6ia9AlG",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "ما أهمية الأنهار  بالنسبة للملاحة البحرية؟\n",
+		"questionAnswers": {
+			"0": "عامل ثانوي",
+			"1": "عامل رئيسي",
+			"2": "نادرة الاهمية",
+			"3": "عامل مساعد"
+		},
+		"correctAnswer": "عامل رئيسي",
+		"lastUpdateDate": ""
+	},
+	"question-kpTLOzVurHs83gIxlAQ9": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 32
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gI8HhuC2RtdPdd67lXjE",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "علاقة ( فجد واجتهد ) ب ( أنه يخشى المعلمين ) ",
+		"questionAnswers": {
+			"0": "كلية إلى جزئية",
+			"1": "نتيجة لسبب",
+			"2": "جزئية إلى كلية",
+			"3": "سبب لنتيجة"
+		},
+		"correctAnswer": "نتيجة لسبب",
+		"lastUpdateDate": ""
+	},
+	"question-n06lp8Ec1AtByvjhfhqR": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 33
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gI8HhuC2RtdPdd67lXjE",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "علاقة( فجدو كل الجد) بما قبلها",
+		"questionAnswers": {
+			"0": "كلية إلى جزئية",
+			"1": "سبب لنتيجة",
+			"2": "نتيجة لسبب",
+			"3": "جزئية إلى كلية"
+		},
+		"correctAnswer": "نتيجة لسبب",
+		"lastUpdateDate": ""
+	},
+	"question-myppAGj39MR70mvIRlPN": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 34
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gI8HhuC2RtdPdd67lXjE",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الطالب يذاكر بجد لـــ....  ",
+		"questionAnswers": {
+			"0": "ليبين قوة حفظه",
+			"1": "يجتاز الاختبارات",
+			"2": "اهتمامه بالتعليم",
+			"3": "يُحصل أكبر قدر من المعلومات"
+		},
+		"correctAnswer": "يجتاز الاختبارات",
+		"lastUpdateDate": ""
+	},
+	"question-4nwi97DhpEoWjPlL7umu": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 35
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gI8HhuC2RtdPdd67lXjE",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الطالب يذاكر بجد لكي :",
+		"questionAnswers": {
+			"0": "اهتمامه بالتعليم",
+			"1": "ليبين قوة حفظه",
+			"2": "ينجح في الاختبارات فقط",
+			"3": "يحصل على أكبر قدر من المعلومات"
+		},
+		"correctAnswer": "ينجح في الاختبارات فقط",
+		"lastUpdateDate": ""
+	},
+	"question-XQ3gOZtiL5Bxna8NqGNh": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 36
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gI8HhuC2RtdPdd67lXjE",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "( ولا حظّ له في النوم العميق، ولا الطعام الهنيء)الكلمة التي يمكن حذفها دون تغيير معنى الجملة؟",
+		"questionAnswers": {
+			"0": "حظ",
+			"1": "الطعام",
+			"2": "النوم",
+			"3": "الهنيء"
+		},
+		"correctAnswer": "الهنيء",
+		"lastUpdateDate": ""
+	},
+	"question-ELRNoSyIxuZnYDPRq3jc": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 37
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gI8HhuC2RtdPdd67lXjE",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "وفقا للنص فإن معاناة الطالب تتمثل في ......",
+		"questionAnswers": {
+			"0": "طول فترة الدراسة",
+			"1": "الكتب",
+			"2": "كثرة المقررات وقلة جدواها العملية",
+			"3": "التوتر الذي بينه وبين المعلم"
+		},
+		"correctAnswer": "كثرة المقررات وقلة جدواها العملية",
+		"lastUpdateDate": ""
+	},
+	"question-k4MXPmRpVyogsBcXeg2z": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 38
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gI8HhuC2RtdPdd67lXjE",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يفهم من النص أن (الصاب )   ",
+		"questionAnswers": {
+			"0": "شجرة سيئة المنظر",
+			"1": "شجرة قوية",
+			"2": "شجرة سيئة الطعم//(المُر)",
+			"3": "شجرة طويلة"
+		},
+		"correctAnswer": "شجرة سيئة الطعم//(المُر)",
+		"lastUpdateDate": ""
+	},
+	"question-7uh9QLgtYqTzE5sdliKA": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 39
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gI8HhuC2RtdPdd67lXjE",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الفكرة العامة للنص هي ........",
+		"questionAnswers": {
+			"0": "معاناة المعلمين",
+			"1": "كسل الطلاب",
+			"2": "المناهج الدراسية",
+			"3": "واقع التعليم المُزري"
+		},
+		"correctAnswer": "واقع التعليم المُزري",
+		"lastUpdateDate": ""
+	},
+	"question-dW1iU84hieyvJ33oAcvB": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 40
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "gI8HhuC2RtdPdd67lXjE",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الاستفهام الوارد بنهاية النص غرضه ............",
+		"questionAnswers": {
+			"0": "الاستنكار",
+			"1": "التقابل",
+			"2": "التضاد",
+			"3": "الإيضاح"
+		},
+		"correctAnswer": "الاستنكار",
+		"lastUpdateDate": ""
+	},
+	"question-5rttnc2LUgk6rYtISMBk": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 41
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "7EHtHXPNYWS3agw2iJjZ",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يفهم من النص أن تلوث الجو يصحب ......................\n",
+		"questionAnswers": {
+			"0": "استخراج النفط في بعض الاحيان",
+			"1": "قبل استخراج النفط في أغلب الاحيان",
+			"2": "استخراج النفط في اغلب الأحيان",
+			"3": "بعد استخراج النفط في اغلب الاحيان"
+		},
+		"correctAnswer": "استخراج النفط في اغلب الأحيان",
+		"lastUpdateDate": ""
+	},
+	"question-p6HZQ93D0SXgOJVUzs2I": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 42
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "7EHtHXPNYWS3agw2iJjZ",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يحدث  التلوث........ ..\n",
+		"questionAnswers": {
+			"0": "قبل استخراج النفط في بعض الاحيان",
+			"1": "بعد استخراج النفط في معظم الاحيان",
+			"2": "عند استخراج النفط في بعض الاحيان",
+			"3": "اثناء استخراج النفط في معظم الاحيان"
+		},
+		"correctAnswer": "اثناء استخراج النفط في معظم الاحيان",
+		"lastUpdateDate": ""
+	},
+	"question-qUVIImQqJFIFSSNCE3Lf": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 43
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "7EHtHXPNYWS3agw2iJjZ",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "كلمة (خاصة ) في النص :\n",
+		"questionAnswers": {
+			"0": "توضيح ما قبلها بما بعدها( تفيد العموم على ما قبلها)",
+			"1": "تعميم ما قبلها بما بعدها",
+			"2": "تزيد ما بعدها على ما قبلها( تعميم ما بعدها بما قبلها )",
+			"3": "تخصيص ما بعدها مما قبلها"
+		},
+		"correctAnswer": "تخصيص ما بعدها مما قبلها",
+		"lastUpdateDate": ""
+	},
+	"question-fCww97YRTr8hdDJ2WqH2": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 44
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "03TKrpP78f6uw2lMjqbh",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "سبب اختلال التوازن  البيئي لأن الانسان : /// لماذا الإنسان يرفض أن يتساوى مع المخلوقات الأخرى من  الحيوانات؟ // ما الذي جعل الانسان يترك التوازن ف البيئة؟ //// ما الذي جعل الانسان يترك التوازن في البيئة ؟\n",
+		"questionAnswers": {
+			"0": "يحب الهيمنة (هيمنته)( حبه للهيمنة)",
+			"1": "مغرور وجاهل",
+			"2": "كبره وغروره (كبره و أنانيته )",
+			"3": "تواضع الانسان ( إيثار الأبناء )"
+		},
+		"correctAnswer": "يحب الهيمنة (هيمنته)( حبه للهيمنة)",
+		"lastUpdateDate": ""
+	},
+	"question-HaupB1ysR3j3WIe7COOb": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 45
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "rxX3GLzphs1hnCp1Yc6s",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "ما معنى وسطا تفاعليا........\n",
+		"questionAnswers": {
+			"0": "بيئة",
+			"1": "شهرة",
+			"2": "مكان"
+		},
+		"correctAnswer": "بيئة",
+		"lastUpdateDate": ""
+	},
+	"question-d0hATnIWxUq3D29sx8GJ": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 46
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "rxX3GLzphs1hnCp1Yc6s",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": " تعتبر المنتديات وسطاً :",
+		"questionAnswers": {
+			"0": "تفاعليًا",
+			"1": "حواريًا"
+		},
+		"correctAnswer": "تفاعليًا",
+		"lastUpdateDate": ""
+	},
+	"question-Vun0bf4bRZCqaulFkjSc": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 47
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "rxX3GLzphs1hnCp1Yc6s",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يستنتج من النص أن الوسط التفاعلي الذي أسستّه المنتديات لنفسها :\n",
+		"questionAnswers": {
+			"0": "لم يكن حدوثه متوقعاً",
+			"1": "لم يكن شيوعه متوقعاً",
+			"2": "كان متوقعاً تأخر شيوعه",
+			"3": "كان حدوثه متوقعاً"
+		},
+		"correctAnswer": "لم يكن حدوثه متوقعاً",
+		"lastUpdateDate": ""
+	},
+	"question-lDhYMvaPK4fBPurURZgr": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 48
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "rxX3GLzphs1hnCp1Yc6s",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "من الذي يستطيع الدخول وقراءة المنتديات \n",
+		"questionAnswers": {
+			"0": "المشرفين والأعضاء وما دونهم",
+			"1": "المشرفين"
+		},
+		"correctAnswer": "المشرفين والأعضاء وما دونهم",
+		"lastUpdateDate": ""
+	},
+	"question-trji0La8WGlCEybAJi0o": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 49
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "rxX3GLzphs1hnCp1Yc6s",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "من الذي يستطيع الدخول علي المنتديات\n",
+		"questionAnswers": {
+			"0": "الأعضاء و المشرفين دون غيرهم",
+			"1": "الأعضاء و المشرفين و غيرهم"
+		},
+		"correctAnswer": "الأعضاء و المشرفين و غيرهم",
+		"lastUpdateDate": ""
+	},
+	"question-Nho5azsSErwUmtemAuCd": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-b56324e8f5bdc26d0d3": 50
+			}
+		},
+		"questionCategoryID": "category-10abd86d71",
+		"questionParagraphID": "rxX3GLzphs1hnCp1Yc6s",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "في المنتديات الاشخاص يتواصلون من أجل التعبير عن :\n",
+		"questionAnswers": {
+			"0": "خططهم",
+			"1": "أفكارهم"
+		},
+		"correctAnswer": "أفكارهم",
+		"lastUpdateDate": ""
+	},
+	"question-lLQq4ZIvQP5ex9XFlhmk": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 0
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "من ........أن الدول ........ لم تعط القدر الكافي من الاهتمام للغة العربية كما أعطت للغات الأخرى",
+		"questionAnswers": {
+			"0": "المؤسف –الغربية",
+			"1": "المخجل-العربية",
+			"2": "التردد - وجودهم",
+			"3": "الثناء – غيابهم"
+		},
+		"correctAnswer": "المخجل-العربية",
+		"lastUpdateDate": ""
+	},
+	"question-vA8PEzvQWWoWMzjE2AoP": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 1
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "السخاء والكرم .......... عيوب المرء والبخل ........... كل غطاء ",
+		"questionAnswers": {
+			"0": "يستيقظون – بسيطة",
+			"1": "تخفي - تواريها",
+			"2": "يغطي - يكشف",
+			"3": "ينامون- مرجوة"
+		},
+		"correctAnswer": "يغطي - يكشف",
+		"lastUpdateDate": ""
+	},
+	"question-n9MRNb9ao63auybSZhiE": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 2
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الكرم .........  العيوب والبخل .............. ",
+		"questionAnswers": {
+			"0": "مقسوم - محروم",
+			"1": "مكتوب - مذنب",
+			"2": "جامداً - يأسن",
+			"3": "يخفي – يكشفها"
+		},
+		"correctAnswer": "يخفي – يكشفها",
+		"lastUpdateDate": ""
+	},
+	"question-udEnQWQtmta7LxqIPFST": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 3
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "المسعفين يجب أن يكونوا قادرين على ..... على أعصابهم وأن يكون لديهم .... في  اتخاذ القرار المناسب. \n",
+		"questionAnswers": {
+			"0": "البدل - الرغبة",
+			"1": "الحفاظ- السرعة",
+			"2": "الحفاظ- النزعة",
+			"3": "الحرص- النية"
+		},
+		"correctAnswer": "الحفاظ- السرعة",
+		"lastUpdateDate": ""
+	},
+	"question-UBvvJfOv33VcDoOFWI9M": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 4
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الألفاظ هي رداء ...... فيجب ألا  تكون في ثياب رثة  بالية .",
+		"questionAnswers": {
+			"0": "الأوهام",
+			"1": "أقوالنا",
+			"2": "هيئاتنا",
+			"3": "أفكارنا"
+		},
+		"correctAnswer": "أفكارنا",
+		"lastUpdateDate": ""
+	},
+	"question-y5Yq9yOPcFwrhlG4l5gP": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 5
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "العيب  في سفينتنا ليست ....... التي بدأت تلوح في الأفق بل في الفئران التي تأكل ......... ونحن عنها غافلون.",
+		"questionAnswers": {
+			"0": "السفن- أطرافها",
+			"1": "البروق- طعامنا",
+			"2": "العاصفة – جنباتها",
+			"3": "المكتبات -الإعلام"
+		},
+		"correctAnswer": "العاصفة – جنباتها",
+		"lastUpdateDate": ""
+	},
+	"question-Valykm7mKio2E6rjctqI": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 6
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "احذر ............. إذا مازحته و.......... إذا عاشرته .",
+		"questionAnswers": {
+			"0": "الكريم – اللئيم",
+			"1": "السلام- التفكير",
+			"2": "الذل – الطريق",
+			"3": "الأرعن – السافل"
+		},
+		"correctAnswer": "الأرعن – السافل",
+		"lastUpdateDate": ""
+	},
+	"question-US96UAfjQqKg2H4a6zmj": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 7
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "تهاجر الحيتان في ........ كبيرة وخاصة في موسم تكاثرها وتقطع .......... طويلة في المحيطات والبحار.",
+		"questionAnswers": {
+			"0": "جماعات-عمل",
+			"1": "أسراب – أسفارا",
+			"2": "أفواج -رحلة",
+			"3": "مجموعة- جماعيا"
+		},
+		"correctAnswer": "أفواج -رحلة",
+		"lastUpdateDate": ""
+	},
+	"question-7kAAWUlCWnni94JQI3Ay": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 8
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الدين لا يلغي ال ........... بل يهذبها ، والتربية لا تغير الطبائع  بل  ........",
+		"questionAnswers": {
+			"0": "الخمول - المشكلات",
+			"1": "السقوط- راقد",
+			"2": "الغرائز-يحسنها",
+			"3": "الأخلاق – يثبتها"
+		},
+		"correctAnswer": "الغرائز-يحسنها",
+		"lastUpdateDate": ""
+	},
+	"question-maVTjX2syxsQ49mMLUkM": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 9
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الدين لا يلغي … لكن يروضها والتربية لا تغير الاطباع بل … ",
+		"questionAnswers": {
+			"0": "الإقبال- النسيان",
+			"1": "الاخلاق-العيب",
+			"2": "الغرائز – تهذبها",
+			"3": "الشهوات - الغل"
+		},
+		"correctAnswer": "الغرائز – تهذبها",
+		"lastUpdateDate": ""
+	},
+	"question-neGZOTnDGJ7YdD8xyRyJ": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 10
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "ان الاتصال في العلاقات ....تشبه التنفس في الانسان كلاهما يهدف الى ......الحياة .",
+		"questionAnswers": {
+			"0": "المحاضرة – المناظرة",
+			"1": "المحكمة–المناظرة",
+			"2": "العلمية – فناء",
+			"3": "الإنسانية–استمرار"
+		},
+		"correctAnswer": "الإنسانية–استمرار",
+		"lastUpdateDate": ""
+	},
+	"question-c7IqSE8RHgYitK4rFo7E": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 11
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "تستطيع تجريد جيش من ..........ولكن لا تستطيع تجريد الناس من ..........",
+		"questionAnswers": {
+			"0": "تربيته-بره",
+			"1": "تكوين – التشابه",
+			"2": "سلاحهم – هيمنتهم",
+			"3": "قائدهم – إرادتهم"
+		},
+		"correctAnswer": "قائدهم – إرادتهم",
+		"lastUpdateDate": ""
+	},
+	"question-cJ1TmzDQhJYLMANDBZlb": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 12
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "تستطيع تجريد جيش من ..........ولكن لا تستطيع تجريد الناس من ..........",
+		"questionAnswers": {
+			"0": "حلمه – طعامه",
+			"1": "مستقبله –خطواته",
+			"2": "وطنه -حبهم",
+			"3": "سلاحه – كرامتهم"
+		},
+		"correctAnswer": "سلاحه – كرامتهم",
+		"lastUpdateDate": ""
+	},
+	"question-kR9rVbUjdeusr1IiSBAK": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 13
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "أفِدّ الناس ب….وشاركهم…..",
+		"questionAnswers": {
+			"0": "كتبك- مكتبتك",
+			"1": "خيالك- كتابتك",
+			"2": "علمك – مالك",
+			"3": "مالك- رأيك"
+		},
+		"correctAnswer": "مالك- رأيك",
+		"lastUpdateDate": ""
+	},
+	"question-WpLQtcxra4IuTza8g7TH": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 14
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "لا………. من غير ……….",
+		"questionAnswers": {
+			"0": "حياة – موت",
+			"1": "جوع – فقر",
+			"2": "أخ – أخت",
+			"3": "ازدهار – استقرار"
+		},
+		"correctAnswer": "ازدهار – استقرار",
+		"lastUpdateDate": ""
+	},
+	"question-QiRlf5OqfZbcZ6Cz4gBz": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 15
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": ".......السعيدة تكون ب ....... بين الزوجين مما يقوي الحب بينهم ",
+		"questionAnswers": {
+			"0": "الزيجات -الاحترام",
+			"1": "المودة -الحقد",
+			"2": "العلاقات – النية",
+			"3": "النفقات – الأعمال"
+		},
+		"correctAnswer": "الزيجات -الاحترام",
+		"lastUpdateDate": ""
+	},
+	"question-3eSiop4c8slvk9H61BjT": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 16
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يسعى.... لتعليم الطلاب ليصبحوا  متفوقين ويحققوا الانجازات ويفيدوا بلدهم.... دخولهم المجال الوظيفي",
+		"questionAnswers": {
+			"0": "التعليم – حتى",
+			"1": "المجتمع - اثناء",
+			"2": "المعلم - بعد",
+			"3": "النظام - قبل"
+		},
+		"correctAnswer": "المعلم - بعد",
+		"lastUpdateDate": ""
+	},
+	"question-m6jVOLa0gmdR2Z0asAY7": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 17
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "النفس ترتاح من قلة ..........والبدن يرتاح من قلة .......",
+		"questionAnswers": {
+			"0": "الآثام –الطعام",
+			"1": "الوهم- الكلام",
+			"2": "العمل –الإرهاق",
+			"3": "الأمور – المعارف"
+		},
+		"correctAnswer": "الآثام –الطعام",
+		"lastUpdateDate": ""
+	},
+	"question-P9eJ3SLQsAKaaNmffCir": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 18
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "تدنو من ............. بقدر ما تدنو من التواضع ",
+		"questionAnswers": {
+			"0": "العظمة",
+			"1": "الدائرية",
+			"2": "الضعف",
+			"3": "التكبر"
+		},
+		"correctAnswer": "العظمة",
+		"lastUpdateDate": ""
+	},
+	"question-rvqmm9f5WbgJoazdmKQ2": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 19
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "كلما .....علمًا ، زادت معرفتك.......",
+		"questionAnswers": {
+			"0": "زينة – ترتاح",
+			"1": "عرض - تعرف",
+			"2": "كسب -تحصد",
+			"3": "ازددت- بجهلك"
+		},
+		"correctAnswer": "ازددت- بجهلك",
+		"lastUpdateDate": ""
+	},
+	"question-BJmqxSJxpBSH9wm7ujdv": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 20
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "المتحدث الذي.....من حقه ان يكون.....",
+		"questionAnswers": {
+			"0": "لا يجد - قوي",
+			"1": "لا يخطئ - مغرورا",
+			"2": "لا ينسى- معلم",
+			"3": "لا يحفظ –فنان"
+		},
+		"correctAnswer": "لا يخطئ - مغرورا",
+		"lastUpdateDate": ""
+	},
+	"question-gdvSeE7WmN5Vk7sGl9D2": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 21
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الحج مؤتمر.......يتحد (يتشاور ) فيه ............",
+		"questionAnswers": {
+			"0": "عربي - العالم",
+			"1": "إسلامي-الامة",
+			"2": "سمر – غنى",
+			"3": "دولي-الأمم"
+		},
+		"correctAnswer": "إسلامي-الامة",
+		"lastUpdateDate": ""
+	},
+	"question-m242PFz7FyOlJHJGu7Ez": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 22
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "ميخائيل نعمه ........... تطوير الحركة الفكرية والثورة الثقافية",
+		"questionAnswers": {
+			"0": "قاد",
+			"1": "باد",
+			"2": "كاد",
+			"3": "فاد"
+		},
+		"correctAnswer": "قاد",
+		"lastUpdateDate": ""
+	},
+	"question-c4a0eRPoD9L3nKJcjLui": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 23
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "عليكم ب ..... الأخبار فإنها من صفات الملوك، ...... تصل إلى منزلتهم وعظمتهم",
+		"questionAnswers": {
+			"0": "أجود – عندها",
+			"1": "طرائف – بها",
+			"2": "عجائب – منهم",
+			"3": "أخبار – به"
+		},
+		"correctAnswer": "أجود – عندها",
+		"lastUpdateDate": ""
+	},
+	"question-5AOivtYOVSE2TTVmfXCj": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 24
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الأصدقاء الحقيقيون : يصعب .......... ، ويستحيل .........  ",
+		"questionAnswers": {
+			"0": "تفعل– تتقدم",
+			"1": "يقف – تنفيذها",
+			"2": "يمكن –تحقيقه",
+			"3": "تركهم- نسيانهم"
+		},
+		"correctAnswer": "تركهم- نسيانهم",
+		"lastUpdateDate": ""
+	},
+	"question-WnS7GNnJS5C2RFNmCuSO": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 25
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "ما زالت ............التسرب من التعليم مثيرة للقلق وما زالت طرائق التدريس عامة تجبر بأساليب تربوية ........الزمن.",
+		"questionAnswers": {
+			"0": "شرائح – تناساها",
+			"1": "معدلات – تفاداها",
+			"2": "أنواع – تحاشاها",
+			"3": "أفواج – تجاوزها"
+		},
+		"correctAnswer": "أفواج – تجاوزها",
+		"lastUpdateDate": ""
+	},
+	"question-BSPtQqW18hLTS5qgpsHc": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 26
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "لكي  تكون قائداً مميزاً لا  ......... الآخرين ",
+		"questionAnswers": {
+			"0": "تعاتب",
+			"1": "تقلد",
+			"2": "تسامح",
+			"3": "تنصح"
+		},
+		"correctAnswer": "تقلد",
+		"lastUpdateDate": ""
+	},
+	"question-mnURDNcGrFnv3eZ3uezj": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 27
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "عاتب صديقك في ........... وامدحه في .........",
+		"questionAnswers": {
+			"0": "الدنيا - الإنسان",
+			"1": "الأرض – الناس",
+			"2": "الكون – الكائنات",
+			"3": "السر- العلن"
+		},
+		"correctAnswer": "السر- العلن",
+		"lastUpdateDate": ""
+	},
+	"question-7F55X9X1JO4FOgw9To67": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 28
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "انصح صديقك   في........ وامدحه في........",
+		"questionAnswers": {
+			"0": "عزلة – تقدم",
+			"1": "السر – العلن",
+			"2": "تقدم-تخلف",
+			"3": "روح – تقدم"
+		},
+		"correctAnswer": "السر – العلن",
+		"lastUpdateDate": ""
+	},
+	"question-awAqQB79sYwE2xdDvWwv": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 29
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "لُم  أخاك   في........ وامدحه في........",
+		"questionAnswers": {
+			"0": "قريب-بعيد",
+			"1": "عاقل - جاهل",
+			"2": "السر – العلن",
+			"3": "بارز - مستتر"
+		},
+		"correctAnswer": "السر – العلن",
+		"lastUpdateDate": ""
+	},
+	"question-y0ggQymWKb2ijlIg3PML": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 30
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "لم صاحبك في ……. ، و اثن عليه في ………. ",
+		"questionAnswers": {
+			"0": "الهمة -المصائب",
+			"1": "السر - العلن",
+			"2": "الخمول-المشكلات",
+			"3": "السراء- الضراء"
+		},
+		"correctAnswer": "السر - العلن",
+		"lastUpdateDate": ""
+	},
+	"question-XAvNTGRloqK8Qax59LBB": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 31
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الأعاصير تحدث فوق المحيطات عند …… لليابسة تحدث ….. كبيرا",
+		"questionAnswers": {
+			"0": "الضحك - يفكر",
+			"1": "النتائج - الحركة",
+			"2": "النوم - يصيح",
+			"3": "الوصول – دماراً"
+		},
+		"correctAnswer": "الوصول – دماراً",
+		"lastUpdateDate": ""
+	},
+	"question-Tz9uOR6pJdio38cIYfcl": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 32
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الأعاصير تحدث ........... عند ...........  إلى اليابسة ",
+		"questionAnswers": {
+			"0": "السلام- التفكير",
+			"1": "التواضع – الرقي",
+			"2": "الذل – الطريق",
+			"3": "دماراً – وصولها"
+		},
+		"correctAnswer": "دماراً – وصولها",
+		"lastUpdateDate": ""
+	},
+	"question-ekXSZhKchddRUcZLoy3W": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 33
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "............ تطفو على الماء و........ يغوص في الأعماق",
+		"questionAnswers": {
+			"0": "الورقة - المسمار الفولاذ",
+			"1": "القشة – الحجر الكريم",
+			"2": "خلاصة – التنمية",
+			"3": "السفينة – القرش"
+		},
+		"correctAnswer": "القشة – الحجر الكريم",
+		"lastUpdateDate": ""
+	},
+	"question-VyZjwjs9qyOjhtzsoaJa": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 34
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "القشة تطفو على الماء والحجر الكريم يغوص في .........",
+		"questionAnswers": {
+			"0": "الدائرية",
+			"1": "الفضية",
+			"2": "الأعماق",
+			"3": "النارية"
+		},
+		"correctAnswer": "الأعماق",
+		"lastUpdateDate": ""
+	},
+	"question-6uTEBZZM6tznAOWSxzEl": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 35
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "هناك أمل في الحياة ومروءة ما دمت أنت تزرع ........ غيرك مثل ما أنت .........زراعة غيرك ",
+		"questionAnswers": {
+			"0": "ضعف - عنف",
+			"1": "تطعم - تعرف",
+			"2": "قصيرة - قصير",
+			"3": "يحصد-تحصد"
+		},
+		"correctAnswer": "يحصد-تحصد",
+		"lastUpdateDate": ""
+	},
+	"question-M86DlyFxkX48WXh7TLOS": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 36
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "السنة  شجرة  والشهور .......... والأسابيع  ............والأيام أوراقها ",
+		"questionAnswers": {
+			"0": "اللحاء-الأوراق",
+			"1": "جذوعها – قوتها",
+			"2": "تفرعاتها – أغصانها",
+			"3": "الكساء - الورق"
+		},
+		"correctAnswer": "تفرعاتها – أغصانها",
+		"lastUpdateDate": ""
+	},
+	"question-5KsMQRtGOyF8sTWFBamF": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 37
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "السنة كالشجرة والأشهر ك……. والأيام ك……. والساعات كالأوراق",
+		"questionAnswers": {
+			"0": "جذوعها – قوتها",
+			"1": "الكساء - الورق",
+			"2": "الفروع – الأغصان",
+			"3": "اللحاء-الأوراق"
+		},
+		"correctAnswer": "الفروع – الأغصان",
+		"lastUpdateDate": ""
+	},
+	"question-OYTEnGIEyLhZ2lqUreTc": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 38
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "السنة  شجرة  والشهور .......... والأسابيع  ............والأيام أوراقها ",
+		"questionAnswers": {
+			"0": "فروعها – أغصانها",
+			"1": "جذوعها – قوتها",
+			"2": "اللحاء-الأوراق",
+			"3": "الكساء - الورق"
+		},
+		"correctAnswer": "فروعها – أغصانها",
+		"lastUpdateDate": ""
+	},
+	"question-9k9h2EPldAlS2xsS08lF": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 39
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الشهر شجرة .......... أسابيعه ، ............والأيام أوراقه ",
+		"questionAnswers": {
+			"0": "الفروع – الأغصان",
+			"1": "الكساء - الورق",
+			"2": "اللحاء-الأوراق",
+			"3": "جذوعها – قوتها"
+		},
+		"correctAnswer": "الفروع – الأغصان",
+		"lastUpdateDate": ""
+	},
+	"question-CrAnvJw3cPHeA1ZoiaI0": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 40
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "تسعى الدول الي الاهتمام بالجيل و.........النوعية لذا تحرص الدول.........على اصلاح برامجها التعليمية ",
+		"questionAnswers": {
+			"0": "حاجات – الكبيرة",
+			"1": "هزّ – شجّع",
+			"2": "الشخصيات – المتعلمة",
+			"3": "الكفايات – المتقدمة"
+		},
+		"correctAnswer": "الكفايات – المتقدمة",
+		"lastUpdateDate": ""
+	},
+	"question-xz0yFd7VXQpWE3IUvnDc": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 41
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "لولا ......... ما عرفنا النور ولولا ..........ما عرفنا السعادة",
+		"questionAnswers": {
+			"0": "عشوائية – التخلف",
+			"1": "قروية- التفوق",
+			"2": "الظلام- الحزن",
+			"3": "الإبصار – القلق"
+		},
+		"correctAnswer": "الظلام- الحزن",
+		"lastUpdateDate": ""
+	},
+	"question-BJdHiHejj7bIkD3kyRtb": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 42
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "لو رأيت في سير الأقدمين لن .............. من هلكته لسانه و الكلمات التي............ منه ",
+		"questionAnswers": {
+			"0": "تسمع –ترى",
+			"1": "تحص – قيلت",
+			"2": "تجد- تكسب",
+			"3": "تسمع-بدرت"
+		},
+		"correctAnswer": "تحص – قيلت",
+		"lastUpdateDate": ""
+	},
+	"question-Nd2xWbNjx3F9kAx9jIts": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 43
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يجب أن ............ أخلاقيات القائد مع أخلاقيات المهنة التي...........  بها ",
+		"questionAnswers": {
+			"0": "تتقارب :يتفاخر",
+			"1": "النور - الظلام",
+			"2": "تتطابق- يقوم",
+			"3": "الغيث - التربة"
+		},
+		"correctAnswer": "تتطابق- يقوم",
+		"lastUpdateDate": ""
+	},
+	"question-mLJytkxew3lTFVP1vEz9": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 44
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الحياة خفيفة (سهلة ) على.........  لكنها ثقيلة  (صعبة ) على كبار السن",
+		"questionAnswers": {
+			"0": "الشاب",
+			"1": "العجوز",
+			"2": "الكبير",
+			"3": "الرجل"
+		},
+		"correctAnswer": "الشاب",
+		"lastUpdateDate": ""
+	},
+	"question-FpmXTARUU6eT1uxwi0u2": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 45
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "يولد الإنسان كصفحة .....والتجارب ......عليها ",
+		"questionAnswers": {
+			"0": "بيضاء - تنقش",
+			"1": "التفكير – للمال",
+			"2": "خالية - تحفر",
+			"3": "المظهر – للمعلم"
+		},
+		"correctAnswer": "بيضاء - تنقش",
+		"lastUpdateDate": ""
+	},
+	"question-si9lHidKmCyL5kCb90qL": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 46
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "الحياة تبدأ كالورقة البيضاء وتأتي التجارب  ........عليها ",
+		"questionAnswers": {
+			"0": "أضل",
+			"1": "لتحفر",
+			"2": "لتنقش",
+			"3": "أوضح"
+		},
+		"correctAnswer": "لتنقش",
+		"lastUpdateDate": ""
+	},
+	"question-DulfB0IWDsfXTea0sKhS": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 47
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "إن احترمتني سوف احترمك وان لم تحترمني فسوف  ........... أنا امثل نفسي وأنت تمثل نفسك",
+		"questionAnswers": {
+			"0": "اعاتبك",
+			"1": "اتجاهلك",
+			"2": "احترمك",
+			"3": "أواجهك"
+		},
+		"correctAnswer": "احترمك",
+		"lastUpdateDate": ""
+	},
+	"question-8e9slopO9ZUOFkTbs6EP": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 48
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "من فوائد ....... يزيد المعرفة ويفتح الرزق ويريح النفس ويجعلك تتعرف على .........",
+		"questionAnswers": {
+			"0": "التجارة-الأقارب",
+			"1": "ارتفع – تكاثفت",
+			"2": "ارتفع -بعدت",
+			"3": "السفر –الأصحاب"
+		},
+		"correctAnswer": "السفر –الأصحاب",
+		"lastUpdateDate": ""
+	},
+	"question-EW7MrNynGX0Oo6Ca9wtx": {
+		"state": "shared",
+		"linkedCollections": {
+			"collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+				"exam-41fd2f8b8d603ec8f8d": 49
+			}
+		},
+		"questionCategoryID": "category-e0c7ecbefb",
+		"questionParagraphID": "",
+		"questionHint": "",
+		"answerExplination": "",
+		"questionHead": "كلما زادت سلطتك زادت .......... فلا تأخذ من المنصب الشرف وتترك الواجب.",
+		"questionAnswers": {
+			"0": "الوقت",
+			"1": "رغباتك",
+			"2": "مسؤوليتك",
+			"3": "الأعمال"
+		},
+		"correctAnswer": "مسؤوليتك",
+		"lastUpdateDate": ""
+	}
+}
