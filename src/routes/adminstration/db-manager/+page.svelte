@@ -1,6 +1,5 @@
 <script lang="ts">
     import { db, doc, getDoc, collection, setDoc } from '$lib/firebaseConfig.ts'
-    import '$lib/app.sass'
 	import { json } from '@sveltejs/kit';
     let adminIDs: { [ID: string]: [name: string] } = {}
     let firebaseTempObj: any = {}
