@@ -73,7 +73,7 @@
         <div class="exam-customization-questions-amount-input-container">
             <button class="question-amount-btn" data-value="15" on:click={()=> questionsAmount = 15 }>15</button>
             <button class="question-amount-btn" data-value="30" on:click={()=> questionsAmount = 30 }>30</button>
-            <button class="question-amount-btn" on:click={()=> questionsAmount = 0 }>الكل</button>
+            <button class="question-amount-btn" data-value="{localMaxQuestionAmount}" on:click={()=> questionsAmount = localMaxQuestionAmount }>الكل</button>
             <input class="questions-amount-input" bind:value={questionsAmount} type="number" placeholder="مخصص">
         </div>
     </div>
