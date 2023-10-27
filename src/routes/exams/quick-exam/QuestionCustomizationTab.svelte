@@ -1,17 +1,17 @@
 <script lang="ts">
     import { fly } from 'svelte/transition'
-    import { data } from './getCollections.ts';
     import CollectionCard from './CollectionCard.svelte'
     import ExamsCustomizationTab from "./ExamsCustomizationTab.svelte"
-    import { examsCutomizationTabVisible, examsCollection } from "$lib/stores.ts"
+    import { isExamsCutomizationTabVisible, examsCollectionCustomizeTab, collections, collectionsOrder, activeExamsIDs, maxQuestionAmount } from "$lib/stores.ts"
+    import TypeWriter from '$lib/assets/TypeWriter.svelte'
+    import type { Collection } from '$lib/stores.ts';
     export let noRepeat = true
-    let collectionObj: object
 
-    const adminID = 'admin-4b392e66de9fd519d0f567117d06b250'
-    const collections = data?.[adminID]['collections']['collections']
-    const collectionsOrder = data?.[adminID]['collections']['order']
+    // Update Active state of CollectionCards and ExamsCards
 
 
+
+    // Update Active state of questionAmountButtons
     let questionsAmount: number
     $: {
         try{        
@@ -23,11 +23,15 @@
 
     }
 
-
     let isExamQuestionsCustomizationVisible: boolean
-    let examsCollectionObj: object
-    examsCutomizationTabVisible.subscribe((value)=> isExamQuestionsCustomizationVisible = value)
-    examsCollection.subscribe((value)=> examsCollectionObj = value)
+    let examsCollectionObj: Collection
+    let localActiveExamsIDs: string[]
+    let localMaxQuestionAmount: number
+
+    isExamsCutomizationTabVisible.subscribe((value)=> isExamQuestionsCustomizationVisible = value)
+    examsCollectionCustomizeTab.subscribe((value)=> examsCollectionObj = value)
+    activeExamsIDs.subscribe((value)=> localActiveExamsIDs = value)
+    maxQuestionAmount.subscribe((value)=> localMaxQuestionAmount = value)
 
 </script>
 
@@ -41,11 +45,10 @@
         <h2>بنك اسئلة اللفظي</h2>
         <div class="exam-customization-collections-container">
             {#each collectionsOrder as collectionID}
-                <CollectionCard 
-                    title={collections[collectionID]['info']['collectionName']} 
-                    questionsAmount={collections[collectionID]['info']['numberOfQuestions']}
-                    collectionObj={collections[collectionID]}
-                />
+                {#if Object.keys(collections[collectionID]['exams']).length != 0}
+                    <CollectionCard {collectionID} {collections} />
+                {/if}
+
             {/each}
 
         </div>
@@ -61,7 +64,12 @@
         </button>
     </div>
     <div class="exam-customization-questions-amount-container" transition:fly={{ x: -200, duration: 500 }}>
-        <h2>عدد الأسئلة</h2>
+        <div class="exam-customization-questions-amount-header-container">
+            <h2>عدد الأسئلة</h2>
+                {#if noRepeat}
+                    <p><TypeWriter speed={3}>الحد الأقصى: </TypeWriter> <TypeWriter speed={2}>{localMaxQuestionAmount}</TypeWriter></p>
+                {/if}
+        </div>
         <div class="exam-customization-questions-amount-input-container">
             <button class="question-amount-btn" data-value="15" on:click={()=> questionsAmount = 15 }>15</button>
             <button class="question-amount-btn" data-value="30" on:click={()=> questionsAmount = 30 }>30</button>
@@ -125,20 +133,19 @@
                 background-color: $color-bg-primary
                 border: 3px solid
                 border-color: $color-bg-secondary
-                transition: all 0.2s ease-in-out
+                transition: all 0.2s ease
                 border-radius: 10px
                 cursor: pointer
                 @include inner-shadow()
                 h2
                     font-size: min(6vw, 1.5em)
-                    text-shadow: 3px 6px 4px rgba(0, 0, 0, 0.4)
+                    text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.4)
                 input
                     width: 25px
                     height: 25px
                 @media (hover: hover)
                     &:hover
-                        background-color: $color-primary
-                        color: $color-bg-primary
+                        background-color: lighten($color-bg-primary, 5%)
             .active
                 border-color: $color-primary
         .exam-customization-questions-amount-container
@@ -147,6 +154,23 @@
             display: flex
             flex-direction: column
             align-items: flex-end
+            .exam-customization-questions-amount-header-container
+                width: 100%
+                display: flex
+                justify-content: flex-start
+                align-items: center
+                gap: 10px
+                direction: rtl
+                h2
+                    font-size: min(6vw, 1.5em)
+                    text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.4)
+                p
+                    font-size: min(3.5vw, 1rem)
+                    display: flex
+                    color: #979797
+                    direction: rtl
+                    margin-bottom: 5px
+                    gap: 3px
             .exam-customization-questions-amount-input-container
                 height: 60px
                 width: 100%

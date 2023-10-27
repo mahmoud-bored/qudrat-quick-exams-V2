@@ -1,33 +1,71 @@
 <script lang="ts">
-    import { examsCutomizationTabVisible, examsCollection } from "$lib/stores.ts"
-    export let title: string
-    export let questionsAmount: string
-    export let collectionObj: object
-    function showCustomizationTab(){
-        examsCutomizationTabVisible.set(true)
+    import { isExamsCutomizationTabVisible, examsCollectionCustomizeTab, activeExamsIDs } from "$lib/stores.ts"
+    import { checkActiveExamsList } from "./activeExamsList";
+    import type { Collection } from '$lib/stores.ts';
+	import { onMount } from "svelte";
+    export let collectionID: string
+    export let collections: any
+
+    const collectionObj = collections[collectionID]
+    const collectionObjInfo = collectionObj['info']
+
+    let collectionQuestionsAmount = 0
+    for(const exam of Object.keys(collectionObj['exams'])){
+        collectionQuestionsAmount += parseInt(collectionObj['exams'][exam]['numberOfQuestions'])
     }
-    function setExamsCollection(){
-        examsCollection.set(collectionObj)
-        console.log(collectionObj)
+    let localActiveExamsIDs: string[]
+    let isCollectionActive = false
+    activeExamsIDs.subscribe((value)=> localActiveExamsIDs = value)
+    // check if the collection is active
+    $: {
+        isCollectionActive = false
+        for(const exam of Object.keys(collectionObj['exams'])){
+            if(localActiveExamsIDs.includes(exam)){
+                isCollectionActive = true
+                break
+            }
+        }
     }
+    function addOrRemoveExamFromActiveExamsIDs(){
+        // if the collection is active we remove every item in the examsCollection from the activeExamsIDs
+        // if its not active we add every item in the examsCollection to the activeExamsIDs
+        if(isCollectionActive){
+            for(const exam of Object.keys(collectionObj['exams'])){
+                // remove exam from localActiveExamsIDs
+                localActiveExamsIDs.splice(localActiveExamsIDs.indexOf(exam), 1)
+                isCollectionActive = false
+            }
+        } else {
+            for(const exam of Object.keys(collectionObj['exams'])){
+                // add exam to localActiveExamsIDs
+                localActiveExamsIDs.push(exam)
+                isCollectionActive = true
+            }
+        }
+        // update activeExamsIDs
+        setActiveExams(localActiveExamsIDs)
+    }
+    function setActiveExams(arr: string[]){ activeExamsIDs.set(arr) }
+    function showCustomizationTab(){ isExamsCutomizationTabVisible.set(true) }
+    function setExamsCollection(){ examsCollectionCustomizeTab.set(collectionObj) }
 </script>
 
-<div class="collection-container">
+<div class="collection-container" data-id={collectionID}>
     <div class="left-side-container">
-        <button class="collection-customize-button" on:click={()=> {showCustomizationTab(); setExamsCollection() }}>تخصيص</button>
-        <p>{questionsAmount} سؤال</p>
+        <button class="collection-customize-button" on:click={()=> { setExamsCollection(); showCustomizationTab(); checkActiveExamsList(); }}>تخصيص</button>
+        <p>{collectionQuestionsAmount} سؤال</p>
     </div>
     <hr>
-    <div class="right-side-container">
-        <p>{title}</p>
-        <input type="checkbox">
-    </div>
+    <button class="right-side-container"  on:click={()=> { addOrRemoveExamFromActiveExamsIDs(); checkActiveExamsList() } }>
+        <p>{collectionObjInfo['collectionName']}</p>
+        <input type="checkbox" bind:checked={isCollectionActive}>
+    </button>
 </div>
 
 <style lang="sass">
     @import '$lib/assets/app.sass'
     .collection-container
-        padding: 5px 10px
+        padding: 5px 15px
         min-height: 55px
         width: 90%
         border-radius: 5px
@@ -38,9 +76,8 @@
         gap: 7px
         transition: all 0.2s ease
         border: 3px solid transparent
-        cursor: pointer
         @include outer-shadow()
-        div
+        div, button
             width: 100%
             display: flex
             align-items: center
@@ -55,6 +92,8 @@
                 align-items: center
                 font-size: min(3.5vw, 0.9em)
                 transition: all 0.2s ease
+                cursor: pointer
+                pointer-events: all
                 @media (hover: hover)
                     &:hover
                         background-color: $color-primary
@@ -67,6 +106,8 @@
             justify-content: flex-end
             gap: 10px
             font-size: min(4.5vw, 1.2rem)
+            cursor: pointer
+            pointer-events: all
             input
                 border: 3px solid $color-bg-secondary
                 min-width: 20px
@@ -75,8 +116,10 @@
             height: 90%
         @media (hover: hover)
             &:hover
-                border: 3px solid $color-primary
+                border-color: $color-primary
+                background-color: lighten($color-bg-secondary, 3%)
                 .right-side-container
                     input
                         border: 3px solid $color-primary
+
 </style>

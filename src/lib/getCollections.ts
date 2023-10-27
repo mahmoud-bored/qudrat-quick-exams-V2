@@ -1,4 +1,4 @@
-import { db, doc, getDoc, collection, setDoc } from '$lib/firebaseConfig.ts'
+import { db, doc, getDoc, setDoc } from '$lib/firebaseConfig.ts'
 
 async function getFirebaseData() {
     const docRef = doc(db, "main-db", 'superAdmins')

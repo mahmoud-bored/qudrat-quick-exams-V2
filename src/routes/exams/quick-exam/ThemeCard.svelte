@@ -39,5 +39,4 @@
                 background-color: $color-primary
                 color: $color-bg-secondary
                 border: 3px solid $color-primary
-            
 </style>

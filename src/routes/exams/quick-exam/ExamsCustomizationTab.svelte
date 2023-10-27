@@ -1,19 +1,22 @@
 <script lang="ts">
 	import { fade, fly } from "svelte/transition"
     import closeIconSrc from '$lib/assets/close-icon.svg'
-    import { examsCutomizationTabVisible } from "$lib/stores.ts"
+    import { isExamsCutomizationTabVisible, isSelectAllButtonActive } from "$lib/stores.ts"
+    import type { Collection, Exams } from '$lib/stores.ts'
+    import { toggleAllExamsListInCustomizationTab } from "./activeExamsList"
+    import ExamCard from "./ExamCard.svelte"
+    export let collectionObj: Collection
 
-    interface Collection {
-        info: object;
-        examsOrder: string[];
-        exams: Record<string, string>;
-    }
-    export let collectionObj: any
-    const examsOrder = collectionObj.examsOrder
-    const exams = collectionObj['exams']
+    let selectAllState: boolean
+    isSelectAllButtonActive.subscribe((value)=> selectAllState = value)
+
+    const examsOrder = collectionObj.examsOrder;
+    const exams: Exams = {
+        examsIDs: collectionObj.exams
+    };
 
     function closeTab(){
-        examsCutomizationTabVisible.set(false)
+        isExamsCutomizationTabVisible.set(false)
     }
 </script>
     
@@ -28,22 +31,14 @@
             >
                 <img src={ closeIconSrc } alt="x">
             </button>
-            <button class="select-all-button" transition:fly={{ x: 20, duration: 600 }} >
-                <p>تحديد الكل</p>
-                <input type="checkbox">
+            <button class="select-all-button" on:click={ toggleAllExamsListInCustomizationTab } transition:fly={{ x: 20, duration: 600 }} >
+                <p class:active={selectAllState}>تحديد الكل</p>
+                <input type="checkbox" bind:checked={selectAllState}>
             </button>
         </div>
-        <div class="customization-tab-body-container">
-            {#each examsOrder as examID, i}
-                <button class="exam-card" transition:fly={{ y: 60, duration: i * 50 + 600 }}>
-                    <div class="button-subtxt">{exams[examID]['numberOfQuestions']} سؤال</div>
-                    <hr>
-                    <div class="button-title">
-                        <input type="checkbox">
-                        <p>{exams[examID]['name']}</p>
-                    </div>
-
-                </button>
+        <div class="customization-tab-body-container" transition:fly={{ x: 40, duration: 500}}>
+            {#each examsOrder as examID}
+                <ExamCard {exams} {examID} />
             {/each}
         </div>
         <div class="customization-tab-footer-container" transition:fly={{ x: 50, duration: 600 }}>
@@ -110,6 +105,14 @@
                     gap: 10px
                     font-size: 1.2em
                     text-shadow: 3px 5px 5px rgba(0, 0, 0, 0.4)
+                    p
+                        transition: all 0.2s ease
+                    .active
+                        color: $color-primary
+                    input
+                        box-shadow: 3px 5px 9px -2px rgba(0, 0, 0, 0.75)
+                        -webkit-box-shadow: 3px 5px 9px -2px rgba(0, 0, 0, 0.75)
+                        -moz-box-shadow: 3px 5px 9px -2px rgba(0, 0, 0, 0.75)
 
             .customization-tab-body-container
                 height: 100%
@@ -122,45 +125,6 @@
                 gap: 20px
                 overflow-y: auto
                 scrollbar-width: thin
-                .exam-card
-                    width: 85%
-                    min-height: 50px
-                    background-color: $color-bg-secondary
-                    border-radius: 10px
-                    display: flex
-                    justify-content: space-between
-                    align-items: center
-                    border: 3px solid $color-bg-secondary
-                    transition: all 0.2s ease
-                    padding: 0 10px
-                    gap: 10px
-                    @include outer-shadow()
-                    @media (hover: hover)
-                        &:hover
-                            border: 3px solid $color-primary
-                            .button-title
-                                input
-                                    border: 3px solid $color-primary
-                    .button-subtxt
-                        font-size: 0.8em
-                        color: #979797
-                        direction: rtl
-                        width: 19%
-                    hr
-                        height: 70%
-                    .button-title
-                        width: 80%
-                        display: flex
-                        justify-content: flex-start
-                        align-items: center
-                        direction: rtl
-                        gap: 10px
-                        p
-                            font-size: 0.9em
-                        input
-                            border: 3px solid $color-bg-secondary
-                            min-width: 20px
-                            min-height: 20px
             .customization-tab-footer-container
                 width: 100%
                 display: flex

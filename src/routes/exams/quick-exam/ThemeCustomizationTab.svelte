@@ -1,6 +1,6 @@
 <script lang="ts">
     import { fly } from 'svelte/transition';
-    import ExamThemeCard from './ExamThemeCard.svelte'
+    import ThemeCard from './ThemeCard.svelte'
     import examThemeDarkImgSrc from '$lib/assets/examThemeDark.png'
     import examThemeLightImgSrc from '$lib/assets/examThemeLight.png'
     import examThemeWoodImgSrc from '$lib/assets/examThemeWood.png'
@@ -10,9 +10,9 @@
     <hr>
     <h2>اختر شكل الإختبار</h2>
     <div class="exam-themes"transition:fly={{ x: 200, duration: 600 }}>
-        <ExamThemeCard themeName="عادي" src={examThemeLightImgSrc}/>
-        <ExamThemeCard themeName="ليلي" src={examThemeDarkImgSrc}/>
-        <ExamThemeCard themeName="Wood(Beta)" src={examThemeWoodImgSrc}/>
+        <ThemeCard themeName="عادي" src={examThemeLightImgSrc}/>
+        <ThemeCard themeName="ليلي" src={examThemeDarkImgSrc}/>
+        <ThemeCard themeName="Wood(Beta)" src={examThemeWoodImgSrc}/>
     </div>
 </div>
 
