@@ -1,0 +1,82 @@
+@import '$lib/assets/app.sass'
+
+.container
+    height: 100vh
+    width: 100vw
+    background-color: #fff
+    font-family: inter
+    font-weight: 800
+    font-family: 'El Messiri', sans-serif
+    color: #fff
+    *
+        user-select: none
+    .exam-customization-tab-container
+        height: 100%
+        width: 100%
+        display: flex
+        justify-content: center
+        align-items: flex-end
+        background-color: $color-bg-primary
+        .exam-customization-tab
+            position: relative
+            height: min(90%, 700px)
+            width: min(95vw, 400px)
+            background-color: $color-bg-secondary
+            border-top-right-radius: 15px
+            border-top-left-radius: 15px
+            padding: 20px 20px
+            overflow: hidden
+            .exam-customization-back-button
+                position: absolute
+                top: 15px
+                left: 15px
+                background-color: #d02626
+                transition: all 0.2s ease
+                width: 40px
+                height: 40px
+                display: flex
+                justify-content: center
+                align-items: center
+                border-radius: 50%
+                cursor: pointer
+                @media (hover: hover)
+                    &:hover
+                        background-color: #b21f1f
+                img
+                    margin-right: 3px
+            .exam-customization-grid-container
+                height: calc(100% - 60px)
+                display: grid
+                grid-template-rows: 100%
+                grid-template-columns: 100%
+                *
+                    grid-row: 1
+                    grid-column: 1
+
+            .exam-customization-next-button-container
+                height: 70px
+                width: 100%
+                display: flex
+                justify-content: flex-end
+                align-items: center
+                button
+                    height: 90%
+                    width: 40%
+                    border: 2px solid $color-primary
+                    border-radius: 10px
+                    background-color: $color-bg-primary
+                    color: $color-primary
+                    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, width 0.6s ease
+                    font-size: 1.2rem
+                    font-weight: 800
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    cursor: pointer
+                    @media (hover: hover)
+                        &:hover
+                            background-color: $color-primary
+                            color: $color-bg-primary
+                    @include outer-shadow()
+                .full-size
+                    width: 100%
