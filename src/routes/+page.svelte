@@ -2,7 +2,7 @@
 	import { fade } from "svelte/transition"
 
 </script>
-<main>
+<main style="background-color: #333;">
 
 </main>
 

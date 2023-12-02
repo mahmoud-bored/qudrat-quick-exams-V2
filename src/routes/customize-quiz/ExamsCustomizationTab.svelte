@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { fade, fly } from "svelte/transition"
     import closeIconSrc from '$lib/assets/close-icon.svg'
-    import { isExamsCutomizationTabVisible, isSelectAllButtonActive } from "$lib/stores.ts"
-    import type { Collection, Exams } from '$lib/stores.ts'
+    import { isExamsCutomizationTabVisible, isSelectAllButtonActive } from "$lib/stores"
+    import type { Collection, CollectionContainer, CollectionInfo, Exams } from '$lib/stores'
     import { toggleAllExamsListInCustomizationTab } from "./activeExamsList"
     import ExamCard from "./ExamCard.svelte"
-    export let collectionObj: Collection
+
+    export let collections: CollectionContainer
+    export let collectionObj: CollectionInfo
 
     let selectAllState: boolean
     isSelectAllButtonActive.subscribe((value)=> selectAllState = value)
@@ -31,14 +33,14 @@
             >
                 <img src={ closeIconSrc } alt="x">
             </button>
-            <button class="select-all-button" on:click={ toggleAllExamsListInCustomizationTab } transition:fly={{ x: 20, duration: 600 }} >
+            <button class="select-all-button" on:click={ ()=> toggleAllExamsListInCustomizationTab(collections) } transition:fly={{ x: 20, duration: 600 }} >
                 <p class:active={selectAllState}>تحديد الكل</p>
                 <input type="checkbox" bind:checked={selectAllState}>
             </button>
         </div>
         <div class="customization-tab-body-container" transition:fly={{ x: 40, duration: 500}}>
             {#each examsOrder as examID}
-                <ExamCard {exams} {examID} />
+                <ExamCard {exams} {examID} {collections} />
             {/each}
         </div>
         <div class="customization-tab-footer-container" transition:fly={{ x: 50, duration: 600 }}>

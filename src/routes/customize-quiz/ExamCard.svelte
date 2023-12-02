@@ -1,8 +1,10 @@
 <script lang="ts">
     import { checkActiveExamsList } from "./activeExamsList";
     import { activeExamsIDs } from "$lib/stores"
-    import type { Exams } from "$lib/stores"
+    import type { CollectionContainer, Exams } from "$lib/stores"
 	import { onMount } from "svelte";
+
+    export let collections: CollectionContainer
     export let exams: Exams
     export let examID: string
     let localActiveExamsIDs: string[] 
@@ -28,11 +30,11 @@
             }
         }
     }
-    onMount(checkActiveExamsList)
+    onMount(()=> checkActiveExamsList(collections) )
 </script>
 
 
-<button class="exam-card" data-id={examID} on:click={()=>{ updateActiveExamsIDs(); checkActiveExamsList() }}>
+<button class="exam-card" data-id={examID} on:click={()=>{ updateActiveExamsIDs(); checkActiveExamsList(collections) }}>
     <div class="button-subtxt">{exams.examsIDs[examID].numberOfQuestions} سؤال</div>
     <hr>
     <div class="button-title">

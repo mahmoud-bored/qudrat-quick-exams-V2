@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let speed: number
+	export let Class: string = ""
 	let visible = false;
 
 	function typewriter(node: HTMLElement, { speed = 1 }) {
@@ -21,6 +22,6 @@
 		};
 	}
 </script>
-<p transition:typewriter={{ speed }}>
+<p class="{Class}" transition:typewriter={{ speed }}>
 	<slot/>
 </p>

@@ -1,9 +1,9 @@
 <script lang="ts">
     import { fly } from 'svelte/transition';
     import ThemeCard from './ThemeCard.svelte'
-    import examThemeDarkImgSrc from '$lib/assets/quizThemeDark.png'
-    import examThemeLightImgSrc from '$lib/assets/quizThemeLight.png'
-    import examThemeWoodImgSrc from '$lib/assets/quizThemeWood.png'
+    import examThemeDarkImgSrc from '$lib/assets/quiz-theme-dark.svg'
+    import examThemeLightImgSrc from '$lib/assets/quiz-theme-light.svg'
+    import examThemeWoodImgSrc from '$lib/assets/quiz-theme-wood.svg'
 </script>
 
 <div class="exam-theme-container"  transition:fly={{ x: 200, duration: 600 }}>

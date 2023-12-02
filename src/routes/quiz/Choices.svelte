@@ -1,11 +1,10 @@
 <script lang="ts">
     export let woodMode: boolean
     
-    import { questionAlignment } from '$lib/stores'
+    import { questionAlignment } from '../../lib/stores'
     import { getHTMLElement } from '$lib/app'
-    import columnAlignImgSrc from '$lib/assets/column-align.png'
-    import rowAlignImgSrc from '$lib/assets/row-align.png'
-	import { onMount } from 'svelte';
+    import columnAlignImgSrc from '$lib/assets/column-align-icon.svg'
+    import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
 
     function changeQuestionAlighnment(align: string){
         questionAlignment.set(align)
@@ -72,7 +71,7 @@
             color: #fff
         .choices-container
             height: 90%
-            width: 100%
+            width: 80%
             display: flex
             flex-direction: column
             justify-content: space-evenly
@@ -80,8 +79,8 @@
             color: #fff
             gap: 5px
             .choice
-                aspect-ratio: 1/1
-                width: max(90%, 60px)
+                height: 100%
+                width: 100%
                 border-radius: 5px
                 border: 1px solid #5eee25
                 background-color: #5eee2530

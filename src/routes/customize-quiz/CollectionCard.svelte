@@ -1,14 +1,18 @@
 <script lang="ts">
-    import { isExamsCutomizationTabVisible, examsCollectionCustomizeTab, activeExamsIDs } from "$lib/stores.ts"
+    import { isExamsCutomizationTabVisible, examsCollectionCustomizeTab, activeExamsIDs } from "$lib/stores"
+    import type { CollectionContainer } from "$lib/stores";
+	import { fly } from "svelte/transition";
     import { checkActiveExamsList } from "./activeExamsList";
-    import type { Collection } from '$lib/stores.ts';
 	import { onMount } from "svelte";
+
     export let collectionID: string
-    export let collections: any
+    export let collections: CollectionContainer
+
+    let isCardMounted = false
+    onMount(()=> { setTimeout(() => { isCardMounted = true }, 50) })
 
     const collectionObj = collections[collectionID]
     const collectionObjInfo = collectionObj['info']
-
     let collectionQuestionsAmount = 0
     for(const exam of Object.keys(collectionObj['exams'])){
         collectionQuestionsAmount += parseInt(collectionObj['exams'][exam]['numberOfQuestions'])
@@ -50,13 +54,13 @@
     function setExamsCollection(){ examsCollectionCustomizeTab.set(collectionObj) }
 </script>
 
-<div class="collection-container" data-id={collectionID}>
+<div class="collection-container" data-id={collectionID} class:collection-container-mounted={isCardMounted}>
     <div class="left-side-container">
-        <button class="collection-customize-button" on:click={()=> { setExamsCollection(); showCustomizationTab(); checkActiveExamsList(); }}>تخصيص</button>
+        <button class="collection-customize-button" on:click={()=> { setExamsCollection(); showCustomizationTab(); checkActiveExamsList(collections); }}>تخصيص</button>
         <p>{collectionQuestionsAmount} سؤال</p>
     </div>
     <hr>
-    <button class="right-side-container"  on:click={()=> { addOrRemoveExamFromActiveExamsIDs(); checkActiveExamsList() } }>
+    <button class="right-side-container"  on:click={()=> { addOrRemoveExamFromActiveExamsIDs(); checkActiveExamsList(collections) } }>
         <p>{collectionObjInfo['collectionName']}</p>
         <input type="checkbox" bind:checked={isCollectionActive}>
     </button>
@@ -74,7 +78,10 @@
         justify-content: space-evenly
         align-items: center
         gap: 7px
-        transition: all 0.2s ease
+        margin-left: 70px
+        margin-top: -20px
+        opacity: 0
+        transition: all 0.4s ease-out
         border: 3px solid transparent
         @include outer-shadow()
         div, button
@@ -121,5 +128,9 @@
                 .right-side-container
                     input
                         border: 3px solid $color-primary
+    .collection-container-mounted
+        margin-left: 0
+        margin-top: 0
+        opacity: 1
 
 </style>

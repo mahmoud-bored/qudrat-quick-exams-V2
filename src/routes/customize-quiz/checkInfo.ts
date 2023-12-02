@@ -1,4 +1,4 @@
-import { activeExamsIDs, warningMessage, maxQuestionAmount, globalQuestionsAmount, questionNoRepeat } from "$lib/stores"
+import { activeExamsIDs, maxQuestionAmount, globalQuestionsAmount, questionNoRepeat } from "$lib/stores"
 
 let localMaxQuestionAmount: number
 let localGlobalQuestionsAmount: number
@@ -10,27 +10,21 @@ maxQuestionAmount.subscribe((value) => localMaxQuestionAmount = value)
 globalQuestionsAmount.subscribe((value) => localGlobalQuestionsAmount = value)
 questionNoRepeat.subscribe((value) => noRepeat = value)
 
-export function checkExamListValidty() {
+export function isExamListValid() {
     if(localActiveExamsIDs.length === 0){
-        warningMessage.set('يجب اختيار اختبار واحد على الأقل')
         return false
-    } else {
-        warningMessage.set('')
-        return true
     }
+    return true
 }
 
-export function checkExamQuestionAmountValidty() {
-    if(localGlobalQuestionsAmount > localMaxQuestionAmount){
-        if(noRepeat){
-            warningMessage.set('عدد الأسئلة المختارة أكبر من عدد الحد الأقصى')
-            return false
-        }
-    }else if(localGlobalQuestionsAmount <= 0){
-        warningMessage.set('يجب ان يكون عدد الأسئلة واحد على الأقل')
+export function isExamQuestionAmountValid() {
+    if(localGlobalQuestionsAmount <= 0){
         return false
-    }else {
-        warningMessage.set('')
-        return true
+    } else if(localGlobalQuestionsAmount > localMaxQuestionAmount){
+        if(noRepeat){
+            maxQuestionAmount.set(localGlobalQuestionsAmount)
+            return true
+        }
     }
+    return true
 }

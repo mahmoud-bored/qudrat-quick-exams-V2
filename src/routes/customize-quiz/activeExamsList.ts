@@ -1,15 +1,15 @@
 import { getHTMLElement } from '$lib/app.ts'
-import { collections, activeExamsIDs, examsCollectionCustomizeTab, isSelectAllButtonActive, maxQuestionAmount } from '$lib/stores'
-import type { Collection } from '$lib/stores'
+import { activeExamsIDs, examsCollectionCustomizeTab, isSelectAllButtonActive, maxQuestionAmount } from '$lib/stores'
+import type { Collection, CollectionContainer, CollectionInfo } from '$lib/stores'
 
 let localActiveExamsIDs: string[]
-let localExamsCollectionCustomizeTab: Collection
+let localExamsCollectionCustomizeTab: CollectionInfo
 let maxQuestionAmountValue = 0
 
 activeExamsIDs.subscribe((value) => localActiveExamsIDs = value)
 examsCollectionCustomizeTab.subscribe((value) => localExamsCollectionCustomizeTab = value)
 
-export function checkActiveExamsList(){
+export function checkActiveExamsList(collections: CollectionContainer){
     maxQuestionAmountValue = 0
     // Check if Collection is active
     for(const collectionID in collections){
@@ -28,7 +28,6 @@ export function checkActiveExamsList(){
             deactivateCollection(collectionID)
         }
     }
-    console.log(maxQuestionAmountValue)
     // Update Max Question Amount
     updateMaxQuestionAmount()
 
@@ -42,7 +41,6 @@ export function checkActiveExamsList(){
             }
         }
     }catch(err){  }
-    console.log('localActiveExamsIDs: ', localActiveExamsIDs)
 
     // Check if toggleAll button is active
     try{
@@ -92,7 +90,7 @@ function deactivateExam(examID: string){
 }
 
 
-export function toggleAllExamsListInCustomizationTab(){
+export function toggleAllExamsListInCustomizationTab(collections: CollectionContainer){
     let isActive = false
     for(const exam of localExamsCollectionCustomizeTab['examsOrder']){
         if(!localActiveExamsIDs.includes(exam)){
@@ -107,7 +105,7 @@ export function toggleAllExamsListInCustomizationTab(){
         deactivateToggleAllButton()
     }
     activeExamsIDs.set(localActiveExamsIDs)
-    checkActiveExamsList()
+    checkActiveExamsList(collections)
 }
 
 function activateToggleAllButton(){ isSelectAllButtonActive.set(true) }

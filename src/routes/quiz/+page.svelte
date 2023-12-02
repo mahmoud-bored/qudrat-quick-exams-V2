@@ -1,15 +1,13 @@
 <script lang="ts">
-
-	import { fade } from "svelte/transition"
     import Header from "./Header.svelte"
     import Choices from "./Choices.svelte"
     import Question from "./Question.svelte"
     import Controls from "./Controls.svelte"
     import Paragraph from "./Paragraph.svelte"
-    import darkModeImgSrc from '$lib/assets/quizThemeDarkBg.jpeg'
-    import lightModeImgSrc from '$lib/assets/quizThemeLightBg.png'
-    import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.jpeg'
-    import { examTheme } from "$lib/stores"
+    import darkModeImgSrc from '$lib/assets/quizThemeDarkBg.jpg'
+    import lightModeImgSrc from '$lib/assets/quizThemeLightBg.jpg'
+    import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.jpg'
+    import { examTheme } from "../../lib/stores"
 	import { onMount } from "svelte";
     import { checkQuizReady } from "./checkInfoValidty"
     import { getHTMLElement } from "$lib/app"
@@ -27,7 +25,7 @@
             paragraphColor = '#fff'
         } else if ($examTheme == 'عادي'){
             themeSrc = lightModeImgSrc
-            questionColor = 'rgb(236 236 236)'
+            questionColor = '#000'
             paragraphColor = '#000'
         } else if ($examTheme == 'Wood(Beta)'){
             themeSrc = woodModeImgSrc
@@ -35,10 +33,6 @@
             questionColor = '#000'
             paragraphColor = '#fff'
         }
-        themeSrc = woodModeImgSrc
-            woodMode = true
-            questionColor = '#000'
-            paragraphColor = '#fff'
     })
     // Set Mode: Desktop or Mobile
     let isDesktopView: boolean
@@ -60,7 +54,7 @@
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
-<main class="container" style="background-image: url({themeSrc}); color: {questionColor}">
+<main class="container main-quiz-container" style="background-image: url({themeSrc}); color: {questionColor}">
     {#if isDesktopView}
         <div class="quiz-paragraph-container" style="color: {paragraphColor}"> <Paragraph  paragraphTxt="test" /> </div>
         <div class="quiz-container">

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { questionFontSize, questionAlignment } from "$lib/stores"
+    import { questionFontSize, questionAlignment } from "../../lib/stores"
     import { getHTMLElement } from "$lib/app"
     export let woodMode: boolean
     export let questionHead: string
