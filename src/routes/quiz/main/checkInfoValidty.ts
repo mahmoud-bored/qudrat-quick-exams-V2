@@ -7,6 +7,6 @@ export function checkQuizReady(){
     if(localIsExamCustomized){
         return true
     } else {
-        goto('/quiz/customize-quiz')
+        goto('/quiz')
     }
 }

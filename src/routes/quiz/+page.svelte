@@ -19,7 +19,7 @@
 
     let isParagraphsReady = false
     let isQuestionsReady = false
-    $: if(isParagraphsReady === true && isQuestionsReady === true) { goto('/quiz/quiz-main') }
+    $: if(isParagraphsReady === true && isQuestionsReady === true) { goto('/quiz/main') }
 
     let examListWarning = false
     function handleExamListError(){
