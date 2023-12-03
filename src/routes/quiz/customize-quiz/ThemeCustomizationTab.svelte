@@ -10,7 +10,7 @@
     <hr>
     <h2>اختر شكل الإختبار</h2>
     <div class="exam-themes"transition:fly={{ x: 200, duration: 600 }}>
-        <ThemeCard themeName="عادي" src={examThemeLightImgSrc}/>
+        <ThemeCard themeName="عادي" src='{examThemeLightImgSrc}'/>
         <ThemeCard themeName="ليلي" src={examThemeDarkImgSrc}/>
         <ThemeCard themeName="Wood(Beta)" src={examThemeWoodImgSrc}/>
     </div>

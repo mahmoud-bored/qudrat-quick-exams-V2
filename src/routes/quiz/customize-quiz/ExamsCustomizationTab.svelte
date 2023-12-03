@@ -31,7 +31,11 @@
                 on:click={ closeTab }
                 transition:fly={{ y: -20, duration: 600 }} 
             >
-                <img src={ closeIconSrc } alt="x">
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.5439 2L1.99994 19.1568" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M18.5957 19.2598L2.05121 2.10348" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+
             </button>
             <button class="select-all-button" on:click={ ()=> toggleAllExamsListInCustomizationTab(collections) } transition:fly={{ x: 20, duration: 600 }} >
                 <p class:active={selectAllState}>تحديد الكل</p>
@@ -94,7 +98,7 @@
                     box-shadow: 2px 4px 16px -6px rgba(0, 0, 0, 0.75)
                     -webkit-box-shadow: 2px 4px 16px -6px rgba(0, 0, 0, 0.75)
                     -moz-box-shadow: 2px 4px 16px -6px rgba(0, 0, 0, 0.75)
-                    img
+                    svg
                         width: 40%
                         margin-right: 1px
                     @media (hover: hover)

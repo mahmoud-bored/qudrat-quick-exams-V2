@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { questionFontSize, questionAlignment } from "../../lib/stores"
+    import { questionFontSize, questionAlignment } from "$lib/stores"
     import { getHTMLElement } from "$lib/app"
-    export let woodMode: boolean
+    export let isWoodMode: boolean
     export let questionHead: string
     export let answer1: string = ''
     export let answer2: string = ''
@@ -18,7 +18,7 @@
 </script>
 
 <div class="question-container">
-    {#if woodMode}
+    {#if isWoodMode}
         <div class="parchment"></div>
     {/if}
     <p class="question-head">{questionHead}</p>
@@ -32,7 +32,7 @@
             <p>د- {answer4}</p>
         </div>
     </div>
-    {#if woodMode}
+    {#if isWoodMode}
         <filter id="wavy2">
             <feTurbulence x="0" y="0" baseFrequency="0.02" numOctaves="5" seed="1" />
             <feDisplacementMap in="SourceGraphic" scale="20" />

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { isExamsCutomizationTabVisible, examsCollectionCustomizeTab, activeExamsIDs } from "$lib/stores"
     import type { CollectionContainer } from "$lib/stores";
-	import { fly } from "svelte/transition";
     import { checkActiveExamsList } from "./activeExamsList";
 	import { onMount } from "svelte";
 

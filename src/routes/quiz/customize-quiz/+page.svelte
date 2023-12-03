@@ -7,9 +7,9 @@
     import ThemeCustomizationTab from './ThemeCustomizationTab.svelte'
     import { injectDOMErrorMessage } from './injectDOMErrorMessage.ts'
     import { isExamCustomized, paragraphsObject, questionsObject, paragraphsVersion, questionsVersion } from '$lib/stores.ts'
-	import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation'
     import { isExamListValid, isExamQuestionAmountValid } from './checkInfo.ts'
-	import { onMount } from 'svelte';
+	import { onMount } from 'svelte'
     import { getParagraphsData, getQuestionsData } from './getData.ts'
 
     let isExamQuestionsCustomizationVisible = true
@@ -19,7 +19,7 @@
 
     let isParagraphsReady = false
     let isQuestionsReady = false
-    $: if(isParagraphsReady === true && isQuestionsReady === true) { goto('/quiz') }
+    $: if(isParagraphsReady === true && isQuestionsReady === true) { goto('/quiz/quiz-main') }
 
     let examListWarning = false
     function handleExamListError(){
@@ -124,7 +124,10 @@
                     isExamThemeCustomizationVisible = !isExamThemeCustomizationVisible
                     document.querySelector('.exam-customization-next-button-container > button')?.classList.toggle('full-size')
                 }}>
-                    <img src={backArrowImgSrc} alt="<">
+                    <svg width="88" height="150" viewBox="0 0 88 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M74.9668 13L12.9993 74.9459" stroke="white" stroke-width="26" stroke-linecap="round"/>
+                        <path d="M74.9668 136.946L12.9993 75.0004" stroke="white" stroke-width="26" stroke-linecap="round"/>
+                    </svg>
                 </button>
             {/if}
             <div class="exam-customization-grid-container">

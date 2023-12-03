@@ -7,15 +7,16 @@
     import darkModeImgSrc from '$lib/assets/quizThemeDarkBg.jpg'
     import lightModeImgSrc from '$lib/assets/quizThemeLightBg.jpg'
     import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.jpg'
-    import { examTheme } from "../../lib/stores"
+    import { examTheme } from "$lib/stores"
 	import { onMount } from "svelte";
     import { checkQuizReady } from "./checkInfoValidty"
     import { getHTMLElement } from "$lib/app"
+	import { fly } from "svelte/transition";
 
     let themeSrc: string
     let questionColor: string
     let paragraphColor: string
-    let woodMode: boolean = false
+    let isWoodMode: boolean = false
     onMount(() => {
         checkQuizReady()
         // Set Theme: Dark, Light or Wood
@@ -29,40 +30,62 @@
             paragraphColor = '#000'
         } else if ($examTheme == 'Wood(Beta)'){
             themeSrc = woodModeImgSrc
-            woodMode = true
+            isWoodMode = true
             questionColor = '#000'
             paragraphColor = '#fff'
         }
     })
     // Set Mode: Desktop or Mobile
-    let isDesktopView: boolean
+    let isLandscape: boolean
     let screenWidth: number
     let screenHeight: number
     $: try{
             const main = document?.querySelector('main')
 
             if (screenWidth > screenHeight){
-                isDesktopView = true
+                isLandscape = true
                 main?.style.setProperty('flex-direction', 'row')
             } else {
-                isDesktopView = false
+                isLandscape = false
                 main?.style.setProperty('flex-direction', 'column')
             }
         } catch(e) { }
     
+    let isAnswerCorrect = false
+    let isAnswerIncorrect = false
+    setTimeout(()=> isAnswerIncorrect = true, 2500)
+    setTimeout(()=> isAnswerIncorrect = false, 3500)
+    setTimeout(()=> isAnswerCorrect = true, 1000)
+    setTimeout(()=> isAnswerCorrect = false, 2000)
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
 <main class="container main-quiz-container" style="background-image: url({themeSrc}); color: {questionColor}">
-    {#if isDesktopView}
+    {#if isLandscape}
         <div class="quiz-paragraph-container" style="color: {paragraphColor}"> <Paragraph  paragraphTxt="test" /> </div>
         <div class="quiz-container">
             <div class="quiz-header-container"> <Header /> </div>
             <div class="quiz-body-container">
-                <div class="quiz-question-container"> 
+                <div class="quiz-question-container">
+
+                    {#if isAnswerCorrect}
+                        <div class="quiz-question-result result-tick" in:fly={{ y:-60, duration: 100 }} out:fly={{ x:-70, duration: 100 }}>
+                            <svg width="257" height="199" viewBox="0 0 257 199" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M210.75 6.7959L249.792 45.9089L114.814 180.641C105.042 190.395 89.2124 190.38 79.4582 180.608L58.0782 159.189L210.75 6.7959Z" fill="#A5EB78"/><path d="M237.191 33L250.024 45.8563L110.861 184.766C103.76 191.853 92.259 191.843 85.1716 184.742V184.742L237.191 33Z" fill="#95D46C"/><rect x="7.18359" y="108.787" width="53.2178" height="90" transform="rotate(-45.2399 7.18359 108.787)" fill="#A5EB78"/><path d="M69 94.5L90 116.5C91.1667 117.5 94 119.5 96 119.5C98 119.5 101.167 117.5 102.5 116.5L213.5 5L252 43L221 74" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M210 86L118.5 177.5C115.333 180.667 106.5 187.2 96.5 188C86.5 188.8 77.3333 181.333 74 177.5L5 107.5L43 70L56.5 83.5" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    {/if}
+                    {#if isAnswerIncorrect}
+                        <div class="quiz-question-result result-cross" in:fly={{ y:-60, duration: 500 }} out:fly={{ x:-70, duration: 700 }}>
+                            <svg width="198" height="197" viewBox="0 0 198 197" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M155.758 7L99 63.5636L41.871 7L7 41.7515L64.129 98.3152L7 155.248L41.871 190L99 133.436L155.758 189.63L190.629 154.879L133.5 97.9455L191 41.7515L155.758 7Z" fill="#F74354" stroke="black" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    {/if}
+
                     <Question 
-                        {woodMode}
+                        {isWoodMode}
                         questionHead="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
                         answer1="Lorem Ipsum 1"
                         answer2="Lorem Ipsum 2"
@@ -70,16 +93,32 @@
                         answer4="Lorem Ipsum 4"
                     /> 
                 </div>
-                <div class="quiz-choices-container"> <Choices {woodMode} /> </div> 
+                <div class="quiz-choices-container"> <Choices {isWoodMode} {isLandscape} /> </div> 
             </div>
             <div class="quiz-controls-container"> <Controls /> </div>
         </div>
-    {:else}
+    {:else if !isLandscape}
         <div class="mobile-view-container">
             <div class="mobile-quiz-header-container"> <Header /> </div>
             <div class="mobile-quiz-question-container">
+
+                {#if isAnswerCorrect}
+                    <div class="quiz-question-result result-tick" in:fly={{ y:-60, duration: 100 }} out:fly={{ x:-60, duration: 100 }}>
+                        <svg width="257" height="199" viewBox="0 0 257 199" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M210.75 6.7959L249.792 45.9089L114.814 180.641C105.042 190.395 89.2124 190.38 79.4582 180.608L58.0782 159.189L210.75 6.7959Z" fill="#A5EB78"/><path d="M237.191 33L250.024 45.8563L110.861 184.766C103.76 191.853 92.259 191.843 85.1716 184.742V184.742L237.191 33Z" fill="#95D46C"/><rect x="7.18359" y="108.787" width="53.2178" height="90" transform="rotate(-45.2399 7.18359 108.787)" fill="#A5EB78"/><path d="M69 94.5L90 116.5C91.1667 117.5 94 119.5 96 119.5C98 119.5 101.167 117.5 102.5 116.5L213.5 5L252 43L221 74" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M210 86L118.5 177.5C115.333 180.667 106.5 187.2 96.5 188C86.5 188.8 77.3333 181.333 74 177.5L5 107.5L43 70L56.5 83.5" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                {/if}
+                {#if isAnswerIncorrect}
+                    <div class="quiz-question-result result-cross" in:fly={{ y:-60, duration: 500 }} out:fly={{ x:-60, duration: 500 }}>
+                        <svg width="198" height="197" viewBox="0 0 198 197" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M155.758 7L99 63.5636L41.871 7L7 41.7515L64.129 98.3152L7 155.248L41.871 190L99 133.436L155.758 189.63L190.629 154.879L133.5 97.9455L191 41.7515L155.758 7Z" fill="#F74354" stroke="black" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                {/if}
+
                 <Question
-                    {woodMode}
+                    {isWoodMode}
                     questionHead="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
                     answer1="Lorem Ipsum"
                     answer2="Lorem Ipsum"
@@ -87,11 +126,11 @@
                     answer4="Lorem Ipsum"
                 /> 
             </div>
-            <div class="mobile-quiz-body-container" style="color: {paragraphColor}"> <Paragraph paragraphTxt="test" /> <Choices {woodMode} /> </div>
+            <div class="mobile-quiz-body-container" style="color: {paragraphColor}"> <Paragraph paragraphTxt="test" /> <Choices {isWoodMode} {isLandscape} /> </div>
             <div class="mobile-quiz-controls-container"> <Controls /> </div>
         </div>
-
     {/if}
+
 </main>
 
 <style lang="sass">
@@ -132,6 +171,13 @@
                     display: flex
                     justify-content: center
                     align-items: center
+                    .quiz-question-result
+                        position: absolute
+                        top: 0
+                        margin-top: 15%
+                        z-index: 3
+                        svg
+                            width: 100%
                 .quiz-choices-container
                     width: 20%
                     height: 100%
@@ -172,12 +218,20 @@
                 display: flex
                 justify-content: center
                 align-items: center
+                .quiz-question-result
+                    position: absolute
+                    top: 0
+                    margin-top: 15%
+                    z-index: 3
+                    svg
+                        width: 100%
             .mobile-quiz-body-container
                 width: 100%
                 height: 40%
                 display: flex
                 justify-content: center
                 align-items: center
+                gap: 15px
             .mobile-quiz-controls-container
                 width: 100%
                 height: 10%

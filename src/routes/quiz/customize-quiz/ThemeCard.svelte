@@ -1,8 +1,10 @@
 <script lang="ts">
     import { examTheme } from "$lib/stores"
 	import { onMount } from "svelte";
+
     export let src: string
     export let themeName: string
+    
     let active = false
 
     let activeTheme: string

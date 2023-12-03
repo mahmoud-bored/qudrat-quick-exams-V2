@@ -1,10 +1,11 @@
 <script lang="ts">
-    export let woodMode: boolean
-    
-    import { questionAlignment } from '../../lib/stores'
+    import { questionAlignment } from '$lib/stores'
     import { getHTMLElement } from '$lib/app'
     import columnAlignImgSrc from '$lib/assets/column-align-icon.svg'
     import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
+    
+    export let isWoodMode: boolean
+    export let isLandscape: boolean
 
     function changeQuestionAlighnment(align: string){
         questionAlignment.set(align)
@@ -25,11 +26,11 @@
             <img src={rowAlignImgSrc} alt="align row">
         </button>
     </div>
-    <div class="choices-container" class:woodMode>
-        <button class="choice" data-value="أ">أ</button>
-        <button class="choice" data-value="ب">ب</button>
-        <button class="choice" data-value="ج">ج</button>
-        <button class="choice" data-value="د">د</button>
+    <div class="choices-container" class:isWoodMode>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="أ">أ</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="ب">ب</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="ج">ج</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="د">د</button>
     </div>
 </div>
 
@@ -92,4 +93,7 @@
                     &:hover
                         background-color: #5eee2590
                         color: #fff
+            .choice-landscape
+                height: auto
+                aspect-ratio: 1 / 1
 </style>
