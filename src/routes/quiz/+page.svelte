@@ -6,7 +6,7 @@
     import QuestionCustomizationTab from './QuestionCustomizationTab.svelte'
     import ThemeCustomizationTab from './ThemeCustomizationTab.svelte'
     import { injectDOMErrorMessage } from './injectDOMErrorMessage.ts'
-    import { isExamCustomized, paragraphsObject, questionsObject, paragraphsVersion, questionsVersion } from '$lib/stores.ts'
+    import { isExamCustomized, paragraphsObject, questionsObject, paragraphsVersion, questionsVersion, categoriesVersion, categoriesObject } from '$lib/stores.ts'
 	import { goto } from '$app/navigation'
     import { isExamListValid, isExamQuestionAmountValid } from './checkInfo.ts'
 	import { onMount } from 'svelte'
@@ -45,6 +45,7 @@
     }
     function getParagraphsFromLocalStorage() {
         paragraphsObject.set(localStorage.getItem('paragraphs'))
+        categoriesObject.set(localStorage.getItem('categories'))
         isParagraphsReady = true
     }
     function getQuestionsFromLocalStorage() {
@@ -55,11 +56,18 @@
     function getParagraphsFromDatabase() {
         isQuizStartThrobberVisible = true
         getParagraphsData().then((data) => {
+            const paragraphsJsonData = JSON.stringify(data['paragraphs'])
+            const categroriesJsonData = JSON.stringify(data['info']['questionsCategories'])
             if (typeof(Storage) !== 'undefined') {
-                localStorage.setItem('paragraphs', JSON.stringify(data['paragraphs']))
+                localStorage.setItem('paragraphs', paragraphsJsonData)
+                localStorage.setItem('categories', categroriesJsonData)
+
                 localStorage.setItem('paragraphsVersion', $paragraphsVersion)
+                localStorage.setItem('categoriesVersion', $categoriesVersion)
             }
-            paragraphsObject.set(JSON.stringify(data['paragraphs']))
+            paragraphsObject.set(paragraphsJsonData)
+            categoriesObject.set(categroriesJsonData)
+            console.log(categroriesJsonData)
             isParagraphsReady = true
         }).catch(() => {
             isQuizStartThrobberVisible = false
@@ -69,11 +77,12 @@
     function getQuestionsFromDatabase() {
         isQuizStartThrobberVisible = true
         getQuestionsData().then((data) => {
+            const jsonData = JSON.stringify(data)
             if (typeof(Storage) !== 'undefined') {
-                localStorage.setItem('questions', JSON.stringify(data))
+                localStorage.setItem('questions', jsonData)
                 localStorage.setItem('questionsVersion', $questionsVersion)
             }
-            questionsObject.set(JSON.stringify(data))
+            questionsObject.set(jsonData)
             isQuestionsReady = true
         }).catch(() => {
             isQuizStartThrobberVisible = false
@@ -94,8 +103,8 @@
         } else {
             // Check if in theme customization tab
 
-            // handle paragraphs
-            if(localStorage?.getItem('paragraphsVersion') && localStorage.getItem('paragraphsVersion') == $paragraphsVersion){
+            // handle paragraphs and categories
+            if((localStorage?.getItem('paragraphsVersion') && localStorage.getItem('paragraphsVersion') == $paragraphsVersion) && (localStorage?.getItem('categoriesVersion') && localStorage.getItem('categoriesVersion') == $categoriesVersion)){
                 // get Paragraphs data from the localStorage if the version number matches
                 getParagraphsFromLocalStorage()
             }else {

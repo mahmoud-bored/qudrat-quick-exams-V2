@@ -41,7 +41,7 @@ function injectQuestionObj(questionHead, questionAnswers, correctAnswer, orderIn
       }
     },
     questionCategoryID,
-    questionParagraphID: paragraphID ? paragraphID : '',
+    questionParagraphID: paragraphID ? `paragraph-${paragraphID}` : '',
     questionHint: '',
     answerExplination: '',
     questionHead,

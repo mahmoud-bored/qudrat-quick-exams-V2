@@ -58,12 +58,15 @@ export const examTheme: Writable<string> = writable('عادي')
 export const isExamCustomized: Writable<boolean> = writable(false)
 
 
-export const paragraphsObject: Writable<string | null> = writable()
-export const questionsObject: Writable<string | null> = writable()
 export const currentQuestionCounter: Writable<number> = writable(1)
 export const timer: Writable<number> = writable(50)
 export const questionFontSize: Writable<number> = writable(1)
 export const questionAlignment: Writable<string> = writable('row')
 
+export const paragraphsObject: Writable<string | null> = writable()
+export const questionsObject: Writable<string | null> = writable()
+export const categoriesObject: Writable<string | null> = writable()
+
 export const questionsVersion: Writable<string> = writable("")
 export const paragraphsVersion: Writable<string> = writable("")
+export const categoriesVersion: Writable<string> = writable("")

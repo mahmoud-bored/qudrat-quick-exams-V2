@@ -4,7 +4,7 @@
 
 <div class="container">
     <button class="end-quiz-button">إنهاء الإختبار</button>
-    <button class="mark-last-question-button">أضف السؤال السابق للمراجعة</button>
+    <button class="mark-last-question-button">أضف السؤال للمراجعة</button>
     <button class="skip-question-button">تخطي</button>
 </div>
 
@@ -28,29 +28,29 @@
         .end-quiz-button
             width: 20%
             border-color: #DC354580
-            background-color: #DC354530
+            background-color: #DC354550
             text-align: center
             @media (hover: hover)
                 &:hover
-                    background-color: #DC354580
+                    background-color: #DC3545
                     color: #fff
         .mark-last-question-button
             width: 40%
             border-color: #FFCC1880
-            background-color: #FFCC1830
+            background-color: #FDCD2250
             gap: 10px
             text-align: center
             @media (hover: hover)
                 &:hover
-                    background-color: #FFCC1880
+                    background-color: #FDCD22
                     color: #fff
         .skip-question-button
             width: 20%
             border-color: #0D6EFD80
-            background-color: #0D6EFD30
+            background-color: #0D6EFD50
             text-align: center
             @media (hover: hover)
                 &:hover
-                    background-color: #0D6EFD80
+                    background-color: #0D6EFD
                     color: #fff
 </style>

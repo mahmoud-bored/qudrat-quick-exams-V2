@@ -3,7 +3,8 @@
     import { getHTMLElement } from '$lib/app'
     import columnAlignImgSrc from '$lib/assets/column-align-icon.svg'
     import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
-    
+    import { getQuestion } from './operations'
+    import { getNewRandomQuestion } from './operations.ts'
     export let isWoodMode: boolean
     export let isLandscape: boolean
 
@@ -27,7 +28,7 @@
         </button>
     </div>
     <div class="choices-container" class:isWoodMode>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="أ">أ</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="أ" on:click={getNewRandomQuestion}>أ</button>
         <button class="choice" class:choice-landscape={isLandscape} data-value="ب">ب</button>
         <button class="choice" class:choice-landscape={isLandscape} data-value="ج">ج</button>
         <button class="choice" class:choice-landscape={isLandscape} data-value="د">د</button>

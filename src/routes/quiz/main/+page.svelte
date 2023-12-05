@@ -8,15 +8,19 @@
     import lightModeImgSrc from '$lib/assets/quizThemeLightBg.jpg'
     import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.jpg'
     import { examTheme } from "$lib/stores"
-	import { onMount } from "svelte";
+	import { onMount } from "svelte"
     import { checkQuizReady } from "./checkInfoValidty"
     import { getHTMLElement } from "$lib/app"
-	import { fly } from "svelte/transition";
-
+	import { fly } from "svelte/transition"
+	import { browser } from "$app/environment"
+    import { getQuestion } from "./operations.ts"
+    import { questionParagraph, question, answers, correctAnswer } from "./quiz-main-stores.ts"
+    getQuestion()
     let themeSrc: string
     let questionColor: string
     let paragraphColor: string
     let isWoodMode: boolean = false
+
     onMount(() => {
         checkQuizReady()
         // Set Theme: Dark, Light or Wood
@@ -35,35 +39,34 @@
             paragraphColor = '#fff'
         }
     })
+
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
     let screenWidth: number
     let screenHeight: number
     $: try{
-            const main = document?.querySelector('main')
+            if(browser) {
+                const main = document.querySelector('main')
 
-            if (screenWidth > screenHeight){
-                isLandscape = true
-                main?.style.setProperty('flex-direction', 'row')
-            } else {
-                isLandscape = false
-                main?.style.setProperty('flex-direction', 'column')
+                if (screenWidth > screenHeight){
+                    isLandscape = true
+                    main?.style.setProperty('flex-direction', 'row')
+                } else {
+                    isLandscape = false
+                    main?.style.setProperty('flex-direction', 'column')
+                }
             }
         } catch(e) { }
     
     let isAnswerCorrect = false
     let isAnswerIncorrect = false
-    setTimeout(()=> isAnswerIncorrect = true, 2500)
-    setTimeout(()=> isAnswerIncorrect = false, 3500)
-    setTimeout(()=> isAnswerCorrect = true, 1000)
-    setTimeout(()=> isAnswerCorrect = false, 2000)
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
 <main class="container main-quiz-container" style="background-image: url({themeSrc}); color: {questionColor}">
     {#if isLandscape}
-        <div class="quiz-paragraph-container" style="color: {paragraphColor}"> <Paragraph  paragraphTxt="test" /> </div>
+        <div class="quiz-paragraph-container" style="color: {paragraphColor}"> <Paragraph  paragraphText={ $questionParagraph ? $questionParagraph : null } /> </div>
         <div class="quiz-container">
             <div class="quiz-header-container"> <Header /> </div>
             <div class="quiz-body-container">
@@ -86,11 +89,11 @@
 
                     <Question 
                         {isWoodMode}
-                        questionHead="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-                        answer1="Lorem Ipsum 1"
-                        answer2="Lorem Ipsum 2"
-                        answer3="Lorem Ipsum 3"
-                        answer4="Lorem Ipsum 4"
+                        questionHead="{$question}"
+                        answer1="{ $answers[0] ? $answers[0] : "" }"
+                        answer2="{ $answers[1] ? $answers[1] : "" }"
+                        answer3="{ $answers[2] ? $answers[2] : "" }"
+                        answer4="{ $answers[3] ? $answers[3] : "" }"
                     /> 
                 </div>
                 <div class="quiz-choices-container"> <Choices {isWoodMode} {isLandscape} /> </div> 
@@ -119,14 +122,14 @@
 
                 <Question
                     {isWoodMode}
-                    questionHead="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-                    answer1="Lorem Ipsum"
-                    answer2="Lorem Ipsum"
-                    answer3="Lorem Ipsum"
-                    answer4="Lorem Ipsum"
+                    questionHead="{$question}"
+                    answer1={ $answers[0] ? $answers[0] : "" }
+                    answer2={ $answers[1] ? $answers[1] : "" }
+                    answer3={ $answers[2] ? $answers[2] : "" }
+                    answer4={ $answers[3] ? $answers[3] : "" }
                 /> 
             </div>
-            <div class="mobile-quiz-body-container" style="color: {paragraphColor}"> <Paragraph paragraphTxt="test" /> <Choices {isWoodMode} {isLandscape} /> </div>
+            <div class="mobile-quiz-body-container" style="color: {paragraphColor}"> <Paragraph paragraphText={ $questionParagraph ? $questionParagraph : null } /> <Choices {isWoodMode} {isLandscape} /> </div>
             <div class="mobile-quiz-controls-container"> <Controls /> </div>
         </div>
     {/if}

@@ -13,7 +13,10 @@
         globalCollections, 
         globalCollectionsOrder,
         questionsVersion,
-        paragraphsVersion
+        paragraphsVersion,
+
+		categoriesVersion
+
     } from "$lib/stores"
     import type { CollectionContainer, CollectionInfo } from '$lib/stores';
     import { checkActiveExamsList } from "./activeExamsList";
@@ -35,6 +38,8 @@
 
             questionsVersion.set(data?.[adminID]['versions']['questionsVersion'])
             paragraphsVersion.set(data?.[adminID]['versions']['paragraphsVersion'])
+            categoriesVersion.set(data?.[adminID]['versions']['categoriesVersion'])
+
             globalCollections.set(collections)
             globalCollectionsOrder.set(collectionsOrder)
 
@@ -156,6 +161,8 @@
 
 <style lang="sass">
     @import '$lib/assets/app.sass'
+    @import '$lib/assets/chromeScrollbarStyle.sass'
+    @include chrome-scrollbar(#057b4a, #333)
     .exam-customization
         height: 100%
         display: flex
@@ -189,6 +196,7 @@
                 overflow-x: hidden
                 overflow-y: auto
                 scrollbar-width: thin
+                scrollbar-color: #057b4a #333
                 box-shadow: 0 0 0 0 #000
                 -webkit-box-shadow: 0 0 0 0 #000
                 -moz-box-shadow: 0 0 0 0 #000

@@ -1,0 +1,21 @@
+@mixin chrome-scrollbar($thumb-color, $background-color)
+    /* width */
+    ::-webkit-scrollbar 
+        width: 5px
+        height: 10px
+
+    /* Track */
+    ::-webkit-scrollbar-track 
+        box-shadow: inset 0 0 5px $background-color
+        border-radius: 10px
+
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb 
+        background: $thumb-color
+        border-radius: 10px
+
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover 
+        background: lighten($thumb-color, 10%)
