@@ -35,8 +35,8 @@ function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
 
 
 
-let mainParagraphsObject: ParagraphsContainer
-let mainQuestionsObject: QuestionsContainer
+let mainParagraphsObject: ParagraphsContainer = {}
+let mainQuestionsObject: QuestionsContainer = {}
 let mainCategoriesObject: Category = {}
 paragraphsObject.subscribe((data) => { if(data){ mainParagraphsObject = JSON.parse(data) } })
 questionsObject.subscribe((data) => { if(data){ mainQuestionsObject = JSON.parse(data) } })
