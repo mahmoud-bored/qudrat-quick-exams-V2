@@ -88,6 +88,7 @@ function isLastQuestionLong() {
     return false
 }
 export function getNewRandomQuestion() {
+    console.log("getNewRandomQuestion()")
     let newQuestionID = Object.keys(mainQuestionsObject)[Math.floor(Math.random() * Object.keys(mainQuestionsObject).length)]
     // Remove the string add after fixing the database
     const questionParagraphID = 'paragraph-' + mainQuestionsObject[newQuestionID]['questionParagraphID']
@@ -110,6 +111,7 @@ export function getQuestion() {
     const lastQuestionParagraphID = isLastQuestionLong()
     console.log(lastQuestionParagraphID)
     if(lastQuestionParagraphID) {
+        console.log("getQuestion()")
         const newLongQuestionArr: [questionObject: Question, questionID: string] = findNestedValue(mainQuestionsObject, "questionParagraphID", lastQuestionParagraphID.replace("paragraph-", ""))
         // Remove the string add after fixing the database
         const questionParagraphID = 'paragraph-' + newLongQuestionArr[0]['questionParagraphID']
