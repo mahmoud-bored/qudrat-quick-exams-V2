@@ -93,7 +93,7 @@ export function getNewRandomQuestion() {
     // Remove the string add after fixing the database
     console.log("----------------")
     console.log(mainQuestionsObject)
-    const questionParagraphID = 'paragraph-' + mainQuestionsObject[newQuestionID]['questionParagraphID']
+    const questionParagraphID = 'paragraph-' + mainQuestionsObject?.[newQuestionID]?.['questionParagraphID']
 
     // to make sure that the question had a paragraph ID
     if(mainQuestionsObject[newQuestionID]['questionParagraphID'].length !== 0){
