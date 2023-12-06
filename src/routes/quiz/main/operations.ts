@@ -91,6 +91,8 @@ export function getNewRandomQuestion() {
     let newQuestionID = Object.keys(mainQuestionsObject)[Math.floor(Math.random() * Object.keys(mainQuestionsObject).length)]
     // Remove the string add after fixing the database
     const questionParagraphID = 'paragraph-' + mainQuestionsObject[newQuestionID]['questionParagraphID']
+    console.log("----------------")
+    console.log(mainQuestionsObject)
     // to make sure that the question had a paragraph ID
     if(mainQuestionsObject[newQuestionID]['questionParagraphID'].length !== 0){
         questionParagraph.set(mainParagraphsObject[questionParagraphID]["paragraphText"])
