@@ -3,7 +3,7 @@ import type { Category, ParagraphsContainer, Question, QuestionsContainer } from
 import { question, answers, correctAnswer, currentQuestionID, questionParagraph } from "./quiz-main-stores"
 
 // source: https://stackoverflow.com/questions/45336281/javascript-find-by-value-deep-in-a-nested-object-array
-function findNestedValue(this: any, obj: any, key: any, value: any, baseKey: any = null) {
+function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
     // Base case
     if (obj[key] === value) {
         if(baseKey !== null){
@@ -14,7 +14,7 @@ function findNestedValue(this: any, obj: any, key: any, value: any, baseKey: any
     } else {
         var keys = Object.keys(obj); // add this line to iterate over the keys
     
-        for (var i = 0, len = keys.length; i < len; i++) {
+        for (var i = 0; i < keys.length; i++) {
             var k = keys[i]; // use this key for iteration, instead of index "i"
             
             // add "obj[k] &&" to ignore null values
@@ -52,17 +52,36 @@ for(const category in mainCategoriesObject){
 }
 
 let currentQuestionsObject = new Map()
-
+const mock = {	"question-oEl2OewD0Px8doKGI1S6": {
+    "state": "shared",
+    "linkedCollections": {
+        "collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
+            "exam-b56324e8f5bdc26d0d3": 4
+        }
+    },
+    "questionCategoryID": "category-10abd86d71",
+    "questionParagraphID": "paragraph-gJUNFrgzruBZLQJDyYiz",
+    "questionHint": "",
+    "answerExplination": "",
+    "questionHead": "كيف يمكن معالجة السمنة ؟",
+    "questionAnswers": {
+        "0": "زيادة الوعي الصحي"
+    },
+    "correctAnswer": "زيادة الوعي الصحي",
+    "lastUpdateDate": ""
+},}
+currentQuestionsObject.set(0, mock)
 const getLastItemInMap = (map: Map<string, QuestionsContainer>) => [...map][map.size-1]
 function isLastQuestionLong() {
     // check if last question was long
     if(!getLastItemInMap(currentQuestionsObject)) { return false }
     const lastQuestionMapArr: [questionCounter: string, questionObject: QuestionsContainer] = getLastItemInMap(currentQuestionsObject)
-    const lastQuestionID = Object.keys(getLastItemInMap(currentQuestionsObject)[1])[0]
-    const lastQuestionObj = getLastItemInMap(currentQuestionsObject)[1][lastQuestionID]
-
+    console.log(lastQuestionMapArr)
+    const lastQuestionCounter = Object.keys(lastQuestionMapArr[1])[0]
+    const lastQuestionObj = lastQuestionMapArr[1][lastQuestionCounter]
+    console.log(lastQuestionObj)
     for(const longQuestionCategoryID of longQuestionsCategoryIDs){
-        if(lastQuestionMapArr && lastQuestionObj['questionCategoryID'] == longQuestionCategoryID){
+        if(lastQuestionObj['questionCategoryID'] == longQuestionCategoryID){
             return lastQuestionObj['questionParagraphID']
         }
     }
@@ -70,15 +89,13 @@ function isLastQuestionLong() {
 }
 export function getNewRandomQuestion() {
     let newQuestionID = Object.keys(mainQuestionsObject)[Math.floor(Math.random() * Object.keys(mainQuestionsObject).length)]
-    console.log(newQuestionID)
     // Remove the string add after fixing the database
     const questionParagraphID = 'paragraph-' + mainQuestionsObject[newQuestionID]['questionParagraphID']
-    console.log(questionParagraphID)
     // to make sure that the question had a paragraph ID
     if(mainQuestionsObject[newQuestionID]['questionParagraphID'].length !== 0){
         questionParagraph.set(mainParagraphsObject[questionParagraphID]["paragraphText"])
     }else {
-        questionParagraph.set(null)
+        questionParagraph.set("")
     }
     question.set(mainQuestionsObject[newQuestionID]['questionHead'])
     answers.set(mainQuestionsObject[newQuestionID]['questionAnswers'])
@@ -88,15 +105,17 @@ export function getNewRandomQuestion() {
 
 
 export function getQuestion() {
-    if(isLastQuestionLong()) {
-        const newLongQuestionArr: [questionObject: Question, questionID: string] = findNestedValue(mainQuestionsObject, "questionParagraphID", isLastQuestionLong())
+    const lastQuestionParagraphID = isLastQuestionLong()
+    console.log(lastQuestionParagraphID)
+    if(lastQuestionParagraphID) {
+        const newLongQuestionArr: [questionObject: Question, questionID: string] = findNestedValue(mainQuestionsObject, "questionParagraphID", lastQuestionParagraphID.replace("paragraph-", ""))
         // Remove the string add after fixing the database
         const questionParagraphID = 'paragraph-' + newLongQuestionArr[0]['questionParagraphID']
         // to make sure that the question had a paragraph ID
         if(newLongQuestionArr[0]['questionParagraphID'].length !== 0){
             questionParagraph.set(mainParagraphsObject[questionParagraphID]['paragraphText'])
         }else {
-            questionParagraph.set(null)
+            questionParagraph.set("")
         }
         question.set(newLongQuestionArr[0]['questionHead'])
         answers.set(newLongQuestionArr[0]['questionAnswers'])
