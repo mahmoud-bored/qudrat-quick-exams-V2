@@ -44,12 +44,24 @@
         buttonElement.classList.toggle('full-size')
     }
     function getParagraphsFromLocalStorage() {
-        paragraphsObject.set(localStorage.getItem('paragraphs'))
-        categoriesObject.set(localStorage.getItem('categories'))
+        const paragraphs = localStorage.getItem('paragraphs')
+        const categories = localStorage.getItem('categories')
+        if(paragraphs !== null && categories !== null){
+            paragraphsObject.set(paragraphs)
+            categoriesObject.set(categories)
+        }else {
+            getParagraphsFromDatabase()
+        }
+
         isParagraphsReady = true
     }
     function getQuestionsFromLocalStorage() {
-        questionsObject.set(localStorage.getItem('questions'))
+        const questions = localStorage.getItem('questions')
+        if(questions !== null){
+            questionsObject.set(questions)
+        } else {
+            getQuestionsFromDatabase()
+        }
         isQuestionsReady = true
     }
     let isQuizStartThrobberVisible = false
