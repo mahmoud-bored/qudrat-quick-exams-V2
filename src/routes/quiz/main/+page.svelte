@@ -15,7 +15,7 @@
 	import { browser } from "$app/environment"
     import { getQuestion } from "./operations.ts"
     import { questionParagraph, question, answers, correctAnswer } from "./quiz-main-stores.ts"
-    getQuestion()
+    
     let themeSrc: string
     let questionColor: string
     let paragraphColor: string
@@ -39,7 +39,7 @@
             paragraphColor = '#fff'
         }
     })
-
+    onMount(getQuestion)
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
     let screenWidth: number
@@ -89,11 +89,11 @@
 
                     <Question 
                         {isWoodMode}
-                        questionHead="{$question}"
-                        answer1="{ $answers[0] ? $answers[0] : "" }"
-                        answer2="{ $answers[1] ? $answers[1] : "" }"
-                        answer3="{ $answers[2] ? $answers[2] : "" }"
-                        answer4="{ $answers[3] ? $answers[3] : "" }"
+                        questionHead={ $question ? $question : "" }
+                        answer1={ $answers[0] ? $answers[0] : "" }
+                        answer2={ $answers[1] ? $answers[1] : "" }
+                        answer3={ $answers[2] ? $answers[2] : "" }
+                        answer4={ $answers[3] ? $answers[3] : "" }
                     /> 
                 </div>
                 <div class="quiz-choices-container"> <Choices {isWoodMode} {isLandscape} /> </div> 

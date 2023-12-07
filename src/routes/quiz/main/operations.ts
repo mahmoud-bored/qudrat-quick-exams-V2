@@ -35,8 +35,8 @@ function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
 
 
 
-let mainParagraphsObject: ParagraphsContainer = {}
-let mainQuestionsObject: QuestionsContainer = {}
+let mainParagraphsObject: ParagraphsContainer
+let mainQuestionsObject: QuestionsContainer
 let mainCategoriesObject: Category = {}
 paragraphsObject.subscribe((data) => { if(data){ mainParagraphsObject = JSON.parse(data) } })
 questionsObject.subscribe((data) => { if(data){ mainQuestionsObject = JSON.parse(data) } })
@@ -88,13 +88,9 @@ function isLastQuestionLong() {
     return false
 }
 export function getNewRandomQuestion() {
-    console.log("getNewRandomQuestion()")
     let newQuestionID = Object.keys(mainQuestionsObject)[Math.floor(Math.random() * Object.keys(mainQuestionsObject).length)]
     // Remove the string add after fixing the database
-    console.log("----------------")
-    console.log(mainQuestionsObject)
-    const questionParagraphID = 'paragraph-' + mainQuestionsObject?.[newQuestionID]?.['questionParagraphID']
-
+    const questionParagraphID = 'paragraph-' + mainQuestionsObject[newQuestionID]['questionParagraphID']
     // to make sure that the question had a paragraph ID
     if(mainQuestionsObject[newQuestionID]['questionParagraphID'].length !== 0){
         questionParagraph.set(mainParagraphsObject[questionParagraphID]["paragraphText"])
