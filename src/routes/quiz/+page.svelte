@@ -1,7 +1,6 @@
 <script lang="ts">
     import './page.sass'
     import { fade, fly } from 'svelte/transition'
-    import backArrowImgSrc from '$lib/assets/left-arrow.svg'
     import TypeWriter from '$lib/assets/TypeWriter.svelte'
     import QuestionCustomizationTab from './QuestionCustomizationTab.svelte'
     import ThemeCustomizationTab from './ThemeCustomizationTab.svelte'

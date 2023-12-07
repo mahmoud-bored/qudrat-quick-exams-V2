@@ -29,9 +29,9 @@
     </div>
     <div class="choices-container" class:isWoodMode>
         <button class="choice" class:choice-landscape={isLandscape} data-value="أ" on:click={getNewRandomQuestion}>أ</button>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="ب">ب</button>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="ج">ج</button>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="د">د</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="ب" on:click={getNewRandomQuestion}>ب</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="ج" on:click={getNewRandomQuestion}>ج</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="د" on:click={getNewRandomQuestion}>د</button>
     </div>
 </div>
 

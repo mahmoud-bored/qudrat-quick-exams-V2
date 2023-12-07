@@ -4,9 +4,9 @@
     import Question from "./Question.svelte"
     import Controls from "./Controls.svelte"
     import Paragraph from "./Paragraph.svelte"
-    import darkModeImgSrc from '$lib/assets/quizThemeDarkBg.jpg'
-    import lightModeImgSrc from '$lib/assets/quizThemeLightBg.jpg'
-    import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.jpg'
+    import darkModeImgSrc from '$lib/assets/quizThemeDarkBg.webp'
+    import lightModeImgSrc from '$lib/assets/quizThemeLightBg.webp'
+    import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.webp'
     import { examTheme } from "$lib/stores"
 	import { onMount } from "svelte"
     import { checkQuizReady } from "./checkInfoValidty"

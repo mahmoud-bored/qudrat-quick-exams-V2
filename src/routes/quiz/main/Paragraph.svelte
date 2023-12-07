@@ -60,7 +60,7 @@
                 grid-column: 1 / 1
             p
                 width: 100%
-                height: 100%
+                height: calc(100% - 10px)
                 text-align: right
                 direction: rtl
                 overflow-y: auto
