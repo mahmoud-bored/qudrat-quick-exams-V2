@@ -3,10 +3,17 @@
     import { getHTMLElement } from '$lib/app'
     import columnAlignImgSrc from '$lib/assets/column-align-icon.svg'
     import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
-    import { getQuestion } from './operations'
-    import { getNewRandomQuestion } from './operations.ts'
+    import { pickAnswer } from './operations.ts'
+	import type { QuestionAnswers } from '$lib/databaseInterfaces.ts';
+    
     export let isWoodMode: boolean
     export let isLandscape: boolean
+    export let answers: QuestionAnswers
+
+    const answer1 = answers[0] ? answers[0] : "" 
+    const answer2 = answers[1] ? answers[1] : "" 
+    const answer3 = answers[2] ? answers[2] : "" 
+    const answer4 = answers[3] ? answers[3] : ""
 
     function changeQuestionAlighnment(align: string){
         questionAlignment.set(align)
@@ -28,10 +35,10 @@
         </button>
     </div>
     <div class="choices-container" class:isWoodMode>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="أ" on:click={getNewRandomQuestion}>أ</button>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="ب" on:click={getNewRandomQuestion}>ب</button>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="ج" on:click={getNewRandomQuestion}>ج</button>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="د" on:click={getNewRandomQuestion}>د</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="{answer1}" on:click={pickAnswer}>أ</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="{answer2}" on:click={pickAnswer}>ب</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="{answer3}" on:click={pickAnswer}>ج</button>
+        <button class="choice" class:choice-landscape={isLandscape} data-value="{answer4}" on:click={pickAnswer}>د</button>
     </div>
 </div>
 

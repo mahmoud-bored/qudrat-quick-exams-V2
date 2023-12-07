@@ -2,13 +2,22 @@
     import { questionFontSize, questionAlignment } from "$lib/stores"
     import { getHTMLElement } from "$lib/app"
 	import { fly } from "svelte/transition";
+	import type { QuestionAnswers } from "$lib/databaseInterfaces";
     export let isWoodMode: boolean
     export let questionHead: string
-    export let answer1: string = ''
-    export let answer2: string = ''
-    export let answer3: string = ''
-    export let answer4: string = ''
-
+    export let answers: QuestionAnswers
+    
+    
+    let answer1: string 
+    let answer2: string 
+    let answer3: string 
+    let answer4: string
+    $: {
+        answer1 = answers[0] ? answers[0] : "" 
+        answer2 = answers[1] ? answers[1] : "" 
+        answer3 = answers[2] ? answers[2] : "" 
+        answer4 = answers[3] ? answers[3] : ""
+    }
     $: try{ 
             const answersContainer = document.querySelectorAll('.answers-container > div')
             answersContainer?.forEach((answer) => {
@@ -38,7 +47,7 @@
         <div class="answers-top-container">
 
             <div class="answer-container">
-                {#key answer1} 
+                {#key answer1 } 
                     <p in:fly={{ x: 40, duration: 350 }} out:fly={{ y: 20, x: -20, duration: 250 }} >
                         أ- {answer1}
                     </p> 

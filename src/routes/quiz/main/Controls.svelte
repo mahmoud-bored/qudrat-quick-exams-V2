@@ -1,11 +1,13 @@
 <script lang="ts">
+	import { pickAnswer } from "./operations";
+
     
 </script>
 
 <div class="container">
     <button class="end-quiz-button">إنهاء الإختبار</button>
     <button class="mark-last-question-button">أضف السؤال للمراجعة</button>
-    <button class="skip-question-button">تخطي</button>
+    <button class="skip-question-button" data-value="skip" on:click={pickAnswer}>تخطي</button>
 </div>
 
 <style lang="sass">

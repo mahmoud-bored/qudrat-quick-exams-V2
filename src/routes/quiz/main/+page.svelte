@@ -14,7 +14,7 @@
 	import { fly } from "svelte/transition"
 	import { browser } from "$app/environment"
     import { getQuestion } from "./operations.ts"
-    import { questionParagraph, question, answers, correctAnswer } from "./quiz-main-stores.ts"
+    import { questionParagraph, question, answers, correctAnswer, correctState, incorrectState } from "./quiz-main-stores.ts"
     
     let themeSrc: string
     let questionColor: string
@@ -58,8 +58,6 @@
             }
         } catch(e) { }
     
-    let isAnswerCorrect = false
-    let isAnswerIncorrect = false
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
@@ -72,14 +70,14 @@
             <div class="quiz-body-container">
                 <div class="quiz-question-container">
 
-                    {#if isAnswerCorrect}
+                    {#if $correctState}
                         <div class="quiz-question-result result-tick" in:fly={{ y:-60, duration: 100 }} out:fly={{ x:-70, duration: 100 }}>
                             <svg width="257" height="199" viewBox="0 0 257 199" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M210.75 6.7959L249.792 45.9089L114.814 180.641C105.042 190.395 89.2124 190.38 79.4582 180.608L58.0782 159.189L210.75 6.7959Z" fill="#A5EB78"/><path d="M237.191 33L250.024 45.8563L110.861 184.766C103.76 191.853 92.259 191.843 85.1716 184.742V184.742L237.191 33Z" fill="#95D46C"/><rect x="7.18359" y="108.787" width="53.2178" height="90" transform="rotate(-45.2399 7.18359 108.787)" fill="#A5EB78"/><path d="M69 94.5L90 116.5C91.1667 117.5 94 119.5 96 119.5C98 119.5 101.167 117.5 102.5 116.5L213.5 5L252 43L221 74" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M210 86L118.5 177.5C115.333 180.667 106.5 187.2 96.5 188C86.5 188.8 77.3333 181.333 74 177.5L5 107.5L43 70L56.5 83.5" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
                     {/if}
-                    {#if isAnswerIncorrect}
+                    {#if $incorrectState}
                         <div class="quiz-question-result result-cross" in:fly={{ y:-60, duration: 500 }} out:fly={{ x:-70, duration: 700 }}>
                             <svg width="198" height="197" viewBox="0 0 198 197" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M155.758 7L99 63.5636L41.871 7L7 41.7515L64.129 98.3152L7 155.248L41.871 190L99 133.436L155.758 189.63L190.629 154.879L133.5 97.9455L191 41.7515L155.758 7Z" fill="#F74354" stroke="black" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
@@ -87,16 +85,9 @@
                         </div>
                     {/if}
 
-                    <Question 
-                        {isWoodMode}
-                        questionHead={ $question ? $question : "" }
-                        answer1={ $answers[0] ? $answers[0] : "" }
-                        answer2={ $answers[1] ? $answers[1] : "" }
-                        answer3={ $answers[2] ? $answers[2] : "" }
-                        answer4={ $answers[3] ? $answers[3] : "" }
-                    /> 
+                    <Question {isWoodMode} questionHead={ $question ? $question : "" } answers={$answers} /> 
                 </div>
-                <div class="quiz-choices-container"> <Choices {isWoodMode} {isLandscape} /> </div> 
+                <div class="quiz-choices-container"> <Choices {isWoodMode} {isLandscape} answers={$answers} /> </div> 
             </div>
             <div class="quiz-controls-container"> <Controls /> </div>
         </div>
@@ -105,14 +96,14 @@
             <div class="mobile-quiz-header-container"> <Header /> </div>
             <div class="mobile-quiz-question-container">
 
-                {#if isAnswerCorrect}
+                {#if $correctState}
                     <div class="quiz-question-result result-tick" in:fly={{ y:-60, duration: 100 }} out:fly={{ x:-60, duration: 100 }}>
                         <svg width="257" height="199" viewBox="0 0 257 199" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M210.75 6.7959L249.792 45.9089L114.814 180.641C105.042 190.395 89.2124 190.38 79.4582 180.608L58.0782 159.189L210.75 6.7959Z" fill="#A5EB78"/><path d="M237.191 33L250.024 45.8563L110.861 184.766C103.76 191.853 92.259 191.843 85.1716 184.742V184.742L237.191 33Z" fill="#95D46C"/><rect x="7.18359" y="108.787" width="53.2178" height="90" transform="rotate(-45.2399 7.18359 108.787)" fill="#A5EB78"/><path d="M69 94.5L90 116.5C91.1667 117.5 94 119.5 96 119.5C98 119.5 101.167 117.5 102.5 116.5L213.5 5L252 43L221 74" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M210 86L118.5 177.5C115.333 180.667 106.5 187.2 96.5 188C86.5 188.8 77.3333 181.333 74 177.5L5 107.5L43 70L56.5 83.5" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
                 {/if}
-                {#if isAnswerIncorrect}
+                {#if $incorrectState}
                     <div class="quiz-question-result result-cross" in:fly={{ y:-60, duration: 500 }} out:fly={{ x:-60, duration: 500 }}>
                         <svg width="198" height="197" viewBox="0 0 198 197" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M155.758 7L99 63.5636L41.871 7L7 41.7515L64.129 98.3152L7 155.248L41.871 190L99 133.436L155.758 189.63L190.629 154.879L133.5 97.9455L191 41.7515L155.758 7Z" fill="#F74354" stroke="black" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
@@ -120,16 +111,9 @@
                     </div>
                 {/if}
 
-                <Question
-                    {isWoodMode}
-                    questionHead="{$question}"
-                    answer1={ $answers[0] ? $answers[0] : "" }
-                    answer2={ $answers[1] ? $answers[1] : "" }
-                    answer3={ $answers[2] ? $answers[2] : "" }
-                    answer4={ $answers[3] ? $answers[3] : "" }
-                /> 
+                <Question {isWoodMode} questionHead={ $question ? $question : "" } answers={$answers} /> 
             </div>
-            <div class="mobile-quiz-body-container" style="color: {paragraphColor}"> <Paragraph paragraphText={ $questionParagraph ? $questionParagraph : null } /> <Choices {isWoodMode} {isLandscape} /> </div>
+            <div class="mobile-quiz-body-container" style="color: {paragraphColor}"> <Paragraph paragraphText={ $questionParagraph ? $questionParagraph : null } /> <Choices {isWoodMode} {isLandscape} answers={$answers} /> </div>
             <div class="mobile-quiz-controls-container"> <Controls /> </div>
         </div>
     {/if}

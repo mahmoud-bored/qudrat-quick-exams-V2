@@ -1,6 +1,6 @@
 import { categoriesObject, paragraphsObject, questionsObject } from "$lib/stores"
 import type { Category, ParagraphsContainer, Question, QuestionsContainer } from "$lib/databaseInterfaces.ts"
-import { question, answers, correctAnswer, currentQuestionID, questionParagraph } from "./quiz-main-stores"
+import { question, answers, correctAnswer, currentQuestionID, questionParagraph, questionID, skipState, correctState, incorrectState, questionCounter } from "./quiz-main-stores"
 
 // source: https://stackoverflow.com/questions/45336281/javascript-find-by-value-deep-in-a-nested-object-array
 function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
@@ -36,12 +36,17 @@ function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
 
 
 let mainParagraphsObject: ParagraphsContainer
-let mainQuestionsObject: QuestionsContainer
+let mainQuestionsObject: QuestionsContainer = {}
 let mainCategoriesObject: Category = {}
+let localCorrectAnswer: string
+let localQuestionID: string
+let localQuestionCounter: number
 paragraphsObject.subscribe((data) => { if(data){ mainParagraphsObject = JSON.parse(data) } })
 questionsObject.subscribe((data) => { if(data){ mainQuestionsObject = JSON.parse(data) } })
 categoriesObject.subscribe((data) => { if(data){ mainCategoriesObject = JSON.parse(data) } })
-
+correctAnswer.subscribe((data) => localCorrectAnswer = data)
+questionID.subscribe((data) => localQuestionID = data)
+questionCounter.subscribe((data) => localQuestionCounter = data)
 
 // get long questions category IDs
 let longQuestionsCategoryIDs: string[] = []
@@ -70,7 +75,7 @@ const mock = {	"question-oEl2OewD0Px8doKGI1S6": {
     "correctAnswer": "زيادة الوعي الصحي",
     "lastUpdateDate": ""
 },}
-currentQuestionsObject.set(0, mock)
+
 const getLastItemInMap = (map: Map<string, QuestionsContainer>) => [...map][map.size-1]
 function isLastQuestionLong() {
     // check if last question was long
@@ -97,32 +102,64 @@ export function getNewRandomQuestion() {
     }else {
         questionParagraph.set("")
     }
+
+    questionID.set(newQuestionID)
     question.set(mainQuestionsObject[newQuestionID]['questionHead'])
     answers.set(mainQuestionsObject[newQuestionID]['questionAnswers'])
     correctAnswer.set(mainQuestionsObject[newQuestionID]['correctAnswer'])
     currentQuestionID.set(newQuestionID)
 }
 
-
+let isAnimationActive = false
+export function pickAnswer(e: Event) {
+    if(!isAnimationActive){
+        isAnimationActive = true
+        const pick = (e.target as HTMLDivElement)?.getAttribute("data-value")
+        if (pick == 'skip'){
+            console.log('skipping')
+            skipState.set(true)
+            setTimeout(() => skipState.set(false), 500)
+        }else {
+            if(pick == localCorrectAnswer){
+                console.log('Correct!')
+                
+                correctState.set(true)
+                setTimeout(() => correctState.set(false), 500)
+            }else {
+                console.log('Incorrect! Better luck next time.')
+                
+                incorrectState.set(true)
+                setTimeout(() => incorrectState.set(false), 500)
+            }
+        }
+        currentQuestionsObject.set(localQuestionCounter, { localQuestionID: mainQuestionsObject[localQuestionID]})
+        questionCounter.update((count) => count + 1)
+        console.log(currentQuestionsObject)
+        setTimeout(() => { getQuestion(); isAnimationActive = false }, 400)
+        // make sure the timing is perfect
+        // delete question from mainObject if noRepeat was true
+    }
+}
+export function getNewLongQuestion(lastQuestionParagraphID: string) {
+    const newLongQuestionArr: [questionObject: Question, questionID: string] = findNestedValue(mainQuestionsObject, "questionParagraphID", lastQuestionParagraphID.replace("paragraph-", ""))
+    // Remove the string add after fixing the database
+    const questionParagraphID = 'paragraph-' + newLongQuestionArr[0]['questionParagraphID']
+    // to make sure that the question had a paragraph ID
+    if(newLongQuestionArr[0]['questionParagraphID'].length !== 0){
+        questionParagraph.set(mainParagraphsObject[questionParagraphID]['paragraphText'])
+    }else {
+        questionParagraph.set("")
+    }
+    questionID.set(newLongQuestionArr[1])
+    question.set(newLongQuestionArr[0]['questionHead'])
+    answers.set(newLongQuestionArr[0]['questionAnswers'])
+    correctAnswer.set(newLongQuestionArr[0]['correctAnswer'])
+    currentQuestionID.set(newLongQuestionArr[1])
+}
 export function getQuestion() {
     const lastQuestionParagraphID = isLastQuestionLong()
-    console.log(lastQuestionParagraphID)
     if(lastQuestionParagraphID) {
-        const newLongQuestionArr: [questionObject: Question, questionID: string] = findNestedValue(mainQuestionsObject, "questionParagraphID", lastQuestionParagraphID.replace("paragraph-", ""))
-        // Remove the string add after fixing the database
-        const questionParagraphID = 'paragraph-' + newLongQuestionArr[0]['questionParagraphID']
-        // to make sure that the question had a paragraph ID
-        if(newLongQuestionArr[0]['questionParagraphID'].length !== 0){
-            questionParagraph.set(mainParagraphsObject[questionParagraphID]['paragraphText'])
-        }else {
-            questionParagraph.set("")
-        }
-        question.set(newLongQuestionArr[0]['questionHead'])
-        answers.set(newLongQuestionArr[0]['questionAnswers'])
-        correctAnswer.set(newLongQuestionArr[0]['correctAnswer'])
-        currentQuestionID.set(newLongQuestionArr[1])
-        // delete mainQuestionsObject[newLongQuestionArr[1]]
-        // if() {}
+        getNewLongQuestion(lastQuestionParagraphID)
     }else {
         getNewRandomQuestion()
     }
