@@ -1,6 +1,21 @@
-import { categoriesObject, paragraphsObject, questionsObject } from "$lib/stores"
+import { categoriesObject, globalQuestionsAmount, paragraphsObject, questionsObject } from "$lib/stores"
 import type { Category, ParagraphsContainer, Question, QuestionsContainer } from "$lib/databaseInterfaces.ts"
-import { question, answers, correctAnswer, currentQuestionID, questionParagraph, questionID, skipState, correctState, incorrectState, questionCounter } from "./quiz-main-stores"
+import { 
+    question, 
+    answers, 
+    correctAnswer, 
+    questionParagraph, 
+    questionID, 
+    skipState, 
+    correctState, 
+    incorrectState, 
+    streakCounter, 
+    questionOutTransitionDuration,
+    questionInTransitionDuration,
+    questionStreak,
+    questionCounter,
+    isQuestionMarked,
+} from "./quiz-main-stores"
 
 // source: https://stackoverflow.com/questions/45336281/javascript-find-by-value-deep-in-a-nested-object-array
 function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
@@ -40,13 +55,21 @@ let mainQuestionsObject: QuestionsContainer = {}
 let mainCategoriesObject: Category = {}
 let localCorrectAnswer: string
 let localQuestionID: string
+let localQuestionsAmount: number
 let localQuestionCounter: number
+let localQuestionOutTransitionDuration: number
+let localQuestionInTransitionDuration: number
+let localIsQuestionMarked: boolean
 paragraphsObject.subscribe((data) => { if(data){ mainParagraphsObject = JSON.parse(data) } })
 questionsObject.subscribe((data) => { if(data){ mainQuestionsObject = JSON.parse(data) } })
 categoriesObject.subscribe((data) => { if(data){ mainCategoriesObject = JSON.parse(data) } })
 correctAnswer.subscribe((data) => localCorrectAnswer = data)
 questionID.subscribe((data) => localQuestionID = data)
+globalQuestionsAmount.subscribe(data => localQuestionsAmount = data)
 questionCounter.subscribe((data) => localQuestionCounter = data)
+questionOutTransitionDuration.subscribe((data) => localQuestionOutTransitionDuration = data)
+questionInTransitionDuration.subscribe((data) => localQuestionInTransitionDuration = data)
+isQuestionMarked.subscribe(data => localIsQuestionMarked = data)
 
 // get long questions category IDs
 let longQuestionsCategoryIDs: string[] = []
@@ -81,10 +104,9 @@ function isLastQuestionLong() {
     // check if last question was long
     if(!getLastItemInMap(currentQuestionsObject)) { return false }
     const lastQuestionMapArr: [questionCounter: string, questionObject: QuestionsContainer] = getLastItemInMap(currentQuestionsObject)
-    console.log(lastQuestionMapArr)
     const lastQuestionCounter = Object.keys(lastQuestionMapArr[1])[0]
     const lastQuestionObj = lastQuestionMapArr[1][lastQuestionCounter]
-    console.log(lastQuestionObj)
+
     for(const longQuestionCategoryID of longQuestionsCategoryIDs){
         if(lastQuestionObj['questionCategoryID'] == longQuestionCategoryID){
             return lastQuestionObj['questionParagraphID']
@@ -92,7 +114,9 @@ function isLastQuestionLong() {
     }
     return false
 }
+
 export function getNewRandomQuestion() {
+    console.log('getNewRandomQuestion()')
     let newQuestionID = Object.keys(mainQuestionsObject)[Math.floor(Math.random() * Object.keys(mainQuestionsObject).length)]
     // Remove the string add after fixing the database
     const questionParagraphID = 'paragraph-' + mainQuestionsObject[newQuestionID]['questionParagraphID']
@@ -102,46 +126,17 @@ export function getNewRandomQuestion() {
     }else {
         questionParagraph.set("")
     }
-
-    questionID.set(newQuestionID)
-    question.set(mainQuestionsObject[newQuestionID]['questionHead'])
-    answers.set(mainQuestionsObject[newQuestionID]['questionAnswers'])
-    correctAnswer.set(mainQuestionsObject[newQuestionID]['correctAnswer'])
-    currentQuestionID.set(newQuestionID)
-}
-
-let isAnimationActive = false
-export function pickAnswer(e: Event) {
-    if(!isAnimationActive){
-        isAnimationActive = true
-        const pick = (e.target as HTMLDivElement)?.getAttribute("data-value")
-        if (pick == 'skip'){
-            console.log('skipping')
-            skipState.set(true)
-            setTimeout(() => skipState.set(false), 500)
-        }else {
-            if(pick == localCorrectAnswer){
-                console.log('Correct!')
-                
-                correctState.set(true)
-                setTimeout(() => correctState.set(false), 500)
-            }else {
-                console.log('Incorrect! Better luck next time.')
-                
-                incorrectState.set(true)
-                setTimeout(() => incorrectState.set(false), 500)
-            }
-        }
-        currentQuestionsObject.set(localQuestionCounter, { localQuestionID: mainQuestionsObject[localQuestionID]})
-        questionCounter.update((count) => count + 1)
-        console.log(currentQuestionsObject)
-        setTimeout(() => { getQuestion(); isAnimationActive = false }, 400)
-        // make sure the timing is perfect
-        // delete question from mainObject if noRepeat was true
+    return {
+        questionID: newQuestionID,
+        question: mainQuestionsObject[newQuestionID]['questionHead'],
+        answers: mainQuestionsObject[newQuestionID]['questionAnswers'],
+        correctAnswer: mainQuestionsObject[newQuestionID]['correctAnswer'],
     }
 }
-export function getNewLongQuestion(lastQuestionParagraphID: string) {
-    const newLongQuestionArr: [questionObject: Question, questionID: string] = findNestedValue(mainQuestionsObject, "questionParagraphID", lastQuestionParagraphID.replace("paragraph-", ""))
+export function getNewLongQuestion(newLongQuestionArr: [questionObject: Question, questionID: string]) {
+    console.log('getNewLongQuestion()')
+    console.log(newLongQuestionArr);
+    
     // Remove the string add after fixing the database
     const questionParagraphID = 'paragraph-' + newLongQuestionArr[0]['questionParagraphID']
     // to make sure that the question had a paragraph ID
@@ -150,17 +145,83 @@ export function getNewLongQuestion(lastQuestionParagraphID: string) {
     }else {
         questionParagraph.set("")
     }
-    questionID.set(newLongQuestionArr[1])
-    question.set(newLongQuestionArr[0]['questionHead'])
-    answers.set(newLongQuestionArr[0]['questionAnswers'])
-    correctAnswer.set(newLongQuestionArr[0]['correctAnswer'])
-    currentQuestionID.set(newLongQuestionArr[1])
+    return {
+        questionID: newLongQuestionArr[1],
+        question: newLongQuestionArr[0]['questionHead'],
+        answers: newLongQuestionArr[0]['questionAnswers'],
+        correctAnswer: newLongQuestionArr[0]['correctAnswer'],
+    }
 }
 export function getQuestion() {
+    isQuestionMarked.set(false)
     const lastQuestionParagraphID = isLastQuestionLong()
+    let nextQuestionObj
     if(lastQuestionParagraphID) {
-        getNewLongQuestion(lastQuestionParagraphID)
+        const newLongQuestionArr: [questionObject: Question, questionID: string] = findNestedValue(mainQuestionsObject, "questionParagraphID", lastQuestionParagraphID.replace("paragraph-", ""))
+        // Check if there's any long question left
+        if(newLongQuestionArr) {
+            nextQuestionObj = getNewLongQuestion(newLongQuestionArr)
+        }else {
+            nextQuestionObj = getNewRandomQuestion()
+        }
     }else {
-        getNewRandomQuestion()
+        nextQuestionObj = getNewRandomQuestion()
     }
+    console.log(nextQuestionObj.correctAnswer)
+    questionID.set(nextQuestionObj.questionID)
+    question.set(nextQuestionObj.question)
+    answers.set(nextQuestionObj.answers)
+    correctAnswer.set(nextQuestionObj.correctAnswer)
+}
+
+
+let isAnimationActive = false
+export function pickAnswer(e: Event) {
+    if(!isAnimationActive){
+        isAnimationActive = true
+        const pick = (e.target as HTMLDivElement)?.getAttribute("data-value")
+        if (pick == 'skip'){
+            questionInTransitionDuration.set(400)
+            questionOutTransitionDuration.set(500)
+            skipState.set(true)
+            setTimeout(() => skipState.set(false), localQuestionInTransitionDuration + 200)
+        
+            questionStreak.update(n => n + 1)
+        }else {
+            if(pick == localCorrectAnswer){
+                questionInTransitionDuration.set(100)
+                questionOutTransitionDuration.set(100)
+                correctState.set(true)
+                setTimeout(() => correctState.set(false), localQuestionInTransitionDuration + 200)
+
+                questionStreak.update(n => n + 1)
+            }else {
+                questionInTransitionDuration.set(400)
+                questionOutTransitionDuration.set(500)
+                incorrectState.set(true)
+                setTimeout(() => incorrectState.set(false), localQuestionInTransitionDuration + 200)
+                
+                questionStreak.set(0)
+            }
+        }
+        mainQuestionsObject[localQuestionID]['isQuestionMarked'] = localIsQuestionMarked
+        currentQuestionsObject.set(localQuestionCounter, { localQuestionID: mainQuestionsObject[localQuestionID]})
+        delete mainQuestionsObject[localQuestionID]
+
+        streakCounter.update((count) => count + 1)
+        questionCounter.update((count) => count + 1)
+        console.log(localQuestionCounter, localQuestionsAmount)
+        if(localQuestionCounter >= localQuestionsAmount){
+            endQuiz()
+        }
+        setTimeout(() => isAnimationActive = false, localQuestionInTransitionDuration)
+        setTimeout(getQuestion,  localQuestionInTransitionDuration + 200)
+        // make sure the timing is perfect
+    }
+}
+
+
+
+export function endQuiz() {
+    console.log('quiz ended... load results page')
 }

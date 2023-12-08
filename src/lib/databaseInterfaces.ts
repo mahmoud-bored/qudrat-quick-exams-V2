@@ -1,3 +1,4 @@
+import { isQuestionMarked } from './../routes/quiz/main/quiz-main-stores';
 export interface Category {
     [categoryID: string]: {
         "name": string,
@@ -35,6 +36,7 @@ export interface QuestionsContainer {
         "questionHint": string,
         "questionParagraphID": string,
         "state": string,
+        "isQuestionMarked": boolean
     }
 }
 export interface Question {
@@ -57,6 +59,7 @@ export interface Question {
     "questionHint": string,
     "questionParagraphID": string,
     "state": string,
+    "isQuestionMarked": boolean
 }
 export interface QuestionAnswers {
     "0": string,

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { questionAlignment } from '$lib/stores'
+    import { questionAlignment } from './quiz-main-stores.ts';
     import { getHTMLElement } from '$lib/app'
     import columnAlignImgSrc from '$lib/assets/column-align-icon.svg'
     import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
@@ -10,10 +10,16 @@
     export let isLandscape: boolean
     export let answers: QuestionAnswers
 
-    const answer1 = answers[0] ? answers[0] : "" 
-    const answer2 = answers[1] ? answers[1] : "" 
-    const answer3 = answers[2] ? answers[2] : "" 
-    const answer4 = answers[3] ? answers[3] : ""
+    let answer1: string 
+    let answer2: string 
+    let answer3: string 
+    let answer4: string
+    $: {
+        answer1 = answers[0] ? answers[0] : "" 
+        answer2 = answers[1] ? answers[1] : "" 
+        answer3 = answers[2] ? answers[2] : "" 
+        answer4 = answers[3] ? answers[3] : ""
+    }
 
     function changeQuestionAlighnment(align: string){
         questionAlignment.set(align)

@@ -126,6 +126,7 @@
         </div>
     </div>
     <div class="exam-customization-questions-repeat-container" transition:fly={{ x: -200, duration: 600 }}>
+
         <h2>تكرار الأسئلة</h2>
         <button class="exam-customization-questions-repeat-input-container active" on:click={() => {
             noRepeat = !noRepeat
@@ -289,6 +290,8 @@
             flex-direction: column
             align-items: flex-end
             transition: all 0.2s ease
+            opacity: 0.5
+            pointer-events: none
             .exam-customization-questions-repeat-input-container
                 height: 60px
                 width: calc(100% - 30px)

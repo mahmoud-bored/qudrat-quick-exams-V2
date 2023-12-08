@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { questionFontSize, questionAlignment } from "$lib/stores"
     import { getHTMLElement } from "$lib/app"
 	import { fly } from "svelte/transition";
 	import type { QuestionAnswers } from "$lib/databaseInterfaces";
+	import { questionOutTransitionDuration, questionFontSize, questionAlignment } from "./quiz-main-stores";
     export let isWoodMode: boolean
     export let questionHead: string
     export let answers: QuestionAnswers
@@ -36,7 +36,7 @@
             <p 
                 class="question-head" 
                 in:fly={{ x: 40, duration: 300 }} 
-                out:fly={{ y: 20, x: -20, duration: 200 }}
+                out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration - 50 }}
             >
                 {questionHead}
             </p>    
@@ -48,14 +48,14 @@
 
             <div class="answer-container">
                 {#key answer1 } 
-                    <p in:fly={{ x: 40, duration: 350 }} out:fly={{ y: 20, x: -20, duration: 250 }} >
+                    <p in:fly={{ x: 40, duration: 350 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }} >
                         أ- {answer1}
                     </p> 
                 {/key}
             </div>
             <div class="answer-container">
                 {#key answer2} 
-                    <p in:fly={{ x: 40, duration: 350 }} out:fly={{ y: 20, x: -20, duration: 250 }} >
+                    <p in:fly={{ x: 40, duration: 350 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }} >
                         ب- {answer2}
                     </p> 
                 {/key}
@@ -66,14 +66,14 @@
 
             <div class="answer-container">
                 {#key answer3}
-                    <p in:fly={{ x: 40, duration: 400 }} out:fly={{ y: 20, x: -20, duration: 300 }} >
+                    <p in:fly={{ x: 40, duration: 400 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }} >
                         ج- {answer3}
                     </p> 
                 {/key}
             </div>
             <div class="answer-container">
                 {#key answer4} 
-                    <p in:fly={{ x: 40, duration: 400 }} out:fly={{ y: 20, x: -20, duration: 300 }} >
+                    <p in:fly={{ x: 40, duration: 400 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }} >
                         د- {answer4}
                     </p> 
                 {/key}
