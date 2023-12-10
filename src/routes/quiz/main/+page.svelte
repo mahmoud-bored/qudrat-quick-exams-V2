@@ -35,24 +35,25 @@
     let isWoodMode: boolean = false
 
     onMount(() => {
-        checkQuizReady()
-        // Set Theme: Dark, Light or Wood
-        if ($examTheme == 'ليلي'){
-            themeSrc = darkModeImgSrc
-            questionColor = 'rgb(236 236 236)'
-            paragraphColor = '#fff'
-        } else if ($examTheme == 'عادي'){
-            themeSrc = lightModeImgSrc
-            questionColor = '#000'
-            paragraphColor = '#000'
-        } else if ($examTheme == 'Wood(Beta)'){
-            themeSrc = woodModeImgSrc
-            isWoodMode = true
-            questionColor = '#000'
-            paragraphColor = '#fff'
+        if(checkQuizReady()){
+            // Set Theme: Dark, Light or Wood
+            if ($examTheme == 'ليلي'){
+                themeSrc = darkModeImgSrc
+                questionColor = 'rgb(236 236 236)'
+                paragraphColor = '#fff'
+            } else if ($examTheme == 'عادي'){
+                themeSrc = lightModeImgSrc
+                questionColor = '#000'
+                paragraphColor = '#000'
+            } else if ($examTheme == 'Wood(Beta)'){
+                themeSrc = woodModeImgSrc
+                isWoodMode = true
+                questionColor = '#000'
+                paragraphColor = '#fff'
+            }
+            getQuestion()
         }
     })
-    onMount(getQuestion)
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
     let screenWidth: number
@@ -71,7 +72,6 @@
         }
     } catch(e) { }
     let isShowResultsButtonThrobberVisible = false
-
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
@@ -81,7 +81,7 @@
     {#if $endQuizWarningTab}
         <div class="end-quiz-tab-background" transition:fade={{ duration: 200 }} ></div>
         <div class="end-quiz-tab-container">
-            <div class="end-quiz-tab" in:fly={{ y: -40, x: 40, duration: 400 }} out:fly={{ y: 40, x: -40, duration: 200 }}>
+            <div class="end-quiz-tab" in:fly={{ y: -40, x: 40, duration: 400 }} out:fly={{ y: 40, duration: 200 }}>
                 <button class="end-quiz-tab-close-button" on:click={() => endQuizWarningTab.set(false)}>
                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18.5439 2L1.99994 19.1568" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18.5957 19.2598L2.05121 2.10348" stroke="white" stroke-width="3" stroke-linecap="round"/>
@@ -95,8 +95,8 @@
             </div>
         </div>
     {/if}
-    <!-- {#if $isShowResultsVisible}
-        <section class="show-results-tab" in:fly={{ y: -700, duration: 200 }}>
+    {#if $isShowResultsVisible}
+        <section class="show-results-tab" in:fly={{ y: -600, duration: 200 }}>
             <div class="results-chart-container"></div>
             <div class="show-results-page-button-container">
                 <button class="show-results-page-button" on:click={() => {
@@ -117,7 +117,7 @@
                 <div id="stars3"></div>
             </div>
         </section>
-    {/if} -->
+    {/if}
     {#if isLandscape}
         <div class="quiz-landscape-container">
             <ProgressBar />
