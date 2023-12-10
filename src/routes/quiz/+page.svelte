@@ -42,7 +42,9 @@
         isExamThemeCustomizationVisible = !isExamThemeCustomizationVisible
         buttonElement.classList.toggle('full-size')
     }
+    let isQuizStartThrobberVisible = false
     function getParagraphsFromLocalStorage() {
+        isQuizStartThrobberVisible = true
         const paragraphs = localStorage.getItem('paragraphs')
         const categories = localStorage.getItem('categories')
         if(paragraphs !== null && categories !== null){
@@ -55,6 +57,7 @@
         isParagraphsReady = true
     }
     function getQuestionsFromLocalStorage() {
+        isQuizStartThrobberVisible = true
         const questions = localStorage.getItem('questions')
         if(questions !== null){
             questionsObject.set(questions)
@@ -63,7 +66,6 @@
         }
         isQuestionsReady = true
     }
-    let isQuizStartThrobberVisible = false
     function getParagraphsFromDatabase() {
         isQuizStartThrobberVisible = true
         getParagraphsData().then((data) => {

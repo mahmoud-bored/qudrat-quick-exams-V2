@@ -1,6 +1,7 @@
 import { categoriesObject, globalQuestionsAmount, paragraphsObject, questionsObject } from "$lib/stores"
 import type { Category, ParagraphsContainer, Question, QuestionsContainer } from "$lib/databaseInterfaces.ts"
 import { 
+    timer,
     question, 
     answers, 
     correctAnswer, 
@@ -15,7 +16,10 @@ import {
     questionStreak,
     questionCounter,
     isQuestionMarked,
+    isNextQuestionReady,
+    isShowResultsVisible,
 } from "./quiz-main-stores"
+import ProgressBarFragment from "./ProgressBarFragment.svelte"
 
 // source: https://stackoverflow.com/questions/45336281/javascript-find-by-value-deep-in-a-nested-object-array
 function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
@@ -60,6 +64,7 @@ let localQuestionCounter: number
 let localQuestionOutTransitionDuration: number
 let localQuestionInTransitionDuration: number
 let localIsQuestionMarked: boolean
+let localTimer: number
 paragraphsObject.subscribe((data) => { if(data){ mainParagraphsObject = JSON.parse(data) } })
 questionsObject.subscribe((data) => { if(data){ mainQuestionsObject = JSON.parse(data) } })
 categoriesObject.subscribe((data) => { if(data){ mainCategoriesObject = JSON.parse(data) } })
@@ -70,7 +75,7 @@ questionCounter.subscribe((data) => localQuestionCounter = data)
 questionOutTransitionDuration.subscribe((data) => localQuestionOutTransitionDuration = data)
 questionInTransitionDuration.subscribe((data) => localQuestionInTransitionDuration = data)
 isQuestionMarked.subscribe(data => localIsQuestionMarked = data)
-
+timer.subscribe(data => localTimer = data)
 // get long questions category IDs
 let longQuestionsCategoryIDs: string[] = []
 for(const category in mainCategoriesObject){
@@ -78,6 +83,14 @@ for(const category in mainCategoriesObject){
         longQuestionsCategoryIDs.push(category)
     }
 }
+// start timer
+setInterval(() => timer.update((time) => { 
+    if( time > 0 ) {
+        return time - 1
+    } else {
+        return 0
+    }
+}), 1000)
 
 let currentQuestionsObject = new Map()
 const mock = {	"question-oEl2OewD0Px8doKGI1S6": {
@@ -116,9 +129,9 @@ function isLastQuestionLong() {
 }
 
 export function getNewRandomQuestion() {
-    console.log('getNewRandomQuestion()')
     let newQuestionID = Object.keys(mainQuestionsObject)[Math.floor(Math.random() * Object.keys(mainQuestionsObject).length)]
-    // Remove the string add after fixing the database
+    // console.log(mainQuestionsObject)
+    // Remove the string add incatnation fixing the database
     const questionParagraphID = 'paragraph-' + mainQuestionsObject[newQuestionID]['questionParagraphID']
     // to make sure that the question had a paragraph ID
     if(mainQuestionsObject[newQuestionID]['questionParagraphID'].length !== 0){
@@ -134,8 +147,8 @@ export function getNewRandomQuestion() {
     }
 }
 export function getNewLongQuestion(newLongQuestionArr: [questionObject: Question, questionID: string]) {
-    console.log('getNewLongQuestion()')
-    console.log(newLongQuestionArr);
+    // console.log('getNewLongQuestion()')
+    // console.log(newLongQuestionArr)
     
     // Remove the string add after fixing the database
     const questionParagraphID = 'paragraph-' + newLongQuestionArr[0]['questionParagraphID']
@@ -153,7 +166,10 @@ export function getNewLongQuestion(newLongQuestionArr: [questionObject: Question
     }
 }
 export function getQuestion() {
+    // reset timer and question mark
+    timer.set(50)
     isQuestionMarked.set(false)
+
     const lastQuestionParagraphID = isLastQuestionLong()
     let nextQuestionObj
     if(lastQuestionParagraphID) {
@@ -167,61 +183,67 @@ export function getQuestion() {
     }else {
         nextQuestionObj = getNewRandomQuestion()
     }
-    console.log(nextQuestionObj.correctAnswer)
+    // console.log(nextQuestionObj.correctAnswer)
     questionID.set(nextQuestionObj.questionID)
     question.set(nextQuestionObj.question)
     answers.set(nextQuestionObj.answers)
     correctAnswer.set(nextQuestionObj.correctAnswer)
 }
 
-
-let isAnimationActive = false
+function addProgressBarFragment(answerResult: string){
+    new ProgressBarFragment({
+        target: document.querySelector('.progress-bar-container') || document.body,
+        props: {
+            width: `${100 / localQuestionsAmount}%`, 
+            answerResult: answerResult,
+            fragmentID: localQuestionCounter.toString()
+        }
+    })
+}
 export function pickAnswer(e: Event) {
-    if(!isAnimationActive){
-        isAnimationActive = true
-        const pick = (e.target as HTMLDivElement)?.getAttribute("data-value")
-        if (pick == 'skip'){
-            questionInTransitionDuration.set(400)
-            questionOutTransitionDuration.set(500)
-            skipState.set(true)
-            setTimeout(() => skipState.set(false), localQuestionInTransitionDuration + 200)
-        
+    isNextQuestionReady.set(false)
+    const pick = (e.target as HTMLDivElement)?.getAttribute("data-value")
+    if (pick == 'skip'){
+        questionInTransitionDuration.set(400)
+        questionOutTransitionDuration.set(500)
+        skipState.set(true)
+        setTimeout(() => skipState.set(false), localQuestionInTransitionDuration + 200)
+        addProgressBarFragment('skip')
+        questionStreak.update(n => n + 1)
+    }else {
+        if(pick == localCorrectAnswer){
+            questionInTransitionDuration.set(100)
+            questionOutTransitionDuration.set(100)
+            correctState.set(true)
+            setTimeout(() => correctState.set(false), localQuestionInTransitionDuration + 200)
+            addProgressBarFragment('correct')
             questionStreak.update(n => n + 1)
         }else {
-            if(pick == localCorrectAnswer){
-                questionInTransitionDuration.set(100)
-                questionOutTransitionDuration.set(100)
-                correctState.set(true)
-                setTimeout(() => correctState.set(false), localQuestionInTransitionDuration + 200)
-
-                questionStreak.update(n => n + 1)
-            }else {
-                questionInTransitionDuration.set(400)
-                questionOutTransitionDuration.set(500)
-                incorrectState.set(true)
-                setTimeout(() => incorrectState.set(false), localQuestionInTransitionDuration + 200)
-                
-                questionStreak.set(0)
-            }
+            questionInTransitionDuration.set(400)
+            questionOutTransitionDuration.set(500)
+            incorrectState.set(true)
+            setTimeout(() => incorrectState.set(false), localQuestionInTransitionDuration + 200)
+            addProgressBarFragment('incorrect')
+            questionStreak.set(0)
         }
-        mainQuestionsObject[localQuestionID]['isQuestionMarked'] = localIsQuestionMarked
-        currentQuestionsObject.set(localQuestionCounter, { localQuestionID: mainQuestionsObject[localQuestionID]})
-        delete mainQuestionsObject[localQuestionID]
-
-        streakCounter.update((count) => count + 1)
-        questionCounter.update((count) => count + 1)
-        console.log(localQuestionCounter, localQuestionsAmount)
-        if(localQuestionCounter >= localQuestionsAmount){
-            endQuiz()
-        }
-        setTimeout(() => isAnimationActive = false, localQuestionInTransitionDuration)
-        setTimeout(getQuestion,  localQuestionInTransitionDuration + 200)
-        // make sure the timing is perfect
     }
+
+    mainQuestionsObject[localQuestionID]['isQuestionMarked'] = localIsQuestionMarked
+    currentQuestionsObject.set(localQuestionCounter, { localQuestionID: mainQuestionsObject[localQuestionID]})
+    delete mainQuestionsObject[localQuestionID]
+
+    streakCounter.update((count) => count + 1)
+    questionCounter.update((count) => count + 1)
+    // console.log(localQuestionCounter, localQuestionsAmount)
+    if(localQuestionCounter >= localQuestionsAmount){
+        endQuiz()
+    }
+    setTimeout(() => isNextQuestionReady.set(true), localQuestionInTransitionDuration + 200)
+    setTimeout(getQuestion,  localQuestionInTransitionDuration + 200)
 }
 
 
 
 export function endQuiz() {
-    console.log('quiz ended... load results page')
+    isShowResultsVisible.set(true)
 }

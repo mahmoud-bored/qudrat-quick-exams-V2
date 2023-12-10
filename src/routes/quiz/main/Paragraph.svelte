@@ -25,7 +25,7 @@
             <div class="lock-image-container" in:fly={{ y:-20, x: 40, duration: 300 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }}>
                 <svg width="280" height="375" viewBox="0 0 280 375" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect y="154" width="280" height="221" rx="23" fill="black"/><circle cx="140" cy="249" r="28" fill="#454545"/><path d="M125 269H155L163.5 309H117L125 269Z" fill="#454545"/><path d="M206.5 93.502V155.502H242.5V91.502C238.833 61.1686 213.3 0.40195 140.5 0.00195016C67.7 -0.39805 41.1667 60.8353 37 91.502V155.502H73.5V91.502C76.8333 73.002 94.9 36.0019 140.5 36.0019C186.1 36.0019 203.5 74.3353 206.5 93.502Z" fill="black"/>
-                </svg>    
+                </svg>
             </div>
         {/if}
     </div>
@@ -50,6 +50,7 @@
         background-color: #D4C29960
         color: inherit
         overflow: hidden
+        @include font-size-slider()
         input
             width: 100%
         .paragraph-field-container

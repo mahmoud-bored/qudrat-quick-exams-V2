@@ -154,7 +154,7 @@
                     questionsAmount = $maxQuestionAmount
                 }
             }}>الكل</button>
-            <input class="questions-amount-input" bind:value={questionsAmount} type="number" placeholder="مخصص">
+            <input lang="en" class="questions-amount-input" bind:value={questionsAmount} type="number" placeholder="مخصص">
         </div>
     </div>
 

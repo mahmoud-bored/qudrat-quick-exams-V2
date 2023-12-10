@@ -15,6 +15,107 @@ $color-bg-secondary: #474747
     box-shadow: 0px 0px 16px 0px rgba(255,0,0,1)
     -webkit-box-shadow: 0px 0px 16px 0px rgba(255,0,0,1)
     -moz-box-shadow: 0px 0px 16px 0px rgba(255,0,0,1)
+@mixin font-size-slider()
+    /***** Chrome, Safari, Opera, and Edge Chromium *****/
+    // Source: https://codepen.io/ShadowShahriar/pen/zYPPYrQ?editors=1100
+    input[type="range"]
+        position: relative
+        background-color: #fff
+        overflow: hidden
+        color: #0060df
+        -webkit-appearance: none
+        transition: all ease 0.1s
+        height: var(--thumb-height)
+        --thumb-height: 30px
+        --track-height: 5px
+        --track-color: #ffffff
+        --brightness-hover: 130%
+        --brightness-down: 80%
+        --clip-edges: 0.125em
+        &::-webkit-slider-runnable-track
+            -webkit-appearance: none
+            transition: all ease 0.1s
+            height: var(--thumb-height)
+            position: relative
+            background: linear-gradient(var(--track-color) 0 0) scroll no-repeat center / 100% calc(var(--track-height) + 1px)
+        &::-webkit-slider-thumb
+            -webkit-appearance: none
+            transition: all ease 0.1s
+            height: var(--thumb-height)
+            position: relative
+            --thumb-radius: calc((var(--thumb-height) * 0.5) - 1px)
+            --clip-top: calc((var(--thumb-height) - var(--track-height)) * 0.5 - 0.5px)
+            --clip-bottom: calc(var(--thumb-height) - var(--clip-top))
+            --clip-further: calc(100% + 1px)
+            --box-fill: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0 100vmax currentColor
+            width: var(--thumb-width, var(--thumb-height))
+            background-image: url("data:image/svg+xml,%3Csvg width='15' height='18' viewBox='0 0 30 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18.5 0.5L30 36H23L15.5 9.5L8 36H0.5L12.5 0.5H18.5Z' fill='white'/%3E%3Cpath d='M9.5 22H21V27.5H9.5V22Z' fill='white'/%3E%3C/svg%3E%0A")
+            background-repeat: no-repeat
+            background-position: center
+            background-color: #595959
+            border: #fff 2px solid
+            box-shadow: var(--box-fill)
+            border-radius: var(--thumb-width, var(--thumb-height))
+            filter: brightness(100%)
+            clip-path: polygon( 100% -1px, var(--clip-edges) -1px, 0 var(--clip-top), -100vmax var(--clip-top), -100vmax var(--clip-bottom), 0 var(--clip-bottom), var(--clip-edges) 100%, var(--clip-further) var(--clip-further) )
+        &:hover
+            &::-webkit-slider-thumb 
+                filter: brightness(var(--brightness-hover))
+                cursor: pointer
+        &:active
+            &::-webkit-slider-thumb
+                filter: brightness(var(--brightness-down))
+                cursor: pointer
+
+    /******** Firefox ********/
+    input[type="range"]
+        height: 5px
+        border-radius: 5px
+        background: transparent
+        transition: all 0.1s ease
+        cursor: pointer
+        padding: 15px
+        &::-moz-range-track
+            background-color: #fff
+            height: 5px
+            border-radius: 5px
+            transition: all 0.1s ease
+        &::-moz-range-thumb
+            background-image: url("data:image/svg+xml,%3Csvg width='15' height='18' viewBox='0 0 30 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18.5 0.5L30 36H23L15.5 9.5L8 36H0.5L12.5 0.5H18.5Z' fill='white'/%3E%3Cpath d='M9.5 22H21V27.5H9.5V22Z' fill='white'/%3E%3C/svg%3E%0A")
+            background-repeat: no-repeat
+            background-position: center
+            background-color: #595959
+            border: #fff 2px solid
+            height: 25px
+            width: 25px
+            border-radius: 100%
+            transition: all 0.1s ease
+            cursor: pointer
+            &:hover
+                background-color: darken(#595959, 10%)
+            &:active
+                background-color: #0060df
+        &::-moz-range-progress
+            background-color: #0060df
+            height: 5px
+            border-radius: 5px
+            transition: all 0.1s ease
+        &:hover
+            &::-moz-range-track
+                background-color: darken(#fff, 10%)
+            &::-moz-range-thumb
+                background-color: darken(#595959, 10%)
+            &::-moz-range-progress
+                background-color: #2374ff
+        &:active
+            cursor: pointer
+            &::-moz-range-thumb
+                background-color: #0060df
+@mixin font-family()
+    font-family: inter
+    font-weight: 800
+    font-family: 'El Messiri', sans-serif
+    
 *
     padding: 0
     margin: 0

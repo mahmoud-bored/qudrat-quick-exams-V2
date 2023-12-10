@@ -21,5 +21,7 @@ export const correctState: Writable<boolean> = writable(false)
 export const incorrectState: Writable<boolean> = writable(false)
 export const skipState: Writable<boolean> = writable(false)
 export const isQuestionMarked: Writable<boolean> = writable(false)
+export const isNextQuestionReady: Writable<boolean> = writable(true)
 
 export const endQuizWarningTab: Writable<boolean> = writable(false)
+export const isShowResultsVisible: Writable<boolean> = writable(false)

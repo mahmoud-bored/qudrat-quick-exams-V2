@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { questionAlignment } from './quiz-main-stores.ts';
+    import { questionAlignment, isNextQuestionReady } from './quiz-main-stores.ts';
     import { getHTMLElement } from '$lib/app'
     import columnAlignImgSrc from '$lib/assets/column-align-icon.svg'
     import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
@@ -41,10 +41,10 @@
         </button>
     </div>
     <div class="choices-container" class:isWoodMode>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="{answer1}" on:click={pickAnswer}>أ</button>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="{answer2}" on:click={pickAnswer}>ب</button>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="{answer3}" on:click={pickAnswer}>ج</button>
-        <button class="choice" class:choice-landscape={isLandscape} data-value="{answer4}" on:click={pickAnswer}>د</button>
+        <button class="choice" class:choice-landscape={isLandscape} class:choice-disabled={!$isNextQuestionReady} data-value="{answer1}" on:click={(e) => { if($isNextQuestionReady){pickAnswer(e)}} }>أ</button>
+        <button class="choice" class:choice-landscape={isLandscape} class:choice-disabled={!$isNextQuestionReady} data-value="{answer2}" on:click={(e) => { if($isNextQuestionReady){pickAnswer(e)}} }>ب</button>
+        <button class="choice" class:choice-landscape={isLandscape} class:choice-disabled={!$isNextQuestionReady} data-value="{answer3}" on:click={(e) => { if($isNextQuestionReady){pickAnswer(e)}} }>ج</button>
+        <button class="choice" class:choice-landscape={isLandscape} class:choice-disabled={!$isNextQuestionReady} data-value="{answer4}" on:click={(e) => { if($isNextQuestionReady){pickAnswer(e)}} }>د</button>
     </div>
 </div>
 
@@ -102,6 +102,7 @@
                 display: flex
                 justify-content: center
                 align-items: center
+                opacity: 1
                 transition: all 0.2s ease
                 @media (hover: hover)
                     &:hover
@@ -110,4 +111,6 @@
             .choice-landscape
                 height: auto
                 aspect-ratio: 1 / 1
+            .choice-disabled
+                opacity: 0.3
 </style>
