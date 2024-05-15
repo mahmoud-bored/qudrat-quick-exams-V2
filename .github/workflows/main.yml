@@ -32,14 +32,12 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build
-        run: npm run build
+        run: npm run build && echo '${{ secrets.PRIVATE_REDIS_HOST }}'
         env:
             PRIVATE_REDIS_HOST: ${{ secrets.PRIVATE_REDIS_HOST }}
             PRIVATE_REDIS_PASSWORD: ${{ secrets.PRIVATE_REDIS_PASSWORD }}
             PRIVATE_SUPABASE_ANON_KEY: ${{ secrets.PRIVATE_SUPABASE_ANON_KEY }}
             PRIVATE_SUPABASE_URL: ${{ secrets.PRIVATE_SUPABASE_URL }}
-      - name: Print...
-        run: echo '${{ secrets.PRIVATE_REDIS_HOST }}'
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
