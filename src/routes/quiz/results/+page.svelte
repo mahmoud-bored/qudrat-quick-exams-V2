@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { browser } from "$app/environment"
-	import type { Question } from "$lib/databaseInterfaces"
 	import { fade, fly } from "svelte/transition";
-	import Layout from "../../+layout.svelte";
     import { 
         totalTimer,
         generalCurrentQuestionsMap, 
