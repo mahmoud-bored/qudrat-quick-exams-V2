@@ -1,5 +1,5 @@
 export type RedisDB = {
-    [key: string]: {
+    [key: keyof DbData]: {
         version: number,
         timestamp: string
     }

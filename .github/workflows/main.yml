@@ -28,16 +28,8 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-
       - name: Install dependencies
         run: npm install
-      - name: Echo Env Variables
-        run: echo $PRIVATE_REDIS_HOST
-        env:
-            PRIVATE_REDIS_HOST: ${{ secrets.PRIVATE_REDIS_HOST }}
-            PRIVATE_REDIS_PASSWORD: ${{ secrets.PRIVATE_REDIS_PASSWORD }}
-            PRIVATE_SUPABASE_ANON_KEY: ${{ secrets.PRIVATE_SUPABASE_ANON_KEY }}
-            PRIVATE_SUPABASE_URL: ${{ secrets.PRIVATE_SUPABASE_URL }}
       - name: Build
         run: npm run build
         env:
