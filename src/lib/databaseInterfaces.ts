@@ -1,5 +1,3 @@
-import { isQuestionMarked, skipState, incorrectState } from './../routes/quiz/main/quiz-main-stores';
-
 export type RedisDB = {
     [key: string]: {
         version: number,
