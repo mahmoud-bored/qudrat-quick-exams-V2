@@ -2,7 +2,7 @@ import { activeExamsIDs, maxQuestionAmount, globalQuestionsAmount, questionNoRep
 
 let localMaxQuestionAmount: number
 let localGlobalQuestionsAmount: number
-let localActiveExamsIDs: string[]
+let localActiveExamsIDs: number[]
 let noRepeat: boolean
 
 activeExamsIDs.subscribe((value) => localActiveExamsIDs = value)

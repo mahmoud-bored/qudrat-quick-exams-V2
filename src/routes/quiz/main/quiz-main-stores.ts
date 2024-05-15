@@ -3,12 +3,11 @@ import type { Writable } from "svelte/store"
 import type { QuestionAnswers } from "$lib/databaseInterfaces"
 
 export const questionCounter: Writable<number> = writable(0)
-export const timer: Writable<number> = writable(50)
 export const questionFontSize: Writable<number> = writable(1)
 export const questionAlignment: Writable<string> = writable('row')
 
-export const questionID: Writable<string> = writable()
-export const questionParagraph: Writable<string> = writable()
+export const questionID: Writable<number> = writable()
+export const questionParagraph: Writable<string | undefined> = writable(undefined)
 export const question: Writable<string> = writable()
 export const answers: Writable<QuestionAnswers> = writable({} as QuestionAnswers)
 export const correctAnswer: Writable<string> = writable()

@@ -1,13 +1,13 @@
 <script lang="ts">
     import { checkActiveExamsList } from "./activeExamsList";
     import { activeExamsIDs } from "$lib/stores"
-    import type { CollectionContainer, Exams } from "$lib/stores"
+    import type { CollectionsContainer, Exams } from "$lib/stores"
 	import { onMount } from "svelte";
 
-    export let collections: CollectionContainer
+    export let collections: CollectionsContainer
     export let exams: Exams
-    export let examID: string
-    let localActiveExamsIDs: string[] 
+    export let examID: number
+    let localActiveExamsIDs: number[] 
     activeExamsIDs.subscribe((value)=> localActiveExamsIDs = value)
     let isExamActive = false
     function updateActiveExamsIDs(){
@@ -23,8 +23,8 @@
 
     $: {
         isExamActive = false
-        for(const exam of Object.keys(exams.examsIDs)){
-            if(localActiveExamsIDs.includes(exam)){
+        for(const exam of Object.keys(exams)){
+            if(localActiveExamsIDs.includes(parseInt(exam))){
                 isExamActive = true
                 break
             }
@@ -35,11 +35,11 @@
 
 
 <button class="exam-card" data-id={examID} on:click={()=>{ updateActiveExamsIDs(); checkActiveExamsList(collections) }}>
-    <div class="button-subtxt">{exams.examsIDs[examID].numberOfQuestions} سؤال</div>
+    <div class="button-subtxt">{exams[examID].numberOfQuestions} سؤال</div>
     <hr>
     <div class="button-title">
         <input type="checkbox">
-        <p>{exams.examsIDs[examID].name}</p>
+        <p>{exams[examID].name}</p>
     </div>
 </button>
 
@@ -53,9 +53,9 @@
     @import '$lib/assets/app.sass'
     .exam-card
         width: 85%
-        min-height: 50px
+        min-height: 60px
         background-color: $color-bg-secondary
-        border-radius: 10px
+        border-radius: 5px
         display: flex
         justify-content: space-between
         align-items: center

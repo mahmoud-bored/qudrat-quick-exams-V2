@@ -1,29 +1,26 @@
 <script lang="ts">
     import { isExamsCutomizationTabVisible, examsCollectionCustomizeTab, activeExamsIDs } from "$lib/stores"
-    import type { CollectionContainer } from "$lib/stores";
+    import type { CollectionsContainer } from "$lib/stores";
     import { checkActiveExamsList } from "./activeExamsList";
 	import { onMount } from "svelte";
 
-    export let collectionID: string
-    export let collections: CollectionContainer
+    export let collectionID: number
+    export let collections: CollectionsContainer
 
     let isCardMounted = false
     onMount(()=> { setTimeout(() => { isCardMounted = true }, 50) })
-
+    $: console.log($activeExamsIDs)
     const collectionObj = collections[collectionID]
-    const collectionObjInfo = collectionObj['info']
-    let collectionQuestionsAmount = 0
-    for(const exam of Object.keys(collectionObj['exams'])){
-        collectionQuestionsAmount += parseInt(collectionObj['exams'][exam]['numberOfQuestions'])
-    }
-    let localActiveExamsIDs: string[]
+    const collectionObjInfo = collectionObj.info
+    let collectionQuestionsAmount = collections[collectionID].info.numberOfQuestions
+    let localActiveExamsIDs: number[]
     let isCollectionActive = false
     activeExamsIDs.subscribe((value)=> localActiveExamsIDs = value)
     // check if the collection is active
     $: {
         isCollectionActive = false
         for(const exam of Object.keys(collectionObj['exams'])){
-            if(localActiveExamsIDs.includes(exam)){
+            if(localActiveExamsIDs.includes(parseInt(exam))){
                 isCollectionActive = true
                 break
             }
@@ -35,20 +32,20 @@
         if(isCollectionActive){
             for(const exam of Object.keys(collectionObj['exams'])){
                 // remove exam from localActiveExamsIDs
-                localActiveExamsIDs.splice(localActiveExamsIDs.indexOf(exam), 1)
+                localActiveExamsIDs.splice(localActiveExamsIDs.indexOf(parseInt(exam)), 1)
                 isCollectionActive = false
             }
         } else {
             for(const exam of Object.keys(collectionObj['exams'])){
                 // add exam to localActiveExamsIDs
-                localActiveExamsIDs.push(exam)
+                localActiveExamsIDs.push(parseInt(exam))
                 isCollectionActive = true
             }
         }
         // update activeExamsIDs
         setActiveExams(localActiveExamsIDs)
     }
-    function setActiveExams(arr: string[]){ activeExamsIDs.set(arr) }
+    function setActiveExams(arr: number[]){ activeExamsIDs.set(arr) }
     function showCustomizationTab(){ isExamsCutomizationTabVisible.set(true) }
     function setExamsCollection(){ examsCollectionCustomizeTab.set(collectionObj) }
 </script>
@@ -68,8 +65,7 @@
 <style lang="sass">
     @import '$lib/assets/app.sass'
     .collection-container
-        padding: 5px 15px
-        min-height: 55px
+        padding: 5px 10px
         width: 90%
         border-radius: 5px
         background-color: $color-bg-secondary
@@ -80,7 +76,7 @@
         margin-left: 70px
         margin-top: -20px
         opacity: 0
-        transition: all 0.4s ease-out
+        transition: all 0.2s ease-out
         border: 3px solid transparent
         @include outer-shadow()
         div, button

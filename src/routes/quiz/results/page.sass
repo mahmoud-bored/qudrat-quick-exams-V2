@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap')
+
+.results-nav-container
+    height: 100%
+    position: fixed
+    top: 0
+    right: 0
+    display: flex
+    justify-content: center
+    align-items: center
+    .results-nav-buttons-container
+        width: 80px
+        background-color: #585858
+        display: flex
+        justify-content: space-evenly
+        flex-direction: column
+        gap: 10px
+        padding: 10px 0 10px 7px
+        border-top-left-radius: 10px
+        border-bottom-left-radius: 10px
+.results-nav-container-mobile
+    width: 100%
+    display: flex
+    justify-content: center
+    position: fixed
+    bottom: 0
+    background-color: #444
+    z-index: 2
+    .results-nav-buttons-container
+        height: 80px
+        background-color: transparent
+        display: flex
+        justify-content: space-evenly
+        flex-direction: row
+        gap: 10px
+        padding: 10px 10px 7px 10px
+        border-top-left-radius: 10px
+        border-top-right-radius: 10px
+.container
+    width: 100%
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    flex-direction: row-reverse
+    overflow: auto
+
+    --dot-bg: #333
+    --dot-color: #ffffff40
+    --dot-size: 1px
+    --dot-space: 22px
+    background: linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space), linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space), var(--dot-color)
+    .results-container
+        height: 100%
+        width: 100%
+        display: flex
+        align-items: center
+        flex-direction: column
+        padding: min(7%, 30px) 80px 90px 0
+        gap: 20px
+        scrollbar-width: thin
+        scrollbar-color: #222 #333
+        overflow-x: hidden
+        h1
+            color: #aae9ff
+        .results-summary-container
+            display: flex
+            justify-content: space-evenly
+            align-items: center
+            width: 80%
+            gap: 15px
+            .results-summary
+                width: min(90vw, 350px)
+                aspect-ratio: 1.5 / 1
+                background-color: #4a4a4a
+                border-radius: 10px
+                display: flex
+                justify-content: space-around
+                align-items: center
+                flex-direction: column
+            .results-summary-details-container
+                .results-summary-details
+                    display: flex
+                    justify-content: space-between
+                    width: 100%
+                    height: 50%
+                    align-items: center
+                    .results-summary-details-icon-container
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        gap: 5px
+                        width: 100%
+                        svg
+                            width: 33%
+                        span
+                            font-size: 3.5em
+                            margin-right: 5%
+                        p
+                            font-size: 1.8em
+                            font-family: 'Roboto', sans-serif
+                            text-shadow: 0 0 4px
+            .results-summary-general-container
+                .results-summary-general-time
+                    display: flex
+                    justify-content: center
+                    flex-direction: column
+                    align-items: center
+                    gap: 5px
+                    h3
+                        font-size: 1.3em
+                        color: #aae9ff
+                    p
+                        font-size: 2em
+                        font-family: 'Roboto', sans-serif
+                        letter-spacing: 5px
+                        color: #17b5ec
+                .results-summary-general-percentage
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    direction: rtl
+                    gap: 5px
+                    span
+                        margin-right: 4px
+                        font-size: 1.9em
+                    svg
+                        margin-bottom: 3px
+        .results-summary-container-mobile
+            flex-direction: column-reverse
+            gap: 30px
+        .results-questions-container
+            display: grid
+            *
+                grid-row: 1 / 1
+                grid-column: 1 / 1
+            width: 100%
+            .results-questions-type-container
+                width: 100%
+                display: flex
+                align-items: center
+                flex-direction: column
+                gap: 20px
+    .results-container-mobile-view
+        width: 100%
+        padding-right: 0
+        margin-bottom: 90px
+.container-mobile-view
+    flex-direction: column-reverse
+    justify-content: center

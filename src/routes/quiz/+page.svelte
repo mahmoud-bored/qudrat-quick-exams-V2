@@ -5,20 +5,27 @@
     import QuestionCustomizationTab from './QuestionCustomizationTab.svelte'
     import ThemeCustomizationTab from './ThemeCustomizationTab.svelte'
     import { injectDOMErrorMessage } from './injectDOMErrorMessage.ts'
-    import { isExamCustomized, paragraphsObject, questionsObject, paragraphsVersion, questionsVersion, categoriesVersion, categoriesObject } from '$lib/stores.ts'
+    import { isExamCustomized } from '$lib/stores.ts'
 	import { goto } from '$app/navigation'
     import { isExamListValid, isExamQuestionAmountValid } from './checkInfo.ts'
 	import { onMount } from 'svelte'
-    import { getParagraphsData, getQuestionsData } from './getData.ts'
-
+	import { loadDatabase, loadDbDataIntoStores } from './database.ts';
+    export let data
+    
     let isExamQuestionsCustomizationVisible = true
     let isExamThemeCustomizationVisible = false
+    
 
-    onMount(() => isExamCustomized.set(false) )
+    onMount(async () => {
+        isExamCustomized.set(false)
+        const dbData = await loadDatabase(data.redisDB, data.course_id)
+        const { collectionsData, collectionsOrder } = loadDbDataIntoStores(dbData)
+        console.log(dbData)
+    })
 
     let isParagraphsReady = false
     let isQuestionsReady = false
-    $: if(isParagraphsReady === true && isQuestionsReady === true) { goto('/quiz/main') }
+    // $: if(isParagraphsReady === true && isQuestionsReady === true) { goto('/quiz/main') }
 
     let examListWarning = false
     function handleExamListError(){
@@ -43,65 +50,40 @@
         buttonElement.classList.toggle('full-size')
     }
     let isQuizStartThrobberVisible = false
-    function getParagraphsFromLocalStorage() {
-        isQuizStartThrobberVisible = true
-        const paragraphs = localStorage.getItem('paragraphs')
-        const categories = localStorage.getItem('categories')
-        if(paragraphs !== null && categories !== null){
-            paragraphsObject.set(paragraphs)
-            categoriesObject.set(categories)
-        }else {
-            getParagraphsFromDatabase()
-        }
-
-        isParagraphsReady = true
-    }
-    function getQuestionsFromLocalStorage() {
-        isQuizStartThrobberVisible = true
-        const questions = localStorage.getItem('questions')
-        if(questions !== null){
-            questionsObject.set(questions)
-        } else {
-            getQuestionsFromDatabase()
-        }
-        isQuestionsReady = true
-    }
-    function getParagraphsFromDatabase() {
-        isQuizStartThrobberVisible = true
-        getParagraphsData().then((data) => {
-            const paragraphsJsonData = JSON.stringify(data['paragraphs'])
-            const categroriesJsonData = JSON.stringify(data['info']['questionsCategories'])
-            if (typeof(Storage) !== 'undefined') {
-                localStorage.setItem('paragraphs', paragraphsJsonData)
-                localStorage.setItem('categories', categroriesJsonData)
-
-                localStorage.setItem('paragraphsVersion', $paragraphsVersion)
-                localStorage.setItem('categoriesVersion', $categoriesVersion)
-            }
-            paragraphsObject.set(paragraphsJsonData)
-            categoriesObject.set(categroriesJsonData)
-            console.log(categroriesJsonData)
-            isParagraphsReady = true
-        }).catch(() => {
-            isQuizStartThrobberVisible = false
-            injectDOMErrorMessage('حدث خطأ. يرجى المحاولة لاحقا.')
-        })
-    }
-    function getQuestionsFromDatabase() {
-        isQuizStartThrobberVisible = true
-        getQuestionsData().then((data) => {
-            const jsonData = JSON.stringify(data)
-            if (typeof(Storage) !== 'undefined') {
-                localStorage.setItem('questions', jsonData)
-                localStorage.setItem('questionsVersion', $questionsVersion)
-            }
-            questionsObject.set(jsonData)
-            isQuestionsReady = true
-        }).catch(() => {
-            isQuizStartThrobberVisible = false
-            injectDOMErrorMessage('حدث خطأ. يرجى المحاولة لاحقا.')
-        })
-    }
+    // -=>Activate Throbber
+    // ---=> Get Paragraphs and Categories from LocalStorage
+    // ------=|> Error: get Paragraphs and Categories from Firebase getParagraphsFromDatabase()
+    // -------=> Success: Store results in paragraphsObject and categoriesObject stores 
+    // function getParagraphsFromLocalStorage() {
+    //     isQuizStartThrobberVisible = true
+    //     isParagraphsReady = true
+    // }
+    // function getQuestionsFromLocalStorage() {
+    //     isQuizStartThrobberVisible = true
+    //     isQuestionsReady = true
+    // }
+    // function getParagraphsFromDatabase() {
+    //     isQuizStartThrobberVisible = true
+    //         isParagraphsReady = true
+    //         isQuizStartThrobberVisible = false
+    //         injectDOMErrorMessage('حدث خطأ. يرجى المحاولة لاحقا.')
+    // }
+    // function getQuestionsFromDatabase() {
+    //     isQuizStartThrobberVisible = true
+    //     getQuestionsData().then((data) => {
+    //         const jsonData = JSON.stringify(data)
+    //         if (typeof(Storage) !== 'undefined') {
+    //             localStorage.setItem('questions', jsonData)
+    //             localStorage.setItem('questionsVersion', $questionsVersion)
+    //         }
+    //         questionsObject.set(jsonData)
+    //         isQuestionsReady = true
+    //     }).catch(() => {
+    //         isQuizStartThrobberVisible = false
+    //         injectDOMErrorMessage('حدث خطأ. يرجى المحاولة لاحقا.')
+    //     })
+    // }
+    // TODO: check if the function is still functional
     function handlePageNextButton(e: any){
         if(isExamQuestionsCustomizationVisible){
             // Check if still in questions customization tab
@@ -110,29 +92,12 @@
                 switchToThemeCustomizationTab(e)
             }else {
                 // Handle errors if fields are not filled
-                if(!isExamListValid()){ handleExamListError() }
-                else if(!isExamQuestionAmountValid()){ handleExamQuestionsAmountError()}
+                if(!isExamListValid()) handleExamListError()
+                    else if(!isExamQuestionAmountValid()) handleExamQuestionsAmountError()
             }
         } else {
             // Check if in theme customization tab
-
-            // handle paragraphs and categories
-            if((localStorage?.getItem('paragraphsVersion') && localStorage.getItem('paragraphsVersion') == $paragraphsVersion) && (localStorage?.getItem('categoriesVersion') && localStorage.getItem('categoriesVersion') == $categoriesVersion)){
-                // get Paragraphs data from the localStorage if the version number matches
-                getParagraphsFromLocalStorage()
-            }else {
-                // get the Paragraphs data from database if the version number doesn't match or doesn't exsist on localStorage
-                getParagraphsFromDatabase()
-            }
-
-            // handle questions
-            if(localStorage?.getItem('questionsVersion') && localStorage.getItem('questionsVersion') == $questionsVersion) {
-                // get Questions data from the localStorage if the version number matches
-                getQuestionsFromLocalStorage()
-            } else {
-                // get the Questions data from database if the version number doesn't match or doesn't exsist on localStorage
-                getQuestionsFromDatabase()
-            }
+            goto('/quiz/main')
         }
     }
 </script>

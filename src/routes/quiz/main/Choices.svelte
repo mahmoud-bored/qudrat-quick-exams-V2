@@ -92,7 +92,7 @@
             justify-content: space-evenly
             align-items: center
             color: #fff
-            gap: 5px
+            gap: 3%
             .choice
                 height: 100%
                 width: 100%
@@ -103,14 +103,12 @@
                 justify-content: center
                 align-items: center
                 opacity: 1
+                user-select: none
                 transition: all 0.2s ease
                 @media (hover: hover)
                     &:hover
                         background-color: #5eee2590
                         color: #fff
-            .choice-landscape
-                height: auto
-                aspect-ratio: 1 / 1
             .choice-disabled
                 opacity: 0.3
 </style>

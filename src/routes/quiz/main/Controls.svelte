@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { pickAnswer } from "./operations"
-    import { endQuizWarningTab, isQuestionMarked } from "./quiz-main-stores"
+    import { endQuizWarningTab, isQuestionMarked, isNextQuestionReady } from "./quiz-main-stores"
     import TypeWriter from "$lib/assets/TypeWriter.svelte"
 </script>
 
@@ -20,7 +20,7 @@
             {/key}
         </div>
     </button>
-    <button class="skip-question-button" data-value="skip" on:click={pickAnswer}>تخطي</button>
+    <button class="skip-question-button" data-value="skip" on:click={(e) => { if($isNextQuestionReady){ pickAnswer(e) } }}>تخطي</button>
 </div>
 
 <style lang="sass">

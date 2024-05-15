@@ -1,4 +1,5 @@
 <script lang="ts">
+    import "./page.sass"
     import Header from "./Header.svelte"
     import Choices from "./Choices.svelte"
     import Question from "./Question.svelte"
@@ -28,7 +29,7 @@
 		isShowResultsVisible
     } from "./quiz-main-stores.ts"
 	import { goto } from "$app/navigation";
-    
+	import { generalAllQuestionsMap, generalCorrectQuestionsMap, generalIncorrectQuestionsMap, generalSkippedQuestionsMap } from "../quiz-stores.ts";
     let themeSrc: string
     let questionColor: string
     let paragraphColor: string
@@ -54,52 +55,68 @@
             getQuestion()
         }
     })
+    $: console.log($answers)
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
     let screenWidth: number
     let screenHeight: number
-    $: try{
-        if(browser) {
-            const main = document.querySelector('main')
-
-            if (screenWidth > screenHeight){
-                isLandscape = true
-                main?.style.setProperty('flex-direction', 'row')
-            } else {
-                isLandscape = false
-                main?.style.setProperty('flex-direction', 'column')
-            }
+    $: if (screenWidth > screenHeight){
+            isLandscape = true
+        } else {
+            isLandscape = false
         }
-    } catch(e) { }
+        
     let isShowResultsButtonThrobberVisible = false
+
+    // Get questions amounts
+    let questionsAmount = $generalAllQuestionsMap.size
+    let correctQuestionsAmount = $generalCorrectQuestionsMap.size
+    let incorrectQuestionsAmount = $generalIncorrectQuestionsMap.size
+    let skippedQuestionsAmount = $generalSkippedQuestionsMap.size
+
+    let [percentage1, percentage2, percentage3] = Array(3).fill(0)
+    let [hidePercentage1, hidePercentage2, hidePercentage3] = Array(3).fill(false)
+    // get questions amounts percentages
+    $: {
+        questionsAmount = $generalAllQuestionsMap.size
+        correctQuestionsAmount = $generalCorrectQuestionsMap.size
+        incorrectQuestionsAmount = $generalIncorrectQuestionsMap.size
+        skippedQuestionsAmount = $generalSkippedQuestionsMap.size
+        
+        percentage1 = Math.round(correctQuestionsAmount * 100 / questionsAmount)
+        percentage2 = Math.round(incorrectQuestionsAmount * 100 / questionsAmount)
+        percentage3 = Math.round(skippedQuestionsAmount * 100 / questionsAmount)
+        
+        if(percentage1 == 0) { hidePercentage1 = true } else { hidePercentage1 = false }
+        if(percentage2 == 0) { hidePercentage2 = true } else { hidePercentage2 = false }
+        if(percentage3 == 0) { hidePercentage3 = true } else { hidePercentage3 = false }
+
+    } 
+
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
-<main class="container main-quiz-container" style="background-image: url({themeSrc}); color: {questionColor}">
-
-    {#if $endQuizWarningTab}
-        <div class="end-quiz-tab-background" transition:fade={{ duration: 200 }} ></div>
-        <div class="end-quiz-tab-container">
-            <div class="end-quiz-tab" in:fly={{ y: -40, x: 40, duration: 400 }} out:fly={{ y: 40, duration: 200 }}>
-                <button class="end-quiz-tab-close-button" on:click={() => endQuizWarningTab.set(false)}>
-                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.5439 2L1.99994 19.1568" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18.5957 19.2598L2.05121 2.10348" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                </button>
-                <p>هل انت متأكد من انهاء الإختبار؟</p>
-                <div class="end-quiz-tab-buttons-container">
-                    <button class="end-quiz-tab-button end-quiz-tab-button-cancel" on:click={() => endQuizWarningTab.set(false)}>الرجوع</button>
-                    <button class="end-quiz-tab-button end-quiz-tab-button-close" on:click={endQuiz}>إنهاء</button>
-                </div>
-            </div>
-        </div>
-    {/if}
+<main class="container main-quiz-container" class:container-mobile-view={!isLandscape} style="background-image: url({themeSrc}); color: {questionColor}">
     {#if $isShowResultsVisible}
-        <section class="show-results-tab" in:fly={{ y: -600, duration: 200 }}>
-            <div class="results-chart-container"></div>
+        <section class="show-results-tab" id="nope" in:fly={{ y: -600, duration: 200 }}>
+            <div class="results-chart-container">
+                <svg viewBox="0 0 36 36" class="circular-chart">
+                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path  class="circle percentage-1"  class:circle-hide={hidePercentage1}  stroke-dasharray="{percentage1}, 100"  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    <path  class="circle percentage-2"  class:circle-hide={hidePercentage2}  stroke-dasharray="{percentage2}, 100"  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path class="circle percentage-3" class:circle-hide={hidePercentage3} stroke-dasharray="{percentage3}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <text x="18" y="20.35" class="percentage-text">{percentage1}%</text>
+                    <defs>
+                        <linearGradient id="gradient">
+                            <stop class="stop1" offset="0%" stop-color="#6e4ae2" />
+                            <stop class="stop3" offset="100%" stop-color="#78f8ec" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
             <div class="show-results-page-button-container">
-                <button class="show-results-page-button" on:click={() => {
+                <button class="show-results-page-button" in:fly={{ y: -20, x: 20, duration: 1000 }} on:click={() => {
                     isShowResultsButtonThrobberVisible = true
                     goto('/quiz/results')
                 }}>
@@ -118,6 +135,23 @@
             </div>
         </section>
     {/if}
+    {#if $endQuizWarningTab}
+        <div class="end-quiz-tab-background" transition:fade={{ duration: 200 }} ></div>
+        <div class="end-quiz-tab-container">
+            <div class="end-quiz-tab" in:fly={{ y: -40, x: 40, duration: 400 }} out:fly={{ y: 40, duration: 200 }}>
+                <button class="end-quiz-tab-close-button" on:click={() => endQuizWarningTab.set(false)}>
+                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.5439 2L1.99994 19.1568" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18.5957 19.2598L2.05121 2.10348" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                <p>هل انت متأكد من انهاء الإختبار؟</p>
+                <div class="end-quiz-tab-buttons-container">
+                    <button class="end-quiz-tab-button end-quiz-tab-button-cancel" on:click={() => endQuizWarningTab.set(false)}>الرجوع</button>
+                    <button class="end-quiz-tab-button end-quiz-tab-button-close" on:click={endQuiz}>إنهاء</button>
+                </div>
+            </div>
+        </div>
+    {/if}
     {#if isLandscape}
         <div class="quiz-landscape-container">
             <ProgressBar />
@@ -130,7 +164,7 @@
     
                             {#if $correctState}
                                 <div class="quiz-question-result result-tick" in:fly={{ y:-60, duration: $questionInTransitionDuration }} out:fly={{ x:-70, duration: $questionOutTransitionDuration }}>
-                                    <svg width="257" height="199" viewBox="0 0 257 199" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="200" height="170" viewBox="0 0 257 199" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M210.75 6.7959L249.792 45.9089L114.814 180.641C105.042 190.395 89.2124 190.38 79.4582 180.608L58.0782 159.189L210.75 6.7959Z" fill="#A5EB78"/><path d="M237.191 33L250.024 45.8563L110.861 184.766C103.76 191.853 92.259 191.843 85.1716 184.742V184.742L237.191 33Z" fill="#95D46C"/><rect x="7.18359" y="108.787" width="53.2178" height="90" transform="rotate(-45.2399 7.18359 108.787)" fill="#A5EB78"/><path d="M69 94.5L90 116.5C91.1667 117.5 94 119.5 96 119.5C98 119.5 101.167 117.5 102.5 116.5L213.5 5L252 43L221 74" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M210 86L118.5 177.5C115.333 180.667 106.5 187.2 96.5 188C86.5 188.8 77.3333 181.333 74 177.5L5 107.5L43 70L56.5 83.5" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </div>
@@ -199,274 +233,3 @@
 
 </main>
 
-<style lang="sass">
-    @import 'quiz-results.sass'
-    @import '$lib/assets/app.sass'
-    .container
-        width: 100vw
-        height: 100vh
-        display: flex
-        gap: 20px
-        display: flex
-        justify-content: center
-        align-items: center
-        background-size: cover
-        background-repeat: no-repeat
-        .show-results-tab
-            height: 100%
-            width: 100%
-            position: absolute
-            top: 0
-            left: 0
-            display: flex
-            flex-direction: column
-            align-items: center
-            justify-content: space-between
-            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%)
-            overflow: hidden
-            z-index: 7
-            .results-chart-container
-                margin-top: min(15%, 100px)
-                width: 300px
-                height: 300px
-                border-radius: 50%
-                background-color: $color-primary
-            .show-results-page-button-container
-                display: flex
-                justify-content: center
-                align-items: center
-                margin-bottom: min(15%, 50px)
-                width: 100%
-                .show-results-page-button
-                    position: relative
-                    width: min(90vw, 300px)
-                    height: 80px
-                    background-color: #333
-                    border: 2px solid
-                    border-color: $color-primary
-                    border-radius: 10px
-                    display: flex
-                    justify-content: center
-                    align-items: center
-                    color: #fff
-                    font-size: 1.2em
-                    transition: all 0.2s ease
-                    z-index: 8
-                    @media ( hover : hover )
-                        &:hover
-                            background-color: $color-primary
-                            border-color: #333
-                            color: #333
-                            .show-results-throbber
-                                stroke: $color-bg-primary
-                    .show-results-throbber
-                        position: absolute
-                        left: 15px
-                        opacity: 0
-                        height: 40px
-                        transition: 0.2s all ease
-                        stroke: $color-primary
-                    .throbber-active
-                        opacity: 1
-            .stars-container
-                width: 100%
-                height: 100%
-                position: absolute
-                top: 0
-                left: 0
-                @include stars()
-        .end-quiz-tab-background
-            position: absolute
-            top: 0
-            left: 0
-            height: 100%
-            width: 100%
-            background-color: rgba(255, 255, 255, 0.5)
-            z-index: 5
-        .end-quiz-tab-container
-            position: absolute
-            top: 0
-            left: 0
-            height: 100%
-            width: 100%
-            display: flex
-            justify-content: center
-            align-items: center
-            z-index: 6
-            .end-quiz-tab
-                width: min(90vw, 350px)
-                background-color: #222
-                position: relative
-                display: flex
-                justify-content: center
-                align-items: center
-                flex-direction: column
-                padding: 30px
-                border-radius: 10px
-                color: #fff
-                gap: 10px
-                .end-quiz-tab-close-button
-                    position: absolute
-                    top: 10px
-                    right: 10px
-                    width: 30px
-                    height: 30px
-                    display: flex
-                    justify-content: center
-                    align-items: center
-                    border-radius: 50%
-                    background-color: #b02020
-                    transition: all 0.2s ease
-                    @media ( hover : hover )
-                        &:hover
-                            background-color: lighten(#b02020, 15%)
-                    svg
-                        width: 40%
-                .end-quiz-tab-buttons-container
-                    width: 100%
-                    display: flex
-                    justify-content: space-evenly
-                    .end-quiz-tab-button
-                        width: 30%
-                        height: 40px
-                        display: flex
-                        justify-content: center
-                        align-items: center
-                        border-radius: 5px
-                        transition: all 0.2s ease
-                    .end-quiz-tab-button-cancel
-                        background-color: #444
-                        @media ( hover : hover )
-                            &:hover
-                                background-color: lighten(#444, 10%)
-                    .end-quiz-tab-button-close
-                        background-color: #b02020
-                        @media ( hover : hover )
-                            &:hover
-                                background-color: lighten(#b02020, 10%)
-        // Desktop View
-        .quiz-landscape-container
-            height: 100%
-            width: 100%
-            display: flex
-            flex-direction: column
-            justify-content: space-between
-            .quiz-landscape-content-container
-                width: 100%
-                height: 100%
-                display: flex
-                justify-content: space-between
-                align-items: center
-                .quiz-container
-                    width: 60%
-                    height: 95%
-                    display: flex
-                    flex-direction: column
-                    justify-content: space-between
-                    align-items: center
-                    padding: 0 20px
-                    .quiz-header-container
-                        width: 100%
-                        height: 10%
-                        display: flex
-                        justify-content: center
-                        align-items: center
-                    .quiz-body-container
-                        width: 100%
-                        height: 80%
-                        display: flex
-                        justify-content: space-between
-                        align-items: center
-                        .quiz-question-container
-                            width: 80%
-                            height: 100%
-                            display: flex
-                            justify-content: center
-                            align-items: center
-                            .quiz-question-result
-                                position: absolute
-                                top: 0
-                                margin-top: min(15%, 100px)
-                                display: flex
-                                justify-content: center
-                                align-items: center
-                                z-index: 3
-                                svg
-                                    width: 70%
-                            .result-skip
-                                width: 100%
-                                display: flex
-                                justify-content: center
-                                align-items: center
-                                svg
-                                    width: 50%
-                        .quiz-choices-container
-                            width: 20%
-                            height: 100%
-                            display: flex
-                            justify-content: center
-                            align-items: center
-                    .quiz-controls-container
-                        width: 100%
-                        height: 10%
-                        display: flex
-                        justify-content: center
-                        align-items: center
-                .quiz-paragraph-container
-                    width: 40%
-                    height: 100%
-                    display: flex
-                    justify-content: center
-                    align-items: center
-
-        // Mobile View
-        .mobile-view-container
-            width: 100%
-            height: 100%
-            display: flex
-            flex-direction: column
-            justify-content: space-between
-            .mobile-view-content-container
-                width: 100%
-                height: 100%
-                display: flex
-                flex-direction: column
-                justify-content: space-between
-                align-items: center
-                padding: 10px
-                .mobile-quiz-header-container
-                    width: 100%
-                    height: 10%
-                    display: flex   
-                    justify-content: center
-                    align-items: center
-                .mobile-quiz-question-container
-                    width: 100%
-                    height: 40%
-                    display: flex
-                    justify-content: center
-                    align-items: center
-                    .quiz-question-result
-                        position: absolute
-                        top: 0
-                        margin-top: min(20%, 100px)
-                        display: flex
-                        justify-content: center
-                        align-items: center
-                        z-index: 3
-                        svg
-                            width: 70%
-                .mobile-quiz-body-container
-                    width: 100%
-                    height: 40%
-                    display: flex
-                    justify-content: center
-                    align-items: center
-                    gap: 15px
-                .mobile-quiz-controls-container
-                    width: 100%
-                    height: 10%
-                    display: flex
-                    justify-content: center
-                    align-items: center
-</style>

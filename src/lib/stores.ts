@@ -1,50 +1,45 @@
 import { writeBatch } from "firebase/firestore";
 import { writable } from "svelte/store"
 import type { Writable } from "svelte/store";
+import type { CategoriesContainer, ParagraphsContainer, QuestionsContainer } from "./databaseInterfaces";
 
 
-export interface CollectionContainer {
-    [key: string]: {
-        'info': {
-            'numberOfQuestions': string
-            'collectionName': string
-            'numberOfExams': string;
-        };
-        examsOrder: string[]
-        'exams': {
-            [key: string]: {
-                'name': string
-                'numberOfQuestions': string
-            }
-        }
-    }
+export interface CollectionsContainer {
+    [key: string]: Collection
 }
 export interface Collection {
-    'info': Record<string,  { numberOfQuestions: string, collectionName: string, numberOfExams: string; }>;
-    examsOrder: string[];
-    exams: Record<string, { name: string, numberOfQuestions: string }>
+    info: { 
+        numberOfQuestions: number, 
+        numberOfExams: number, 
+        collectionName: string, 
+    };
+    examsOrder: number[];
+    exams: Record<number, { 
+        name: string, 
+        numberOfQuestions: number 
+    }>
 }
 export interface CollectionInfo {
     'info': {
-        'numberOfQuestions': string
+        'numberOfQuestions': number
+        'numberOfExams': number;
         'collectionName': string
-        'numberOfExams': string;
     };
-    'examsOrder': string[];
+    'examsOrder': number[];
     'exams': {
-        [key: string]: {
+        [key: number]: {
             'name': string
-            'numberOfQuestions': string
+            'numberOfQuestions': number
         }
     }
 }
-export interface Exams { [key: string]: Record<string, { name: string, numberOfQuestions: string}> }
+export type Exams = Record<number, { name: string, numberOfQuestions: number}>
 
 export const isExamsCutomizationTabVisible: Writable<boolean> = writable(false)
 export const examsCollectionCustomizeTab: Writable<CollectionInfo> = writable({} as CollectionInfo)
-export const activeExamsIDs: Writable<string[]> = writable([])
-export const globalCollections: Writable<CollectionContainer> = writable({} as CollectionContainer)
-export const globalCollectionsOrder: Writable<string[]> = writable([])
+export const activeExamsIDs: Writable<number[]> = writable([])
+export const globalCollections: Writable<CollectionsContainer> = writable({} as CollectionsContainer)
+export const globalCollectionsOrder: Writable<number[]> = writable([])
 
 
 export const adminID = 'admin-4b392e66de9fd519d0f567117d06b250'
@@ -57,9 +52,9 @@ export const questionNoRepeat: Writable<boolean> = writable(true)
 export const examTheme: Writable<string> = writable('عادي')
 export const isExamCustomized: Writable<boolean> = writable(false)
 
-export const paragraphsObject: Writable<string> = writable()
-export const questionsObject: Writable<string> = writable()
-export const categoriesObject: Writable<string> = writable()
+export const paragraphsObject: Writable<ParagraphsContainer> = writable()
+export const questionsObject: Writable<QuestionsContainer> = writable()
+export const categoriesObject: Writable<CategoriesContainer> = writable()
 
 export const questionsVersion: Writable<string> = writable("")
 export const paragraphsVersion: Writable<string> = writable("")

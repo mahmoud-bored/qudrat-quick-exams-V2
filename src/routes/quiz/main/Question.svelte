@@ -8,15 +8,13 @@
     export let answers: QuestionAnswers
     
     
-    let answer1: string 
-    let answer2: string 
-    let answer3: string 
-    let answer4: string
+    let answer1: string, answer2: string, answer3: string, answer4: string
+
     $: {
-        answer1 = answers[0] ? answers[0] : "" 
-        answer2 = answers[1] ? answers[1] : "" 
-        answer3 = answers[2] ? answers[2] : "" 
-        answer4 = answers[3] ? answers[3] : ""
+        answer1 = answers[0] ?? "" 
+        answer2 = answers[1] ?? "" 
+        answer3 = answers[2] ?? "" 
+        answer4 = answers[3] ?? ""
     }
     $: try{ 
             const answersContainer = document.querySelectorAll('.answers-container > div')
@@ -82,10 +80,12 @@
         </div>
     </div>
     {#if isWoodMode}
-        <filter id="wavy2">
-            <feTurbulence x="0" y="0" baseFrequency="0.02" numOctaves="5" seed="1" />
-            <feDisplacementMap in="SourceGraphic" scale="20" />
-        </filter>
+        <svg>
+            <filter id="wavy2">
+                <feTurbulence x="0" y="0" baseFrequency="0.02" numOctaves="5" seed="1" />
+                <feDisplacementMap in="SourceGraphic" scale="20" />
+            </filter>
+        </svg>
     {/if}
 </div>
 
@@ -104,7 +104,7 @@
             position: absolute
             top: 0
             display: flex
-            width: 100%
+            width: calc(100% - 20px)
             height: calc(100% - 10px)
             padding: 4em
             box-shadow: 2px 3px 20px black, 0 0 125px #8f5922 inset

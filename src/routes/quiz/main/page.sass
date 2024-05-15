@@ -1,0 +1,312 @@
+@import 'quiz-results.sass'
+@import '$lib/assets/app.sass'
+.container-mobile-view
+    flex-direction: column !important
+.container
+    width: 100vw
+    height: 100vh
+    display: flex
+    gap: 20px
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: row
+    background-size: cover
+    background-repeat: no-repeat
+    .show-results-tab
+        height: 100%
+        width: 100%
+        position: absolute
+        top: 0
+        left: 0
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: space-between
+        background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%)
+        overflow: hidden
+        z-index: 7
+        .results-chart-container
+            margin-top: min(15%, 100px)
+            width: 300px
+            height: 300px
+            border-radius: 50%
+            display: flex
+            justify-content: center
+            align-items: center
+            padding: 10px
+            .circular-chart 
+                display: block
+                margin: 10px
+                height: 100%
+                width: 100%
+                .circle-bg 
+                    fill: url(#gradient)
+                .circle 
+                    transform-origin: center
+                    fill: none
+                    stroke-width: 2.8
+                    stroke-linecap: round
+                    animation: progress 0.5s ease-in forwards
+                    animation-delay: 0s
+                    transition: all 0.5s ease-in
+                .percentage-1
+                    stroke: #4CC790
+                    filter: drop-shadow( 0px 0px 0.8px rgb(76, 199, 144))
+                    transform: rotate(0deg)
+                .percentage-2
+                    stroke: #ff3838 
+                    filter: drop-shadow( 0px 0px 0.8px #ff3838)
+                .percentage-3
+                    stroke: #3c9ee5
+                    filter: drop-shadow( 0px 0px 0.8px #3c9ee5)
+                .percentage-text
+                    fill: #78f8ec
+                    font-family: sans-serif
+                    font-size: 0.5em
+                    text-anchor: middle
+                    user-select: all
+                .circle-hide
+                    display: none
+                @keyframes progress 
+                    0%
+                        stroke-dasharray: 0 100
+
+        .show-results-page-button-container
+            display: flex
+            justify-content: center
+            align-items: center
+            margin-bottom: min(15%, 50px)
+            width: 100%
+            .show-results-page-button
+                position: relative
+                width: min(90vw, 300px)
+                height: 80px
+                background-color: #333
+                border: 2px solid
+                border-color: $color-primary
+                border-radius: 10px
+                display: flex
+                justify-content: center
+                align-items: center
+                color: #fff
+                font-size: 1.2em
+                transition: all 0.2s ease
+                z-index: 8
+                @media ( hover : hover )
+                    &:hover
+                        background-color: $color-primary
+                        border-color: #333
+                        color: #333
+                        .show-results-throbber
+                            stroke: $color-bg-primary
+                .show-results-throbber
+                    position: absolute
+                    left: 15px
+                    opacity: 0
+                    height: 40px
+                    transition: 0.2s all ease
+                    stroke: $color-primary
+                .throbber-active
+                    opacity: 1
+        .stars-container
+            width: 100%
+            height: 100%
+            position: absolute
+            top: 0
+            left: 0
+            @include stars()
+    .end-quiz-tab-background
+        position: absolute
+        top: 0
+        left: 0
+        height: 100%
+        width: 100%
+        background-color: rgba(255, 255, 255, 0.5)
+        z-index: 5
+    .end-quiz-tab-container
+        position: absolute
+        top: 0
+        left: 0
+        height: 100%
+        width: 100%
+        display: flex
+        justify-content: center
+        align-items: center
+        z-index: 6
+        .end-quiz-tab
+            width: min(90vw, 350px)
+            background-color: #222
+            position: relative
+            display: flex
+            justify-content: center
+            align-items: center
+            flex-direction: column
+            padding: 30px
+            border-radius: 10px
+            color: #fff
+            gap: 10px
+            .end-quiz-tab-close-button
+                position: absolute
+                top: 10px
+                right: 10px
+                width: 30px
+                height: 30px
+                display: flex
+                justify-content: center
+                align-items: center
+                border-radius: 50%
+                background-color: #b02020
+                transition: all 0.2s ease
+                @media ( hover : hover )
+                    &:hover
+                        background-color: lighten(#b02020, 15%)
+                svg
+                    width: 40%
+            .end-quiz-tab-buttons-container
+                width: 100%
+                display: flex
+                justify-content: space-evenly
+                .end-quiz-tab-button
+                    width: 30%
+                    height: 40px
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    border-radius: 5px
+                    transition: all 0.2s ease
+                .end-quiz-tab-button-cancel
+                    background-color: #444
+                    @media ( hover : hover )
+                        &:hover
+                            background-color: lighten(#444, 10%)
+                .end-quiz-tab-button-close
+                    background-color: #b02020
+                    @media ( hover : hover )
+                        &:hover
+                            background-color: lighten(#b02020, 10%)
+    // Desktop View
+    .quiz-landscape-container
+        height: 100%
+        width: 100%
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        .quiz-landscape-content-container
+            width: 100%
+            height: 100%
+            display: flex
+            justify-content: space-between
+            align-items: center
+            .quiz-container
+                width: 60%
+                height: 95%
+                display: flex
+                flex-direction: column
+                justify-content: space-between
+                align-items: center
+                padding: 0 20px
+                .quiz-header-container
+                    width: 100%
+                    height: 10%
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                .quiz-body-container
+                    width: 100%
+                    height: 80%
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
+                    .quiz-question-container
+                        width: 80%
+                        height: 100%
+                        display: flex
+                        justify-content: center
+                        align-items: center
+                        .quiz-question-result
+                            position: absolute
+                            top: 0
+                            margin-top: min(15%, 100px)
+                            display: flex
+                            justify-content: center
+                            align-items: center
+                            z-index: 3
+                            svg
+                                width: 70%
+                        .result-skip
+                            width: 100%
+                            display: flex
+                            justify-content: center
+                            align-items: center
+                            svg
+                                width: 50%
+                    .quiz-choices-container
+                        width: 20%
+                        height: 100%
+                        display: flex
+                        justify-content: center
+                        align-items: center
+                .quiz-controls-container
+                    width: 100%
+                    height: 10%
+                    display: flex
+                    justify-content: center
+                    align-items: center
+            .quiz-paragraph-container
+                width: 40%
+                height: 100%
+                display: flex
+                justify-content: center
+                align-items: center
+
+    // Mobile View
+    .mobile-view-container
+        width: 100%
+        height: 100%
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        .mobile-view-content-container
+            width: 100%
+            height: 100%
+            display: flex
+            flex-direction: column
+            justify-content: space-between
+            align-items: center
+            padding: 10px
+            .mobile-quiz-header-container
+                width: 100%
+                height: 10%
+                display: flex   
+                justify-content: center
+                align-items: center
+            .mobile-quiz-question-container
+                width: 100%
+                height: 40%
+                display: flex
+                justify-content: center
+                align-items: center
+                .quiz-question-result
+                    position: absolute
+                    top: 0
+                    margin-top: min(20%, 100px)
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    z-index: 3
+                    svg
+                        width: 70%
+            .mobile-quiz-body-container
+                width: 100%
+                height: 40%
+                display: flex
+                justify-content: center
+                align-items: center
+                gap: 15px
+            .mobile-quiz-controls-container
+                width: 100%
+                height: 10%
+                display: flex
+                justify-content: center
+                align-items: center

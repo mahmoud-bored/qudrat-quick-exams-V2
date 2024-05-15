@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { fade } from "svelte/transition"
+	import { goto } from "$app/navigation";
+	import { onMount } from "svelte";
+
+	onMount(() => goto('/quiz'))
 
 </script>
 <svelte:head>

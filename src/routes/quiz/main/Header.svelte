@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { questionStreak, timer, questionFontSize } from "./quiz-main-stores"
-    import { getHTMLElement } from "$lib/app"
+    import { questionStreak, questionFontSize } from "./quiz-main-stores"
+    import { timer } from "../quiz-stores"
+	import { browser } from "$app/environment";
     
 
     let isStreakActive = false
@@ -24,15 +25,16 @@
     let inputValue: number = 25
     questionFontSize.set(inputValue / 100 + 0.8)
     $: questionFontSize.set(inputValue / 100 + 0.8)
-    $: try{
-            if($timer > 30){
-                getHTMLElement(document.querySelector('.timer'))?.style.setProperty('color', '#167E20')
-            }else if($timer <= 30 && $timer > 10){
-                getHTMLElement(document.querySelector('.timer'))?.style.setProperty('color', '#f0ab08')
-            }else if($timer <= 10){
-                getHTMLElement(document.querySelector('.timer'))?.style.setProperty('color', '#C01E1E')
-            }
-        } catch(e){ }
+    $: if(browser){
+        if($timer > 30){
+            (document.querySelector('.timer') as HTMLParagraphElement)?.style.setProperty('color', '#186f1e')
+        }else if($timer <= 30 && $timer > 10){
+            (document.querySelector('.timer') as HTMLParagraphElement)?.style.setProperty('color', '#bf932b')
+        }else if($timer <= 10){
+            (document.querySelector('.timer') as HTMLParagraphElement)?.style.setProperty('color', 'rgb(196, 35, 35)')
+        }
+
+    }
 </script>
 
 <div class="container">
@@ -53,7 +55,7 @@
         <svg width="237" height="226" viewBox="0 0 237 226" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="143" cy="133" r="68" stroke="black" stroke-width="8"/><path d="M217.5 182C228 164 240.825 133.127 224 96.9997C207 60.5 172.5 45.4997 140.5 44.9997C108.5 44.4997 53.9995 72.4997 54.4995 133C54.9995 193.5 115 247 191 207.5" stroke="black" stroke-width="8" stroke-linecap="round"/><circle cx="205.5" cy="195.5" r="4.5" fill="black"/><circle cx="4.5" cy="161.5" r="4.5" fill="black"/><path d="M32 80.5C32 78.0147 34.0147 76 36.5 76H71V85H36.5C34.0147 85 32 82.9853 32 80.5V80.5Z" fill="black"/><path d="M0 107.5C0 105.015 2.01472 103 4.5 103H59V112H4.5C2.01472 112 0 109.985 0 107.5V107.5Z" fill="black"/><path d="M25 134.5C25 132.015 27.0147 130 29.5 130H58V139H29.5C27.0147 139 25 136.985 25 134.5V134.5Z" fill="black"/><path d="M19 161.5C19 159.015 21.0147 157 23.5 157H58V166H23.5C21.0147 166 19 163.985 19 161.5V161.5Z" fill="black"/><rect x="183" y="128" width="14" height="10" rx="5" fill="black"/><rect x="89" y="128" width="14" height="10" rx="5" fill="black"/><rect x="138" y="93" width="14" height="10" rx="5" transform="rotate(-90 138 93)" fill="black"/><rect x="138" y="187" width="14" height="10" rx="5" transform="rotate(-90 138 187)" fill="black"/><rect x="115.5" y="4.5" width="55" height="22" rx="11" stroke="black" stroke-width="9"/><line x1="158" y1="29" x2="158" y2="44" stroke="black" stroke-width="8"/><line x1="127" y1="30" x2="127" y2="45" stroke="black" stroke-width="8"/>
         </svg>
-        <p>{$timer}</p>
+        <p class="timer">{$timer}</p>
     </div>
     <div class="question-text-size-container">
         <input type="range" bind:value={inputValue}>
@@ -101,14 +103,15 @@
             height: 100%
             width: 20%
             transition: all 0.2s ease
-            color: #167E20
             position: relative
             svg
                 position: absolute
                 width: 70px
+                max-height: 95%
             p
                 margin: 7px 0 0 15px
                 font-size: 0.9em
+                color: #186f1e
         .question-text-size-container
             @include font-size-slider()
             input

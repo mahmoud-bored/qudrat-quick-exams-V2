@@ -2,20 +2,18 @@
 	import { fade, fly } from "svelte/transition"
     import closeIconSrc from '$lib/assets/close-icon.svg'
     import { isExamsCutomizationTabVisible, isSelectAllButtonActive } from "$lib/stores"
-    import type { Collection, CollectionContainer, CollectionInfo, Exams } from '$lib/stores'
+    import type { Collection, CollectionsContainer, CollectionInfo, Exams } from '$lib/stores'
     import { toggleAllExamsListInCustomizationTab } from "./activeExamsList"
     import ExamCard from "./ExamCard.svelte"
 
-    export let collections: CollectionContainer
+    export let collections: CollectionsContainer
     export let collectionObj: CollectionInfo
 
     let selectAllState: boolean
     isSelectAllButtonActive.subscribe((value)=> selectAllState = value)
 
     const examsOrder = collectionObj.examsOrder;
-    const exams: Exams = {
-        examsIDs: collectionObj.exams
-    };
+    const exams = collectionObj.exams
 
     function closeTab(){
         isExamsCutomizationTabVisible.set(false)
@@ -68,6 +66,7 @@
         display: flex
         justify-content: center
         align-items: center
+        z-index: 1
         .customization-tab
             position: relative
             height: 90%
