@@ -18,7 +18,8 @@ const redisClient = await createClient({
 
 export async function load() {
     const redisDB: any = await redisClient.json.get(`version:${course_id}`)
-    return { course_id, redisDB }
+    const featureFlags: any = await redisClient.json.get(`feature-flag`)
+    return { course_id, redisDB, featureFlags }
 }
 
 

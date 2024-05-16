@@ -5,6 +5,7 @@
     import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
     import { pickAnswer } from './operations.ts'
 	import type { QuestionAnswers } from '$lib/databaseInterfaces.ts';
+	import { featureFlags } from '$lib/stores.ts';
     
     export let isWoodMode: boolean
     export let isLandscape: boolean
@@ -32,14 +33,16 @@
 </script>
 
 <div class="container">
-    <div class="question-align-container">
-        <button class="column-align-container" data-value="column" on:click={()=> changeQuestionAlighnment('column')}>
-            <img src={columnAlignImgSrc} alt="align column">
-        </button>
-        <button class="row-align-container" data-value="row" on:click={()=> changeQuestionAlighnment('row')}>
-            <img src={rowAlignImgSrc} alt="align row">
-        </button>
-    </div>
+    {#if $featureFlags.switchAnswersLayoutButtons}
+        <div class="question-align-container">
+            <button class="column-align-container" data-value="column" on:click={()=> changeQuestionAlighnment('column')}>
+                <img src={columnAlignImgSrc} alt="align column">
+            </button>
+            <button class="row-align-container" data-value="row" on:click={()=> changeQuestionAlighnment('row')}>
+                <img src={rowAlignImgSrc} alt="align row">
+            </button>
+        </div>
+    {/if}
     <div class="choices-container" class:isWoodMode>
         <button class="choice" class:choice-landscape={isLandscape} class:choice-disabled={!$isNextQuestionReady} data-value="{answer1}" on:click={(e) => { if($isNextQuestionReady){pickAnswer(e)}} }>أ</button>
         <button class="choice" class:choice-landscape={isLandscape} class:choice-disabled={!$isNextQuestionReady} data-value="{answer2}" on:click={(e) => { if($isNextQuestionReady){pickAnswer(e)}} }>ب</button>
@@ -85,7 +88,7 @@
         .woodMode
             color: #fff
         .choices-container
-            height: 90%
+            height: 100%
             width: 80%
             display: flex
             flex-direction: column

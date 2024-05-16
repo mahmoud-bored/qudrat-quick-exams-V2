@@ -35,6 +35,8 @@ export interface CollectionInfo {
 }
 export type Exams = Record<number, { name: string, numberOfQuestions: number}>
 
+export const featureFlags: Writable<{ [key: string]: boolean }> = writable({})
+
 export const isExamsCutomizationTabVisible: Writable<boolean> = writable(false)
 export const examsCollectionCustomizeTab: Writable<CollectionInfo> = writable({} as CollectionInfo)
 export const activeExamsIDs: Writable<number[]> = writable([])

@@ -79,10 +79,18 @@
         {#if getParagraphText().length !== 0} <hr> {/if}
         <p style="max-width: 95%;">س: {localQuestionObject['questionHead']}</p>
         <div class="question-body-answers-container">
-            <p>أ- { localQuestionObject.questionAnswers[0] ?? "" }</p>
-            <p>ب- { localQuestionObject.questionAnswers[1] ?? "" }</p>
-            <p>ج- { localQuestionObject.questionAnswers[2] ?? "" }</p>
-            <p>د- { localQuestionObject.questionAnswers[3] ?? "" }</p>
+            {#if localQuestionObject.questionAnswers[0]}
+                <p>أ- { localQuestionObject.questionAnswers[0] }</p>
+            {/if}
+            {#if localQuestionObject.questionAnswers[1]}
+                <p>ب- { localQuestionObject.questionAnswers[1] }</p>
+            {/if}
+            {#if localQuestionObject.questionAnswers[2]}
+                <p>ج- { localQuestionObject.questionAnswers[2] }</p>
+            {/if}
+            {#if localQuestionObject.questionAnswers[3]}
+                <p>د- { localQuestionObject.questionAnswers[3] }</p>
+            {/if}
 
         </div>
         <div class="question-body-choices-container">

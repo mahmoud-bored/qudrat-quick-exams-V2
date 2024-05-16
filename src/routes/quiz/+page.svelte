@@ -5,7 +5,7 @@
     import QuestionCustomizationTab from './QuestionCustomizationTab.svelte'
     import ThemeCustomizationTab from './ThemeCustomizationTab.svelte'
     import { injectDOMErrorMessage } from './injectDOMErrorMessage.ts'
-    import { isExamCustomized } from '$lib/stores.ts'
+    import { featureFlags, isExamCustomized } from '$lib/stores.ts'
 	import { goto } from '$app/navigation'
     import { isExamListValid, isExamQuestionAmountValid } from './checkInfo.ts'
 	import { onMount } from 'svelte'
@@ -14,8 +14,8 @@
     
     let isExamQuestionsCustomizationVisible = true
     let isExamThemeCustomizationVisible = false
-    
-
+    featureFlags.set(data.featureFlags)
+    console.log(data)
     onMount(async () => {
         isExamCustomized.set(false)
         const dbData = await loadDatabase(data.redisDB, data.course_id)
