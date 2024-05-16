@@ -8,6 +8,8 @@
     export let exams: Exams
     export let examID: number
     let localActiveExamsIDs: number[] 
+
+    
     activeExamsIDs.subscribe((value)=> localActiveExamsIDs = value)
     let isExamActive = false
     function updateActiveExamsIDs(){
@@ -30,7 +32,7 @@
             }
         }
     }
-    onMount(()=> checkActiveExamsList(collections) )
+    onMount(()=> checkActiveExamsList(collections))
 </script>
 
 

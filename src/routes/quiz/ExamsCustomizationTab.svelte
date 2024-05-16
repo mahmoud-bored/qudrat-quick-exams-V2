@@ -8,7 +8,7 @@
 
     export let collections: CollectionsContainer
     export let collectionObj: CollectionInfo
-
+    console.log(collectionObj)
     let selectAllState: boolean
     isSelectAllButtonActive.subscribe((value)=> selectAllState = value)
 
@@ -42,7 +42,9 @@
         </div>
         <div class="customization-tab-body-container" transition:fly={{ x: 40, duration: 500}}>
             {#each examsOrder as examID}
-                <ExamCard {exams} {examID} {collections} />
+                {#if examID}
+                    <ExamCard {exams} {examID} {collections} />
+                {/if}
             {/each}
         </div>
         <div class="customization-tab-footer-container" transition:fly={{ x: 50, duration: 600 }}>
@@ -123,6 +125,7 @@
                 height: 100%
                 width: 100%
                 margin-top: 20px
+                padding: 15px 0
                 display: flex
                 flex-direction: column
                 justify-content: flex-start
