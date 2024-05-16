@@ -22,11 +22,7 @@
         const { collectionsData, collectionsOrder } = loadDbDataIntoStores(dbData)
         console.log(dbData)
     })
-
-    let isParagraphsReady = false
-    let isQuestionsReady = false
-    // $: if(isParagraphsReady === true && isQuestionsReady === true) { goto('/quiz/main') }
-
+    
     let examListWarning = false
     function handleExamListError(){
         injectDOMErrorMessage('يجب اختيار اختبار واحد على الأقل')
@@ -49,41 +45,8 @@
         isExamThemeCustomizationVisible = !isExamThemeCustomizationVisible
         buttonElement.classList.toggle('full-size')
     }
+
     let isQuizStartThrobberVisible = false
-    // -=>Activate Throbber
-    // ---=> Get Paragraphs and Categories from LocalStorage
-    // ------=|> Error: get Paragraphs and Categories from Firebase getParagraphsFromDatabase()
-    // -------=> Success: Store results in paragraphsObject and categoriesObject stores 
-    // function getParagraphsFromLocalStorage() {
-    //     isQuizStartThrobberVisible = true
-    //     isParagraphsReady = true
-    // }
-    // function getQuestionsFromLocalStorage() {
-    //     isQuizStartThrobberVisible = true
-    //     isQuestionsReady = true
-    // }
-    // function getParagraphsFromDatabase() {
-    //     isQuizStartThrobberVisible = true
-    //         isParagraphsReady = true
-    //         isQuizStartThrobberVisible = false
-    //         injectDOMErrorMessage('حدث خطأ. يرجى المحاولة لاحقا.')
-    // }
-    // function getQuestionsFromDatabase() {
-    //     isQuizStartThrobberVisible = true
-    //     getQuestionsData().then((data) => {
-    //         const jsonData = JSON.stringify(data)
-    //         if (typeof(Storage) !== 'undefined') {
-    //             localStorage.setItem('questions', jsonData)
-    //             localStorage.setItem('questionsVersion', $questionsVersion)
-    //         }
-    //         questionsObject.set(jsonData)
-    //         isQuestionsReady = true
-    //     }).catch(() => {
-    //         isQuizStartThrobberVisible = false
-    //         injectDOMErrorMessage('حدث خطأ. يرجى المحاولة لاحقا.')
-    //     })
-    // }
-    // TODO: check if the function is still functional
     function handlePageNextButton(e: any){
         if(isExamQuestionsCustomizationVisible){
             // Check if still in questions customization tab
@@ -97,6 +60,7 @@
             }
         } else {
             // Check if in theme customization tab
+            isQuizStartThrobberVisible = true
             goto('/quiz/main')
         }
     }
