@@ -139,7 +139,6 @@ function isLastQuestionLong() {
 
 export function getNewRandomQuestion() {
     let newQuestionID = parseInt(Object.keys(mainQuestionsObject)[Math.floor(Math.random() * Object.keys(mainQuestionsObject).length)])
-    // console.log(mainQuestionsObject)
     // Remove the string add incatnation fixing the database
     const questionParagraphID = mainQuestionsObject[newQuestionID]['questionParagraphID']
     // to make sure that the question had a paragraph ID
@@ -156,9 +155,6 @@ export function getNewRandomQuestion() {
     }
 }
 export function getNewLongQuestion(newLongQuestionArr: [questionObject: Question, questionID: number]) {
-    // console.log('getNewLongQuestion()')
-    console.log(newLongQuestionArr)
-    
     // Remove the string add after fixing the database
     const questionParagraphID = newLongQuestionArr[0]['questionParagraphID']
     // to make sure that the question had a paragraph ID
@@ -190,10 +186,8 @@ export function getQuestion() {
             nextQuestionObj = getNewRandomQuestion()
         }
     }else {
-        console.log('getNewRandomQuestion()')
         nextQuestionObj = getNewRandomQuestion()
     }
-    console.log('NextQuestionObj: ', nextQuestionObj)
     questionID.set(nextQuestionObj.questionID)
     question.set(nextQuestionObj.question)
     answers.set(nextQuestionObj.answers)
@@ -255,7 +249,7 @@ export function pickAnswer(e: Event) {
 
     streakCounter.update((count) => count + 1)
     questionCounter.update((count) => count + 1)
-    // console.log(localQuestionCounter, localQuestionsAmount)
+
     if(localQuestionCounter >= localQuestionsAmount){
         setTimeout(endQuiz, localQuestionInTransitionDuration + 200)
     }
@@ -274,7 +268,6 @@ export function endQuiz() {
     let markedQuestionsMap: Map<number, Question> = new Map()
 
     for(const [count, question] of currentQuestionsMap) {
-        console.log(count, question)
         for(const key of Object.keys(question)) {
             const questionObject = question[key]
             allQuestionsMap.set(count, questionObject)

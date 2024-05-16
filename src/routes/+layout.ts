@@ -1,9 +1,9 @@
 export const prerender = true
 export const trailingSlash = 'always'
 export const load = ({ url }) => {
-	const { pathname } = url;
+	const { pathname, origin } = url;
 
 	return {
-		pathname
+		pathname, origin
 	};
 };

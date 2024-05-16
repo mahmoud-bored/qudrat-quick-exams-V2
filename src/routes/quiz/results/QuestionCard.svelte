@@ -1,13 +1,11 @@
 <script lang="ts">
 	import type { ParagraphsContainer, Question } from "$lib/databaseInterfaces"
-	import { afterUpdate, onMount } from "svelte"
+	import { onMount } from "svelte"
     import { paragraphsObject } from "$lib/stores"
-    import { closeAllQuestionCards } from "./quiz-results-stores"
+    
     export let cardSettings: { bg: string, color: string }
     export let questionObject: Question | undefined
-    let mainParagraphsObject: ParagraphsContainer 
-    paragraphsObject.subscribe(data => mainParagraphsObject = data)
-
+    
     let localQuestionObject: Question
     if(questionObject){
         localQuestionObject = questionObject
@@ -26,7 +24,7 @@
     // return the paragraph text if it exists
     function getParagraphText(){
         if(typeof localQuestionObject['questionParagraphID'] === 'number') {
-            return mainParagraphsObject[localQuestionObject['questionParagraphID']]['paragraphText']
+            return $paragraphsObject[localQuestionObject['questionParagraphID']]['paragraphText']
         }else {
             return ""
         }

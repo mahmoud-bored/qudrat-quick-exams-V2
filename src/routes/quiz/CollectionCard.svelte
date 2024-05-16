@@ -8,8 +8,8 @@
     export let collections: CollectionsContainer
 
     let isCardMounted = false
-    onMount(()=> { setTimeout(() => { isCardMounted = true }, 50) })
-    $: console.log($activeExamsIDs)
+    onMount(()=>  setTimeout(() => isCardMounted = true , 50))
+
     const collectionObj = collections[collectionID]
     const collectionObjInfo = collectionObj.info
     let collectionQuestionsAmount = collections[collectionID].info.numberOfQuestions
