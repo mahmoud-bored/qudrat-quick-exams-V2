@@ -16,10 +16,10 @@
     let answer3: string 
     let answer4: string
     $: {
-        answer1 = answers[0] ? answers[0] : "" 
-        answer2 = answers[1] ? answers[1] : "" 
-        answer3 = answers[2] ? answers[2] : "" 
-        answer4 = answers[3] ? answers[3] : ""
+        answer1 = answers[0] ?? "" 
+        answer2 = answers[1] ?? "" 
+        answer3 = answers[2] ?? "" 
+        answer4 = answers[3] ?? ""
     }
 
     function changeQuestionAlighnment(align: string){

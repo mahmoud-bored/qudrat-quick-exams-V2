@@ -16,7 +16,6 @@
 	import { onMount } from "svelte";
     import { examTheme } from "$lib/stores"
 	import { goto } from "$app/navigation";
-    export let data
 
     // Get questions amounts
     const questionsAmount = $generalCurrentQuestionsMap?.size
@@ -28,30 +27,25 @@
 
     let cardSettings: { bg: string, color: string } = {bg: "", color: ""}
     onMount(async () => {
-        if(questionsAmount) {
-            // Set Question background Theme: Dark, Light or Wood
-            if ($examTheme == 'عادي'){
-                cardSettings['bg'] = (await import('$lib/assets/quizThemeLightBg.webp')).default
-                cardSettings['color'] = '#000'
-            }else {
-                cardSettings['bg'] = (await import('$lib/assets/quizThemeDarkBg.webp')).default
-                cardSettings['color'] = '#fff'
-            }
-            // Set Question Percentage Color
-            if(correctQuestionsPercentage < 60) {
-                (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('color', '#ff4a4a');
-                (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('text-shadow', '0px 0px 8px');
-            }else if (correctQuestionsPercentage < 80) {
-                (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('color', '#fdd849');
-            }else if (correctQuestionsPercentage < 95) {
-                (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('color', '#06a664');
-            }else if ( correctQuestionsAmount <= 100 ) {
-                (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('color', '#06a664');
-                (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('text-shadow', '0px 0px 8px');
-            }
-
-        } else {
-            window.location.href = `${data.origin}/quiz`
+        // Set Question background Theme: Dark, Light or Wood
+        if ($examTheme == 'عادي'){
+            cardSettings['bg'] = (await import('$lib/assets/quizThemeLightBg.webp')).default
+            cardSettings['color'] = '#000'
+        }else {
+            cardSettings['bg'] = (await import('$lib/assets/quizThemeDarkBg.webp')).default
+            cardSettings['color'] = '#fff'
+        }
+        // Set Question Percentage Color
+        if(correctQuestionsPercentage < 60) {
+            (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('color', '#ff4a4a');
+            (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('text-shadow', '0px 0px 8px');
+        }else if (correctQuestionsPercentage < 80) {
+            (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('color', '#fdd849');
+        }else if (correctQuestionsPercentage < 95) {
+            (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('color', '#06a664');
+        }else if ( correctQuestionsAmount <= 100 ) {
+            (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('color', '#06a664');
+            (document.querySelector('.results-summary-general-percentage > span') as HTMLSpanElement)?.style.setProperty('text-shadow', '0px 0px 8px');
         }
     })
     

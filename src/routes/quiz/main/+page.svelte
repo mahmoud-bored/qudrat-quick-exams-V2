@@ -11,7 +11,6 @@
     import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.webp'
     import { examTheme } from "$lib/stores"
 	import { onMount } from "svelte"
-    import { checkQuizReady } from "./checkInfoValidty"
     import { getHTMLElement } from "$lib/app"
 	import { fade, fly } from "svelte/transition"
 	import { browser } from "$app/environment"
@@ -36,24 +35,22 @@
     let isWoodMode: boolean = false
 
     onMount(() => {
-        if(checkQuizReady()){
-            // Set Theme: Dark, Light or Wood
-            if ($examTheme == 'ليلي'){
-                themeSrc = darkModeImgSrc
-                questionColor = 'rgb(236 236 236)'
-                paragraphColor = '#fff'
-            } else if ($examTheme == 'عادي'){
-                themeSrc = lightModeImgSrc
-                questionColor = '#000'
-                paragraphColor = '#000'
-            } else if ($examTheme == 'Wood(Beta)'){
-                themeSrc = woodModeImgSrc
-                isWoodMode = true
-                questionColor = '#000'
-                paragraphColor = '#fff'
-            }
-            getQuestion()
+        // Set Theme: Dark, Light or Wood
+        if ($examTheme == 'ليلي'){
+            themeSrc = darkModeImgSrc
+            questionColor = 'rgb(236 236 236)'
+            paragraphColor = '#fff'
+        } else if ($examTheme == 'عادي'){
+            themeSrc = lightModeImgSrc
+            questionColor = '#000'
+            paragraphColor = '#000'
+        } else if ($examTheme == 'Wood(Beta)'){
+            themeSrc = woodModeImgSrc
+            isWoodMode = true
+            questionColor = '#000'
+            paragraphColor = '#fff'
         }
+        getQuestion()
     })
     $: console.log($answers)
     // Set Mode: Desktop or Mobile
