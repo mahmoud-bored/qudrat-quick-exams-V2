@@ -87,8 +87,7 @@
         if(percentage1 == 0) { hidePercentage1 = true } else { hidePercentage1 = false }
         if(percentage2 == 0) { hidePercentage2 = true } else { hidePercentage2 = false }
         if(percentage3 == 0) { hidePercentage3 = true } else { hidePercentage3 = false }
-
-    } 
+    }
 
 </script>
 

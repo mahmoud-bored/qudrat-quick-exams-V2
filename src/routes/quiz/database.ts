@@ -119,49 +119,46 @@ function buildDatabase(db: IDBDatabase) {
 
 
 type IndexedDbData = {
-    isStatusGood: boolean;
     data: DbData;
 }
-async function loadFromIndexedDb(db: IDBDatabase, table_list: string[]) {
+async function loadFromIndexedDb(db: IDBDatabase, table_list: string[]): Promise<IndexedDbData> {
+    type TablePromise = { data: object[]; table_name: string; }
+
     // Returns the stored old data from IndexedDB
     const transaction = db.transaction(table_list, 'readonly')
-    type TablePromise = {
-        isStatusGood: boolean;
-        data: object[];
-        table_name: string;
-    }
-
     const requests: Promise<TablePromise>[] = []
     for(const table_name of table_list) {
         const objectStore = transaction.objectStore(table_name)
-        const requestPromise = new Promise<TablePromise>((resolve) => {
+        const requestPromise = new Promise<TablePromise>((resolve, reject) => {
             const request = objectStore.getAll()
-            request.onerror = () => resolve({ isStatusGood: false, data: [], table_name })
-            request.onsuccess = () => resolve({ isStatusGood: true, data: request.result, table_name })
+            request.onerror = reject
+            request.onsuccess = () => resolve({ data: request.result, table_name })
         })
         requests.push(requestPromise)
     }
-    return Promise.all(requests).then((results) => {
-        const dataObject: IndexedDbData = { isStatusGood: true, data: {} as DbData }
-        for(const result of results) {
-            if(result.isStatusGood) {
-                dataObject.data[result.table_name] = result.data
-            } else {
-                dataObject.isStatusGood = false
-            }
-        }
-        return dataObject
+    return new Promise(async (resolve, reject) => {
+        await Promise.all(requests)
+            .then((results) => {
+                const dataObject: IndexedDbData = { data: {} as DbData }
+                for(const result of results) {
+                    dataObject.data[result.table_name] = result.data
+                }
+                resolve(dataObject)
+            })
+            .catch((err) => reject(err?.message))
     })
 }
 async function fetchFromSupabase(data: object, fullLoad: boolean = false) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         fetch('/quiz/api', {
             method: 'POST',
             body: JSON.stringify({ fullLoad, data }),
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then((result) => resolve(result.json()) )
+        })
+        .then((result) => resolve(result.json()))
+        .catch((err) => reject(err?.message))
     })
 }
 async function getNewDataFromSupabase(updateList: object[]) {
@@ -318,42 +315,46 @@ function cleanMergedData(data: DbData, deleted_record: DeletedRecord): DbData {
     }
     return data 
 }
-async function updateIndexedDbUsingSupabase(db: IDBDatabase, tableUpdateList: object[], redisDB: RedisDB, fullTableList: string[], course_id: number) {
-    const newDataFromSupabase = await getNewDataFromSupabase(tableUpdateList)
-    const oldDataFromIndexedDb = await loadFromIndexedDb(db, fullTableList)
-    if(oldDataFromIndexedDb.isStatusGood) {
-        const newDataFromSupabaseProcessed = assignIDsToRecords(newDataFromSupabase)
-        const { data: dbData, deleted_record } = processDeletedRecordData(newDataFromSupabaseProcessed)
-        const oldDataFromIndexedDbProcessed = assignIDsToRecords(oldDataFromIndexedDb.data)
-
-        let { updateLists, mergedData } = mergeDataAndGetIndexedDbUpdateLists(oldDataFromIndexedDbProcessed, dbData)
-        if(deleted_record) {
-            mergedData = cleanMergedData(mergedData, deleted_record)
-            updateLists.delete = deleted_record
-        }
-        console.log("Update Lists: ", updateLists)
-        // Inject Merged Data into IndexedDb
-        console.log("Merged Data: ", mergedData)
-        updateIndexedDb(db, updateLists, redisDB, course_id)
-        return mergedData
-    } else {
-        const data = await fullLoadFromSupabase(fullTableList, course_id)
-        return data
-    }
+async function updateIndexedDbUsingSupabase(db: IDBDatabase, tableUpdateList: object[], redisDB: RedisDB, fullTableList: string[], course_id: number): Promise<DbData> {
+    return new Promise((resolve, reject) => {
+        Promise.all([ getNewDataFromSupabase(tableUpdateList), loadFromIndexedDb(db, fullTableList)])
+            .then((results) => {
+                const newDataFromSupabase = results[0]
+                const oldDataFromIndexedDb = results[1]
+                const newDataFromSupabaseProcessed = assignIDsToRecords(newDataFromSupabase)
+                const { data: dbData, deleted_record } = processDeletedRecordData(newDataFromSupabaseProcessed)
+                const oldDataFromIndexedDbProcessed = assignIDsToRecords(oldDataFromIndexedDb.data)
+        
+                let { updateLists, mergedData } = mergeDataAndGetIndexedDbUpdateLists(oldDataFromIndexedDbProcessed, dbData)
+                if(deleted_record) {
+                    mergedData = cleanMergedData(mergedData, deleted_record)
+                    updateLists.delete = deleted_record
+                }
+                console.log("Update Lists: ", updateLists)
+                // Inject Merged Data into IndexedDb
+                console.log("Merged Data: ", mergedData)
+                updateIndexedDb(db, updateLists, redisDB, course_id)
+                resolve(mergedData)
+            }).catch(err => reject(err?.message))
+    })
 }
-async function fullLoadFromSupabase(table_list: string[], course_id: number) {
-    const requests = []
+async function fullLoadFromSupabase(table_list: string[], course_id: number): Promise<DbData> {
+    const requests: Promise<unknown>[] = []
     const returnObj = {} as DbData
     for(const table_name of table_list) {
         requests.push(fetchFromSupabase({ table_name, course_id }, true))
     }
-    return await Promise.all(requests).then((results: any[]) => {
-
-        for(const result of results) {
-            returnObj[result.table_name] = result.data
-        }
-        return assignIDsToRecords(returnObj)
-    })
+    return new Promise(async (resolve, reject) => {
+        await Promise.all(requests)
+            .then((results: any[]) => {
+                for(const result of results) {
+                    returnObj[result.table_name] = result.data
+                }
+                resolve(assignIDsToRecords(returnObj))
+            })
+            .catch((err) => reject(err?.message))
+        
+    }) 
 }
 type VersionUpdateList = {
     isUpdateRequired: boolean;
@@ -363,6 +364,19 @@ type VersionUpdateList = {
         timestamp: string;
         course_id: number;
     }[];
+}
+type VersionsInfo = {
+    table_name: string; 
+    timestamp: string; 
+    course_id: number, 
+    table_version: number
+}[];
+type ProcessedVersionsInfo = {
+    [table_name: string]: {
+        timestamp: string;
+        course_id: number;
+        table_version: number;
+    };
 }
 function checkVersions(db: IDBDatabase, redisDB: RedisDB, course_id: number): Promise<VersionUpdateList> {
     // Returns a list of Tables that need an update
@@ -387,33 +401,8 @@ function checkVersions(db: IDBDatabase, redisDB: RedisDB, course_id: number): Pr
             resolve(returnObj)
         }
         request.onsuccess = () => {
-            type VersionsInfo = {
-                table_name: string; 
-                timestamp: string; 
-                course_id: number, 
-                table_version: number
-            }[];
             const result: VersionsInfo = request.result
             if(result && result.length !== 0) {
-                // for(const table_info of result) {
-                //     const table_name = table_info['table_name']
-                //     const table_version = table_info['table_version']
-                    
-                //     if(redisDB[table_name].version === table_version) {
-                //         console.log('Good')
-                //     } else {
-                //         console.log('Please Update ', table_name)
-                //         returnObj.isUpdateRequired = true
-                //         returnObj.updateList.push({ table_name, timestamp: table_info['timestamp'], course_id })
-                //     }
-                // }
-                type ProcessedVersionsInfo = {
-                    [table_name: string]: {
-                        timestamp: string;
-                        course_id: number;
-                        table_version: number;
-                    };
-                }
                 const processedVersionsInfo: ProcessedVersionsInfo = {}
                 for(const table_info of result) {
                     processedVersionsInfo[table_info.table_name] = {
@@ -456,36 +445,44 @@ export async function loadDatabase(redisDB: RedisDB, course_id: number): Promise
         IDBrequest.result.close()
         return data
     }
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         IDBrequest.onerror = async () => {
             console.log('Error')
-            const data = await fullLoadFromSupabase(table_list, course_id)
-            resolve(closeDb(data))
+            await fullLoadFromSupabase(table_list, course_id)
+                .then((result: DbData) => resolve(closeDb(result)))
+                .catch((err: Error) => reject(err))
         }
         IDBrequest.onupgradeneeded = () => buildDatabase(db())
         IDBrequest.onsuccess = async () => {
             const checkVersionsData = await checkVersions(db(), redisDB, course_id)
             if(checkVersionsData.fullLoad) {
-                const data = await fullLoadFromSupabase(table_list, course_id)
-                resolve(closeDb(data))
+                await fullLoadFromSupabase(table_list, course_id)
+                    .then((result: DbData) => resolve(closeDb(result)))
+                    .catch((err: Error) => reject(err))
             } else if(checkVersionsData.isUpdateRequired) {
                 // Updaing IndexedDB Using Supabase
-                console.log('Updating IndexedDB Using Supabase');
-                const data = await updateIndexedDbUsingSupabase(db(), checkVersionsData.updateList, redisDB, table_list, course_id)
-                // Not closing the database because it still writing the new Versions to it.
-                resolve(data)
+                await updateIndexedDbUsingSupabase(db(), checkVersionsData.updateList, redisDB, table_list, course_id)
+                // Not using closeDb because it still writing the new Versions to it.
+                    .then((result: DbData) => resolve(result))
+                    .catch(async () => {
+                        await fullLoadFromSupabase(table_list, course_id)
+                            .then((result) => resolve(result))
+                            .catch((err: Error) => reject(err))
+                    })
             } else {
                 // Using IndexedDB
                 console.log('Using IndexedDB');
+                await loadFromIndexedDb(db(), table_list)
+                    .then((result: IndexedDbData) => {
+                        const data = assignIDsToRecords(result.data)
+                        resolve(closeDb(data))
+                    })
+                    .catch(async () => {
+                        await fullLoadFromSupabase(table_list, course_id)
+                            .then((result: DbData) => resolve(closeDb(result)))
+                            .catch((err: Error) => reject(err))
+                    })
 
-                const loadFromIndexedDbData = await loadFromIndexedDb(db(), table_list)
-                if(loadFromIndexedDbData.isStatusGood) {
-                    const data = assignIDsToRecords(loadFromIndexedDbData.data)
-                    resolve(closeDb(data))
-                } else {
-                    const data = await fullLoadFromSupabase(table_list, course_id)
-                    resolve(closeDb(data))
-                }
             }
         }
         
@@ -506,6 +503,7 @@ export function loadDbDataIntoStores(data: DbData){
     const categoriesData = getCategoriesData()
     const collectionsData = getCollectionsData()
     const collectionsOrder = getCollectionsOrder()
+
     paragraphsObject.set(paragraphsData)
     questionsObject.set(questionsData)
     categoriesObject.set(categoriesData)

@@ -21,18 +21,12 @@
     export let questionsAmountWarning = false
     export let noRepeat = true
 
-    let isCollectionsDataReady: boolean | string = false
+    export let isCollectionsDataReady: boolean | string
     let collections: CollectionsContainer
     let collectionsOrder: number[]
 
-    $: {
-        collections = $globalCollections 
-        collectionsOrder = $globalCollectionsOrder
-        if(Object.keys(collections).length !== 0 && collectionsOrder.length !== 0){
-            isCollectionsDataReady = true
-        }
-    }
-    
+    $: collections = $globalCollections
+    $: collectionsOrder = $globalCollectionsOrder
 
     $: questionNoRepeat.set(noRepeat)
     $: { if(questionsAmount === undefined) { globalQuestionsAmount.set(0) }
@@ -81,20 +75,20 @@
         <hr>
         <h2>بنك اسئلة اللفظي</h2>
         <div class="exam-customization-collections-container" class:collections-container-warning={examListWarning}>
-            {#if isCollectionsDataReady == false}
+            {#if isCollectionsDataReady === false}
                 <div class="ring">
                     Loading
                     <span></span>
                 </div>
-            {:else if isCollectionsDataReady == true}
+            {:else if isCollectionsDataReady === true}
                 {#each collectionsOrder as collectionID}
                     {#if collectionID && collections[collectionID].info.numberOfExams !== 0}
                         <CollectionCard {collectionID} {collections} />
                     {/if}
                 {/each}
-            {:else if isCollectionsDataReady == "Error"}
+            {:else if isCollectionsDataReady === "Error"}
                 <div class="exam-customization-collections-error-container">
-                    <p>حدث خطأ، يرجى إعادة تحميل الصفحة أو المحاولة لاحقا.</p>
+                    <p dir="rtl">حدث خطأ، يرجى إعادة تحميل الصفحة أو المحاولة لاحقا.</p>
                     <svg width="424" height="444" viewBox="0 0 424 444" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M208.59 240.56C210.151 238.015 213.849 238.015 215.41 240.56L304.393 385.659C306.028 388.324 304.11 391.75 300.983 391.75H123.016C119.89 391.75 117.972 388.324 119.607 385.659L208.59 240.56Z" fill="#EA3435"/><rect width="424" height="305" rx="19" fill="#FF6B6B"/><g filter="url(#filter0_d_162_16)"><path d="M288 61L327 100" stroke="#EA3435" stroke-width="11" stroke-linecap="round"/></g><g filter="url(#filter1_d_162_16)"><path d="M96 61L135 100" stroke="#EA3435" stroke-width="11" stroke-linecap="round"/></g><g filter="url(#filter2_d_162_16)"><path d="M327 61L288 100" stroke="#EA3435" stroke-width="11" stroke-linecap="round"/></g><g filter="url(#filter3_d_162_16)"><path d="M135 61L95.9996 100" stroke="#EA3435" stroke-width="11" stroke-linecap="round"/></g><g filter="url(#filter4_d_162_16)"><path d="M212 108L211.565 168" stroke="#E4EAF8" stroke-width="15" stroke-linecap="round"/></g><g filter="url(#filter5_d_162_16)"><circle cx="211.5" cy="189.5" r="7.5" fill="#E4EAF8"/></g><path d="M136.001 266.393C148.996 258.499 170 246.239 203.617 236.824C235.673 227.847 255.996 226.878 272.431 226.879" stroke="#E4EAF8" stroke-width="9" stroke-linecap="round"/><defs><filter id="filter0_d_162_16" x="278.5" y="55.5" width="58" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_162_16"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_162_16" result="shape"/></filter><filter id="filter1_d_162_16" x="86.5" y="55.5" width="58" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_162_16"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_162_16" result="shape"/></filter><filter id="filter2_d_162_16" x="278.5" y="55.5" width="58" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_162_16"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_162_16" result="shape"/></filter><filter id="filter3_d_162_16" x="86.5" y="55.5" width="58" height="58" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_162_16"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_162_16" result="shape"/></filter><filter id="filter4_d_162_16" x="200.064" y="100.5" width="23.4355" height="83" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_162_16"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_162_16" result="shape"/></filter><filter id="filter5_d_162_16" x="200" y="182" width="23" height="23" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_162_16"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_162_16" result="shape"/></filter></defs>
                     </svg>

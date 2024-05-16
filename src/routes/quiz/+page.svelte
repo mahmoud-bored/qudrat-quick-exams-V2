@@ -15,12 +15,19 @@
     let isExamQuestionsCustomizationVisible = true
     let isExamThemeCustomizationVisible = false
     featureFlags.set(data.featureFlags)
-    console.log(data)
+
+    let isDataReady: boolean | string = false
     onMount(async () => {
         isExamCustomized.set(false)
-        const dbData = await loadDatabase(data.redisDB, data.course_id)
-        const { collectionsData, collectionsOrder } = loadDbDataIntoStores(dbData)
-        console.log(dbData)
+        await loadDatabase(data.redisDB, data.course_id)
+            .then(dbData => {
+                loadDbDataIntoStores(dbData)
+                console.log(dbData)
+                isDataReady = true
+            }).catch((err) => {
+                console.log(err)
+                isDataReady = "Error"
+            })
     })
     
     let examListWarning = false
@@ -83,7 +90,7 @@
             {/if}
             <div class="exam-customization-grid-container">
                 {#if isExamQuestionsCustomizationVisible}
-                    <QuestionCustomizationTab {examListWarning} {questionsAmountWarning} />
+                    <QuestionCustomizationTab {examListWarning} {questionsAmountWarning} isCollectionsDataReady={isDataReady} />
                 {/if}
                 {#if isExamThemeCustomizationVisible}
                     <ThemeCustomizationTab/>
