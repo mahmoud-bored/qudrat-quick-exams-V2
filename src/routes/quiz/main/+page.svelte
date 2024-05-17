@@ -11,9 +11,7 @@
     import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.webp'
     import { examTheme } from "$lib/stores"
 	import { onMount } from "svelte"
-    import { getHTMLElement } from "$lib/app"
 	import { fade, fly } from "svelte/transition"
-	import { browser } from "$app/environment"
     import { endQuiz, getQuestion } from "./operations.ts"
     import { 
         questionParagraph, 
@@ -52,7 +50,6 @@
         }
         getQuestion()
     })
-    $: console.log($answers)
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
     let screenWidth: number

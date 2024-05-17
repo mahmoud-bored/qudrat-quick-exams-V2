@@ -35,7 +35,6 @@
     } else {
         bgColorStyle = fragmentColor
     }
-    console.log(lastColor)
 </script>
 
 <span class:span-radius={isBorderActive} class="progress-bar-fragment" data-bg-color="{fragmentColor}" id="{fragmentID}" style="background: {bgColorStyle}"></span>
