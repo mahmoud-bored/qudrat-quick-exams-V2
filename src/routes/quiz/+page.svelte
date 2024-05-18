@@ -108,7 +108,7 @@
             <!-- Next Button -->
             <div class="h-16 w-full flex justify-end items-center">
                 <button 
-                    class="m-4 mb-10 h-9/10 w-4/10 outer-shadow border-solid border-2 border-primary rounded-lg bg-secondary-default text-primary 
+                    class="group m-4 mb-10 h-9/10 w-4/10 outer-shadow border-solid border-2 border-primary rounded-lg bg-secondary-default text-primary 
                     hover:text-secondary-default hover:bg-primary hover:*:stroke-secondary-default text-xl 
                     font-bold flex-center pointer button-transition"
                     class:w-full={isNextButtonFullsize}
@@ -119,7 +119,7 @@
                         <TypeWriter speed={2}>التالي</TypeWriter>
                     {:else}
                         <svg 
-                            class="absolute left-10 h-10 transition stroke-primary opacity-0" 
+                            class="absolute left-10 h-10 transition stroke-primary group-hover:stroke-secondary-default opacity-0" 
                             class:opacity-100={isQuizStartThrobberVisible} 
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: block; shape-rendering: auto;" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"
                         >

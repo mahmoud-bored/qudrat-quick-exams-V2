@@ -25,8 +25,11 @@
     class:active 
     data-id="{themeName}" 
     on:click={setActiveTheme}
->
-    <img class="aspect-[1340/750] w-full rounded-t-lg" {src} alt="">
+>   
+    <div>
+        <enhanced:img class="aspect-[1340/750] w-full rounded-t-lg" {src} alt="">
+
+    </div>
     <div class="h-full w-full py-1 flex-center">
         <p class="group-hover:text-secondary-light text-lg">{themeName}</p>
     </div>
