@@ -48,6 +48,7 @@
         <button class="choice" class:choice-landscape={isLandscape} class:choice-disabled={!$isNextQuestionReady} data-value="{answer2}" on:click={(e) => { if($isNextQuestionReady){pickAnswer(e)}} }>ب</button>
         <button class="choice" class:choice-landscape={isLandscape} class:choice-disabled={!$isNextQuestionReady} data-value="{answer3}" on:click={(e) => { if($isNextQuestionReady){pickAnswer(e)}} }>ج</button>
         <button class="choice" class:choice-landscape={isLandscape} class:choice-disabled={!$isNextQuestionReady} data-value="{answer4}" on:click={(e) => { if($isNextQuestionReady){pickAnswer(e)}} }>د</button>
+        <!-- <EndQuizButton /> -->
     </div>
 </div>
 

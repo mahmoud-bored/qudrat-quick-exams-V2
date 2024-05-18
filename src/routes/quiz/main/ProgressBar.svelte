@@ -7,6 +7,8 @@
 <style lang="sass">
     .progress-bar-container
         display: flex
+        position: absolute
+        top: 0
         height: 10px
         width: calc(100% - 3px)
         background-color: #333

@@ -49,6 +49,17 @@
             paragraphColor = '#fff'
         }
         getQuestion()
+        // TODO: Remove this
+        var docWidth = document.documentElement.offsetWidth;
+        [].forEach.call(
+            document.querySelectorAll('*'),
+            function(el: HTMLElement) {
+                if (el.offsetWidth > docWidth) {
+                console.log(el);
+                }
+            }
+        );
+
     })
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
