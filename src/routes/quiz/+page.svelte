@@ -138,6 +138,9 @@
 </main>
 
 <style>
+    :global(html) {
+        overscroll-behavior: auto
+    }
     .dotted-bg {
         --dot-bg: #363636;
         --dot-color: #ffffff40;

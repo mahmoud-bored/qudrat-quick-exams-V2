@@ -188,3 +188,8 @@
         </section>
     </div>
 </main>
+
+<style lang="sass">
+    :global(html)
+        overscroll-behavior: none
+</style>
