@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=El+Messiri&display=swap')
 $color-primary: #009759
 $color-bg-primary: #363636
 $color-bg-secondary: #474747
@@ -112,23 +111,19 @@ $color-bg-secondary: #474747
             &::-moz-range-thumb
                 background-color: #0060df
 @mixin font-family()
-    font-family: inter
-    font-weight: 800
-    font-family: 'El Messiri', sans-serif
+    font-family: 'El Messiri'
+    
     
 *
-    padding: 0
-    margin: 0
     box-sizing: border-box
 button
-    all: unset
+    // all: unset
     cursor: pointer
     box-sizing: border-box
     *
         pointer-events: none
 input[type="number"],
 input[type="text"]
-    all: unset
     direction: rtl
     box-sizing: border-box
     &[type="number"]

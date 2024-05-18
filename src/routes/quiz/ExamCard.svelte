@@ -36,12 +36,20 @@
 </script>
 
 
-<button class="exam-card" data-id={examID} on:click={()=>{ updateActiveExamsIDs(); checkActiveExamsList(collections) }}>
-    <div class="button-subtxt">{exams[examID].numberOfQuestions} سؤال</div>
-    <hr>
-    <div class="button-title">
-        <input type="checkbox">
-        <p>{exams[examID].name}</p>
+<button 
+    class="group exam-card w-10/12 min-h-14 bg-secondary-light rounded flex justify-between items-center border-3 
+    border-secondary-light transition px-2 gap-2 hover:border-primary outer-shadow" 
+    data-id={examID} 
+    on:click={()=>{ 
+        updateActiveExamsIDs(); 
+        checkActiveExamsList(collections) 
+    }}
+>
+    <div class="text-xs text-zinc-400 w-2/10" dir="rtl">{exams[examID].numberOfQuestions} سؤال</div>
+    <hr class="h-7/10">
+    <div class="button-title w-8/10 flex justify-start items-center gap-2" dir="rtl">
+        <input class="border-3 border-secondary-light min-w-5 min-h-5 transition checkbox-input checked:border-primary" type="checkbox">
+        <p class="text-sm">{exams[examID].name}</p>
     </div>
 </button>
 
@@ -51,46 +59,3 @@
 
 
 
-<style lang="sass">
-    @import '$lib/assets/app.sass'
-    .exam-card
-        width: 85%
-        min-height: 60px
-        background-color: $color-bg-secondary
-        border-radius: 5px
-        display: flex
-        justify-content: space-between
-        align-items: center
-        border: 3px solid 
-        border-color: $color-bg-secondary
-        transition: all 0.2s ease
-        padding: 0 10px
-        gap: 10px
-        @include outer-shadow()
-        @media (hover: hover)
-            &:hover
-                border-color: $color-primary
-                .button-title
-                    input
-                        border: 3px solid $color-primary
-        .button-subtxt
-            font-size: 0.8em
-            color: #979797
-            direction: rtl
-            width: 19%
-        hr
-            height: 70%
-        .button-title
-            width: 80%
-            display: flex
-            justify-content: flex-start
-            align-items: center
-            direction: rtl
-            gap: 10px
-            p
-                font-size: 0.9em
-            input
-                border: 3px solid $color-bg-secondary
-                min-width: 20px
-                min-height: 20px
-</style>

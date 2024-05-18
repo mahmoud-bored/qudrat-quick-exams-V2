@@ -30,16 +30,17 @@
         streakJump = true
         setTimeout(() => streakJump = false, 400)
     } 
-    let inputValue: number = 25
+    let inputValue = 25
     questionFontSize.set(inputValue / 100 + 0.8)
     $: questionFontSize.set(inputValue / 100 + 0.8)
-    $: if(browser){
+    let timerElmnt: HTMLParagraphElement
+    $: if(browser && timerElmnt){
         if($timer > 30){
-            (document.querySelector('.timer') as HTMLParagraphElement)?.style.setProperty('color', '#186f1e')
+            timerElmnt.style.setProperty('color', '#186f1e')
         }else if($timer <= 30 && $timer > 10){
-            (document.querySelector('.timer') as HTMLParagraphElement)?.style.setProperty('color', '#bf932b')
+            timerElmnt.style.setProperty('color', '#bf932b')
         }else if($timer <= 10){
-            (document.querySelector('.timer') as HTMLParagraphElement)?.style.setProperty('color', 'rgb(196, 35, 35)')
+            timerElmnt.style.setProperty('color', 'rgb(196, 35, 35)')
         }
 
     }
@@ -80,7 +81,7 @@
         <span>{$questionStreak}</span>
     </div>
     <div class="timer-container">
-        <p class="timer">{$timer}s</p>
+        <p class="timer" bind:this={timerElmnt}>{$timer}s</p>
     </div>
     <div class="question-text-size-container">
         <input type="range" bind:value={inputValue}>

@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'El Messiri';
+    src: url('./lib/assets/fonts/ElMessiri-VariableFont_wght.ttf');
+    font-weight: 800;
+}

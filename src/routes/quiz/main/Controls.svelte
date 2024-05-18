@@ -35,6 +35,7 @@
         display: flex
         justify-content: space-between
         align-items: flex-end
+        color: #fff
         .end-quiz-button,
         .mark-question-button,
         .skip-question-button
@@ -48,7 +49,7 @@
         .end-quiz-button
             width: 20%
             border-color: #DC354580
-            background-color: #DC354550
+            background-color: #DC354570
             text-align: center
             @media (hover: hover)
                 &:hover
@@ -57,7 +58,7 @@
         .mark-question-button
             width: 100%
             border-color: #FFCC1880
-            background-color: #FDCD2260
+            background-color: #FDCD2270
             gap: 10px
             text-align: center
             display: flex

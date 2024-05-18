@@ -90,7 +90,7 @@
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
-<main class="container main-quiz-container" class:container-mobile-view={!isLandscape} style="background-image: url({themeSrc}); color: {questionColor}">
+<main class="container main-quiz-container font-messiri" class:container-mobile-view={!isLandscape} style="background-image: url({themeSrc}); color: {questionColor}">
     {#if $isShowResultsVisible}
         <section class="show-results-tab" id="nope" in:fly={{ y: -600, duration: 200 }}>
             <div class="results-chart-container">
@@ -181,7 +181,7 @@
                         </div>
                         <div class="quiz-choices-container"> <Choices {isWoodMode} {isLandscape} answers={$answers} /> </div> 
                     </div>
-                    <div class="quiz-controls-container"> <Controls /> </div>
+                    <div class="quiz-controls-container text-white"> <Controls /> </div>
                 </div>
             </div>
         </div>

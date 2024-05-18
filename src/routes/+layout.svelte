@@ -1,4 +1,5 @@
 <script>
+	import '../app.css';
 	import { fade, fly } from 'svelte/transition';
 	export let data;
 </script>

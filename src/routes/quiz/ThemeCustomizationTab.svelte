@@ -6,10 +6,14 @@
     import examThemeWoodImgSrc from '$lib/assets/quiz-theme-wood.webp'
 </script>
 
-<div class="exam-theme-container"  transition:fly={{ x: 200, duration: 600 }}>
-    <hr>
-    <h2>اختر شكل الإختبار</h2>
-    <div class="exam-themes"transition:fly={{ x: 200, duration: 600 }}>
+<div class="exam-theme-container h-[calc(100%-20px)] p-5 w-full flex-center flex-col gap-2" transition:fly={{ x: 200, duration: 600 }}>
+    <hr class="w-1/3 border-2 border-secondary-default rounded-lg">
+    <p class="text-2xl text-center">اختر شكل الإختبار</p>
+    <div 
+        class="exam-themes h-[calc(100%-20px)] w-full rounded-lg p-5 bg-secondary-default 
+            overflow-y-auto scrollbar-thin scrollbar-primary flex flex-col gap-2 inner-shadow" 
+        transition:fly={{ x: 200, duration: 600 }}
+    >
         <ThemeCard themeName="عادي" src='{examThemeLightImgSrc}'/>
         <ThemeCard themeName="ليلي" src={examThemeDarkImgSrc}/>
         <ThemeCard themeName="Wood(Beta)" src={examThemeWoodImgSrc}/>
@@ -17,37 +21,6 @@
 </div>
 
 <style lang="sass">
-    @import '$lib/assets/app.sass'
     @import '$lib/assets/chromeScrollbarStyle.sass'
     @include chrome-scrollbar(#057b4a, #333)
-    .exam-theme-container
-        height: calc(100% - 20px)
-        width: 100%
-        display: flex
-        flex-direction: column
-        justify-content: center
-        align-items: center
-        text-align: center
-        gap: 10px
-        grid-row: 1
-        grid-column: 1
-        hr
-            width: 30%
-            border: 2px solid $color-bg-primary
-            border-radius: 10px
-            margin: 0
-        .exam-themes
-            height: calc(100% - 20px)
-            width: 100%
-            border-radius: 10px
-            padding: 20px
-            background-color: $color-bg-primary
-            overflow-y: auto
-            scrollbar-width: thin
-            scrollbar-color: #057b4a #333
-            
-            display: flex
-            flex-direction: column
-            gap: 20px
-            @include inner-shadow()
 </style>

@@ -50,79 +50,44 @@
     function setExamsCollection(){ examsCollectionCustomizeTab.set(collectionObj) }
 </script>
 
-<div class="collection-container" data-id={collectionID} class:collection-container-mounted={isCardMounted}>
-    <div class="left-side-container">
-        <button class="collection-customize-button" on:click={()=> { setExamsCollection(); showCustomizationTab(); checkActiveExamsList(collections); }}>تخصيص</button>
-        <p>{collectionQuestionsAmount} سؤال</p>
+<div class="collection-container py-2 px-3 w-9/10 rounded bg-secondary-light flex justify-evenly items-center 
+        gap-2 ml-20 -mt-5 opacity-0 transition border-3 border-transparent outer-shadow
+        hover:border-primary hover:bg-blend-lighten" 
+    data-id={collectionID} 
+    class:collection-container-mounted={isCardMounted}
+>
+    <div class="left-side-container w-full flex items-center justify-between">
+        <button 
+            class="collection-customize-button flex items-center w-1/2 rounded border-2 border-primary 
+                flex-center text-xs py-1 transition cursor-pointer pointer-events-auto hover:bg-primary hover:text-secondary-light" 
+            on:click={()=> { 
+                setExamsCollection(); 
+                showCustomizationTab(); 
+                checkActiveExamsList(collections); 
+            }}
+        >
+            تخصيص
+        </button>
+        <p class="text-xs text-zinc-400" dir="rtl">{collectionQuestionsAmount} سؤال</p>
     </div>
-    <hr>
-    <button class="right-side-container"  on:click={()=> { addOrRemoveExamFromActiveExamsIDs(); checkActiveExamsList(collections) } }>
+    <hr class="h-9/10 w-0 border border-zinc-500"/>
+    <button 
+        class="right-side-container w-full flex items-center justify-end gap-2 text-base cursor-pointer pointer-events-auto" 
+        on:click={()=> { 
+            addOrRemoveExamFromActiveExamsIDs()
+            checkActiveExamsList(collections) 
+        }}
+    >
         <p>{collectionObjInfo['collectionName']}</p>
-        <input type="checkbox" bind:checked={isCollectionActive}>
+        <input 
+            class="border-3 border-secondary-light min-w-5 min-h-5 checkbox-input checked:border-primary"
+            type="checkbox" 
+            bind:checked={isCollectionActive}
+        />
     </button>
 </div>
 
 <style lang="sass">
-    @import '$lib/assets/app.sass'
-    .collection-container
-        padding: 5px 10px
-        width: 90%
-        border-radius: 5px
-        background-color: $color-bg-secondary
-        display: flex
-        justify-content: space-evenly
-        align-items: center
-        gap: 7px
-        margin-left: 70px
-        margin-top: -20px
-        opacity: 0
-        transition: all 0.2s ease-out
-        border: 3px solid transparent
-        @include outer-shadow()
-        div, button
-            width: 100%
-            display: flex
-            align-items: center
-        .left-side-container
-            justify-content: space-between
-            .collection-customize-button
-                width: 50%
-                border-radius: 5px
-                border: 2px solid $color-primary
-                display: flex
-                justify-content: center
-                align-items: center
-                font-size: min(3.5vw, 0.9em)
-                transition: all 0.2s ease
-                cursor: pointer
-                pointer-events: all
-                @media (hover: hover)
-                    &:hover
-                        background-color: $color-primary
-                        color: $color-bg-secondary
-            p
-                font-size: min(4.5vw, 0.8rem)
-                color: #979797
-                direction: rtl
-        .right-side-container
-            justify-content: flex-end
-            gap: 10px
-            font-size: min(4.5vw, 1.2rem)
-            cursor: pointer
-            pointer-events: all
-            input
-                border: 3px solid $color-bg-secondary
-                min-width: 20px
-                min-height: 20px
-        hr
-            height: 90%
-        @media (hover: hover)
-            &:hover
-                border-color: $color-primary
-                background-color: lighten($color-bg-secondary, 3%)
-                .right-side-container
-                    input
-                        border: 3px solid $color-primary
     .collection-container-mounted
         margin-left: 0
         margin-top: 0
