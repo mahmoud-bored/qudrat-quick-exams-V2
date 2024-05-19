@@ -58,7 +58,6 @@ export default {
       maxWidth: {
         'inherit': 'inherit',
       },
-      
     },
   },
   plugins: [

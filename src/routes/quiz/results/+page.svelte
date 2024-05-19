@@ -59,9 +59,6 @@
     $:  if (screenWidth > screenHeight) isLandscape = true 
         else isLandscape = false
 
-
-
-
     const quizTime = $totalTimer
     const date = new Date(0)
     date.setSeconds(quizTime)
@@ -70,8 +67,8 @@
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
-<NavBar {data}/>
-<main class="container h-dvh font-messiri text-white" class:container-mobile-view={!isLandscape}>    
+<NavBar {isLandscape} {data}/>
+<main class="container h-dvh max-w-inherit font-messiri text-white" class:container-mobile-view={!isLandscape}>    
     <div class="results-container" class:results-container-mobile-view={!isLandscape}>
         <h1 class="text-3xl mt-8">تقرير الإختبار</h1>
         <section class="results-summary-container" class:results-summary-container-mobile={!isLandscape}>

@@ -4,6 +4,7 @@
 	import { fade, fly } from "svelte/transition";
     import { activeQuestionsSection } from "./quiz-results-stores";
     export let data
+    export let isLandscape: boolean
     let isAllActive:boolean , isCorrectActive: boolean, isIncorrectActive: boolean, isMarkedActive: boolean, isSkippedActive: boolean
     $: {
         [isAllActive, isCorrectActive, isIncorrectActive, isMarkedActive, isSkippedActive] = Array(5).fill(false)
@@ -26,10 +27,6 @@
         window.removeEventListener('keydown', escapeBtnListener)
     }
 </script>
-
-<button class="w-full h-full flex-center *:pointer-events-auto" on:click={() => isPopupOpen = true}>
-<slot/>
-</button>
 
 {#if isPopupOpen}
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -78,8 +75,12 @@
 
 </div>
 {/if}
-<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 md:top-1/2 md:right-0 md:left-auto md:-translate-x-0 md:-translate-y-1/2 flex-center flex-row-reverse md:flex-col gap-3 h-max w-full md:w-fit p-3 rounded-t-md md:rounded-tr-none md:rounded-l-md bg-secondary-light">
-    <div class="flex flex-row-reverse md:flex-col gap-2">
+<nav 
+    class="fixed top-1/2 right-0 left-auto -translate-x-0 -translate-y-1/2 
+    flex-center flex-col gap-3 h-max w-fit p-3 rounded-tr-none rounded-l-md bg-secondary-light"
+    class:mobile-view={!isLandscape}
+>
+    <div class="buttons-container flex flex-col gap-2">
         <button 
             class="w-12 h-12 flex-center rounded border-2 border-secondary-default bg-secondary-light hover:bg-secondary-default transition" 
             class:bg-secondary-default={isAllActive} 
@@ -126,7 +127,7 @@
             </button>
         {/if}
     </div>
-    <hr class="w-0 h-12 md:w-full md:h-0 border-zinc-500 border"/>
+    <hr class="w-full h-0 border-zinc-500 border"/>
     <div>
         <button 
             class="group w-12 h-12 flex-center rounded-full border-2 border-red-500 bg-secondary-default hover:bg-red-500 transition"
@@ -140,3 +141,13 @@
         </button>
     </div>
 </nav>
+
+<style lang="sass">
+    .mobile-view
+        @apply top-unset bottom-0 left-1/2 translate-y-0 -translate-x-1/2 flex-row-reverse w-full rounded-t-md
+        top: unset
+        .buttons-container
+            @apply flex-row-reverse
+        hr
+            @apply w-0 h-12
+</style>
