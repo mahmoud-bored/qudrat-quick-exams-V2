@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getHTMLElement } from "$lib/app"
+    import { getHTMLElement, getInnerDimensions } from "$lib/app"
 	import { fly } from "svelte/transition";
 	import type { QuestionAnswers } from "$lib/databaseInterfaces";
 	import { questionOutTransitionDuration, questionFontSize, questionAlignment } from "./quiz-main-stores";
@@ -18,7 +18,7 @@
             document.body.appendChild(elmnt)
         }
     }
-    
+
     let answer1: string, 
         answer2: string, 
         answer3: string, 
@@ -32,15 +32,21 @@
         document.createElement('p')
     ]
     createVirtualText(answersVirtualElements)
-
+    let answersContainer: HTMLDivElement
     function checkAnswersAlignment(elmnts: HTMLParagraphElement[], virtualElements: HTMLParagraphElement[]) {
-        questionAlignment.set('row')
-        for(let i = 0; i < elmnts.length; i++) {
-            const elmntWidth = elmnts[i].offsetWidth
-            const vElmntWidth = virtualElements[i].offsetWidth
-            if ((vElmntWidth / 1.7) > elmntWidth) {
-                questionAlignment.set('column')
+        let alignment = 'row'
+        if(answersContainer) {
+            for(const elmnt of virtualElements) {
+                const vElmntWidth = elmnt.offsetWidth
+                const { width } = getInnerDimensions(answersContainer)
+                const availableWidth = width / 2 - 20
+                console.log(width)
+                console.log(`A: ${availableWidth}, V: ${vElmntWidth}, ${vElmntWidth > availableWidth}`)
+                if ((vElmntWidth) > availableWidth) {
+                    alignment = 'column'
+                }
             }
+            questionAlignment.set(alignment)
         }
     }
     $: {
@@ -89,78 +95,63 @@
             </p>    
         {/key}
     </div>
-    <div class="px-4 relative flex flex-col justify-center mt-2 gap-1 z-[1]" dir="rtl">
+    <div class="px-4 relative flex flex-col justify-center mt-2 gap-1 z-[1]" dir="rtl" bind:this={answersContainer}>
         <div 
             class="flex justify-between px-2 gap-1"
             class:flex-col={$questionAlignment === 'column'}
         >
 
-            <div class="w-full">
-                <p 
-                    class="w-full text-right grid *:row-start-1 *:col-start-1" 
-                    bind:this={answersElmnts[0]}
-                >
-                    {#key answer1} 
-                        <span
-                            in:fly={{ x: 40, duration: 350 }} 
-                            out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }}
-                        >
-                            {answer1}
-                        </span>
-                    {/key}
-                </p> 
-            </div>
-            <div class="w-full">
+            <div class="w-full grid *:row-start-1 *:col-start-1" bind:this={answersElmnts[0]}>
+                {#key answer1} 
                     <p 
-                        class="w-full text-right grid *:row-start-1 *:col-start-1" 
-                        bind:this={answersElmnts[1]}
+                        class="w-full text-right" 
+                        in:fly={{ x: 40, duration: 350 }} 
+                        out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }}
                     >
-                        {#key answer2} 
-                            <span
-                                in:fly={{ x: 40, duration: 350 }} 
-                                out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }}
-                            >
-                                {answer2}
-                            </span>
-                        {/key}
-                    </p>
-            </div>
 
+                        {answer1}
+                    </p> 
+                {/key}
+            </div>
+            <div class="w-full grid *:row-start-1 *:col-start-1" bind:this={answersElmnts[1]}>
+                {#key answer2} 
+                    <p 
+                        class="w-full text-right" 
+                        in:fly={{ x: 40, duration: 350 }} 
+                        out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }}
+                    >
+                        {answer2}
+                    </p>
+                        
+                {/key}
+            </div>
         </div>
         <div 
             class="flex justify-between px-2 gap-1"
             class:flex-col={$questionAlignment === 'column'}
         >
 
-            <div class="w-full">
+            <div class="w-full grid *:row-start-1 *:col-start-1" bind:this={answersElmnts[2]}>
+                {#key answer3}
                     <p 
-                        class="w-full text-right grid *:row-start-1 *:col-start-1" 
-                        bind:this={answersElmnts[2]}
+                        class="w-full text-right" 
+                        in:fly={{ x: 40, duration: 400 }}
+                        out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }}
                     >
-                        {#key answer3}
-                            <span
-                                in:fly={{ x: 40, duration: 400 }}
-                                out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }}
-                            >
-                                {answer3}
-                            </span>
-                        {/key}
+                        {answer3}
                     </p> 
+                {/key}
             </div>
-            <div class="w-full">
-                <p 
-                    class="w-full text-right grid *:row-start-1 *:col-start-1"
-                    bind:this={answersElmnts[3]}
-                >
-                        {#key answer4} 
-                            <span
-                                in:fly={{ x: 40, duration: 400 }} 
-                                out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }}
-                            >
-                                {answer4}
-                            </span>
-                        {/key}
-                </p> 
+            <div class="w-full grid *:row-start-1 *:col-start-1" bind:this={answersElmnts[3]}>
+                {#key answer4} 
+                    <p 
+                        class="w-full text-right"
+                        in:fly={{ x: 40, duration: 400 }} 
+                        out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }}
+                    >
+                        {answer4}
+                    </p> 
+                {/key}
             </div>
             
         </div>
