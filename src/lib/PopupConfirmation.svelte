@@ -29,12 +29,12 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div 
-        class="absolute top-0 left-0 h-full w-full bg-black/40 z-[100]" 
+        class="fixed top-0 left-0 h-full w-full bg-black/40 z-[100]" 
         transition:fade={{ duration: 200 }} 
         on:click={() => isPopupOpen = false }
     />
     <div 
-        class="translate-center w-[min(90vw,600px)] flex-center flex-col p-7 rounded-lg text-white gap-2 
+        class="fixed translate-center w-[min(90vw,600px)] flex-center flex-col p-7 rounded-lg text-white gap-2 
             bg-secondary-default border-4 border-secondary-light z-[101]" 
         in:fly={{ y: -40, x: 40, duration: 400 }} 
         out:fly={{ y: 40, duration: 200 }}

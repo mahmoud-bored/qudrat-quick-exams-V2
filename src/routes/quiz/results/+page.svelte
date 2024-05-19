@@ -9,14 +9,13 @@
         generalSkippedQuestionsMap,
         generalMarkedQuestionsMap    
     } from "../quiz-stores";
-	import NavBarButtons from "./NavBarButtons.svelte";
+    import NavBar from "./NavBar.svelte"
     import './page.sass'
 	import { activeQuestionsSection } from "./quiz-results-stores";
 	import QuestionCard from "./QuestionCard.svelte";
 	import { onMount } from "svelte";
     import { examTheme, featureFlags } from "$lib/stores"
-	import { goto } from "$app/navigation";
-
+        export let data
     // Get questions amounts
     const questionsAmount = $generalCurrentQuestionsMap?.size
     const correctQuestionsAmount = $generalCorrectQuestionsMap?.size
@@ -70,24 +69,11 @@
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
-{#if isLandscape}
-    <nav class="results-nav-container">
-        <div class="results-nav-buttons-container">
-            <NavBarButtons />
-        </div>
-    </nav>    
-{:else if !isLandscape}
-    <nav class="results-nav-container-mobile">
-        <div class="results-nav-buttons-container">
-            <NavBarButtons />
-        </div>
-    </nav>
-{/if}
-<main class="container h-dvh font-messiri text-white" class:container-mobile-view={!isLandscape}>
 
-    
+<NavBar {data}/>
+<main class="container h-dvh font-messiri text-white" class:container-mobile-view={!isLandscape}>    
     <div class="results-container" class:results-container-mobile-view={!isLandscape}>
-        <h1>تقرير الإختبار</h1>
+        <h1 class="text-3xl mt-8">تقرير الإختبار</h1>
         <section class="results-summary-container" class:results-summary-container-mobile={!isLandscape}>
             <div class="results-summary results-summary-details-container">
                 <div class="results-summary-details">
