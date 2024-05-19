@@ -8,23 +8,73 @@
     export let answers: QuestionAnswers
     
     
-    let answer1: string, answer2: string, answer3: string, answer4: string
+    function createVirtualText(elmnts: HTMLParagraphElement[]) {
+        for(const elmnt of elmnts) {
+            elmnt.style.visibility = '0'
+            elmnt.style.position = 'absolute'
+            elmnt.style.top = '-1000px'
+            elmnt.style.left = '-1000px'
+            elmnt.style.fontFamily = 'El Messiri'
+            document.body.appendChild(elmnt)
+        }
+    }
+    
+    let answer1: string, 
+        answer2: string, 
+        answer3: string, 
+        answer4: string
 
-    $: answer1 = answers[0] ? 'أ- ' + answers[0] : ''
-    $: answer2 = answers[1] ? 'ب- ' +  answers[1] : ''
-    $: answer3 = answers[2] ? 'ج- ' +  answers[2] : '' 
-    $: answer4 = answers[3] ? 'د- ' +  answers[3] : ''
+    const answersElmnts: HTMLParagraphElement[] = []
+    const answersVirtualElements = [
+        document.createElement('p'), 
+        document.createElement('p'), 
+        document.createElement('p'), 
+        document.createElement('p')
+    ]
+    createVirtualText(answersVirtualElements)
 
-    $: try{ 
-            const answersContainer = document.querySelectorAll('.answers-container > div')
-            answersContainer?.forEach((answer) => {
-                getHTMLElement(answer).style.setProperty('flex-direction', `${$questionAlignment}`)
-            })
-        } catch(e){ }
-    $: try{ getHTMLElement(document.querySelector('.question-container'))?.style.setProperty('font-size', `${$questionFontSize}em`) } catch(e){ }
+    function checkAnswersAlignment(elmnts: HTMLParagraphElement[], virtualElements: HTMLParagraphElement[]) {
+        questionAlignment.set('row')
+        for(let i = 0; i < elmnts.length; i++) {
+            const elmntWidth = elmnts[i].offsetWidth
+            const vElmntWidth = virtualElements[i].offsetWidth
+            if ((vElmntWidth / 1.7) > elmntWidth) {
+                questionAlignment.set('column')
+            }
+        }
+    }
+    $: {
+        answer1 = answers[0] ? `أ- ${answers[0]}` : 'أ- '
+        answer2 = answers[1] ? `ب- ${answers[1]}` : 'ب- '
+        answer3 = answers[2] ? `ج- ${answers[2]}` : 'ج- ' 
+        answer4 = answers[3] ? `د- ${answers[3]}` : 'د- '
+
+        answersVirtualElements[0].textContent = answer1
+        answersVirtualElements[1].textContent = answer2
+        answersVirtualElements[2].textContent = answer3
+        answersVirtualElements[3].textContent = answer4
+        
+        checkAnswersAlignment(answersElmnts, answersVirtualElements)
+    }
+    $: {
+        $questionFontSize = $questionFontSize
+        for(const elmnt of answersVirtualElements) {
+            elmnt.style.fontSize = `${$questionFontSize}em`
+        }
+        checkAnswersAlignment(answersElmnts, answersVirtualElements)
+    }
+    let screenWidth: number
+    $: {
+        screenWidth = screenWidth
+        checkAnswersAlignment(answersElmnts, answersVirtualElements)
+    }
 </script>
+<svelte:window bind:innerWidth={screenWidth}/>
 
-<div class="relative h-[95%] w-full bg-transparent p-5 scrollbar-thin scrollbar-beige overflow-y-auto *:select-text">
+<div
+    style="font-size: {$questionFontSize}em;"
+    class="relative h-[95%] w-full bg-transparent p-5 scrollbar-thin scrollbar-beige overflow-y-auto overflow-x-hidden *:select-text"
+>
     {#if isWoodMode}
         <div class="parchment"></div>
     {/if}
@@ -39,41 +89,78 @@
             </p>    
         {/key}
     </div>
-
     <div class="px-4 relative flex flex-col justify-center mt-2 gap-1 z-[1]" dir="rtl">
-        <div class="flex justify-between px-2 gap-1">
+        <div 
+            class="flex justify-between px-2 gap-1"
+            class:flex-col={$questionAlignment === 'column'}
+        >
 
-            <div class="w-1/2 grid *:row-start-1 *:col-start-1">
-                {#key answer1 } 
-                    <p class="w-full text-right" in:fly={{ x: 40, duration: 350 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }} >
-                        {answer1} ما علاقة (شعرت الدول الإسلامية ......) بجملة (فاتجهت إلى إنشاء منظمات عدة)   // ما علاقة (شعرت الدول الإسلامية بأهمية الوحدة) بجملة (فأنشأت الندوة العالمية للشباب الإسلامي.............
-                    </p> 
-                {/key}
+            <div class="w-full">
+                <p 
+                    class="w-full text-right grid *:row-start-1 *:col-start-1" 
+                    bind:this={answersElmnts[0]}
+                >
+                    {#key answer1} 
+                        <span
+                            in:fly={{ x: 40, duration: 350 }} 
+                            out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }}
+                        >
+                            {answer1}
+                        </span>
+                    {/key}
+                </p> 
             </div>
-            <div class="w-1/2 grid *:row-start-1 *:col-start-1">
-                {#key answer2} 
-                    <p class="w-full text-right" in:fly={{ x: 40, duration: 350 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }} >
-                        {answer2} ما علاقة (شعرت الدول الإسلامية ......) بجملة (فاتجهت إلى إنشاء منظمات عدة)   // ما علاقة (شعرت الدول الإسلامية بأهمية الوحدة) بجملة (فأنشأت الندوة العالمية للشباب الإسلامي.............
-                    </p> 
-                {/key}
+            <div class="w-full">
+                    <p 
+                        class="w-full text-right grid *:row-start-1 *:col-start-1" 
+                        bind:this={answersElmnts[1]}
+                    >
+                        {#key answer2} 
+                            <span
+                                in:fly={{ x: 40, duration: 350 }} 
+                                out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }}
+                            >
+                                {answer2}
+                            </span>
+                        {/key}
+                    </p>
             </div>
 
         </div>
-        <div class="flex justify-between px-2 gap-1">
+        <div 
+            class="flex justify-between px-2 gap-1"
+            class:flex-col={$questionAlignment === 'column'}
+        >
 
-            <div class="w-1/2 grid *:row-start-1 *:col-start-1">
-                {#key answer3}
-                    <p class="w-full text-right" in:fly={{ x: 40, duration: 400 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }} >
-                        {answer3} ما علاقة (شعرت الدول الإسلامية ......) بجملة (فاتجهت إلى إنشاء منظمات عدة)   // ما علاقة (شعرت الدول الإسلامية بأهمية الوحدة) بجملة (فأنشأت الندوة العالمية للشباب الإسلامي.............
+            <div class="w-full">
+                    <p 
+                        class="w-full text-right grid *:row-start-1 *:col-start-1" 
+                        bind:this={answersElmnts[2]}
+                    >
+                        {#key answer3}
+                            <span
+                                in:fly={{ x: 40, duration: 400 }}
+                                out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }}
+                            >
+                                {answer3}
+                            </span>
+                        {/key}
                     </p> 
-                {/key}
             </div>
-            <div class="w-1/2 grid *:row-start-1 *:col-start-1">
-                {#key answer4} 
-                    <p class="w-full text-right" in:fly={{ x: 40, duration: 400 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }} >
-                        {answer4} ما علاقة (شعرت الدول الإسلامية ......) بجملة (فاتجهت إلى إنشاء منظمات عدة)   // ما علاقة (شعرت الدول الإسلامية بأهمية الوحدة) بجملة (فأنشأت الندوة العالمية للشباب الإسلامي.............
-                    </p> 
-                {/key}
+            <div class="w-full">
+                <p 
+                    class="w-full text-right grid *:row-start-1 *:col-start-1"
+                    bind:this={answersElmnts[3]}
+                >
+                        {#key answer4} 
+                            <span
+                                in:fly={{ x: 40, duration: 400 }} 
+                                out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration + 50 }}
+                            >
+                                {answer4}
+                            </span>
+                        {/key}
+                </p> 
             </div>
             
         </div>
