@@ -27,6 +27,9 @@
     } from "./quiz-main-stores.ts"
 	import { goto } from "$app/navigation";
 	import { generalAllQuestionsMap, generalCorrectQuestionsMap, generalIncorrectQuestionsMap, generalSkippedQuestionsMap } from "../quiz-stores.ts";
+	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
+    export let data
+
     let themeSrc: string
     let questionColor: string
     let paragraphColor: string
@@ -49,17 +52,6 @@
             paragraphColor = '#fff'
         }
         getQuestion()
-        // TODO: Remove this
-        var docWidth = document.documentElement.offsetWidth;
-        [].forEach.call(
-            document.querySelectorAll('*'),
-            function(el: HTMLElement) {
-                if (el.offsetWidth > docWidth) {
-                console.log(el);
-                }
-            }
-        );
-
     })
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
@@ -101,13 +93,20 @@
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
-<main class="container main-quiz-container font-messiri" class:container-mobile-view={!isLandscape} style="background-image: url({themeSrc}); color: {questionColor}">
+<main 
+    class="container w-full h-dvh flex-center gap-5 bg-cover bg-no-repeat max-w-inherit font-messiri" 
+    class:container-mobile-view={!isLandscape} 
+    style="background-image: url({themeSrc}); color: {questionColor}"
+>
     {#if $isShowResultsVisible}
-        <section class="show-results-tab" id="nope" in:fly={{ y: -600, duration: 200 }}>
-            <div class="results-chart-container">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path  class="circle percentage-1"  class:circle-hide={hidePercentage1}  stroke-dasharray="{percentage1}, 100"  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+        <section 
+            class="radial-gradient absolute top-0 left-0 flex flex-col justify-between items-center overflow-hidden z-[7] h-dvh w-full" 
+            in:fly={{ y: -600, duration: 200 }}
+        >
+            <div class="mt-[min(15%,100px)] w-72 h-72 rounded-full flex-center p-2">
+                <svg class="circular-chart block h-full w-full m-2 overflow-visible" viewBox="0 0 36 36">
+                    <path class="circle-bg fill-[url(#gradient)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path  class="circle origin-center percentage-1"  class:circle-hide={hidePercentage1}  stroke-dasharray="{percentage1}, 100"  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
                     <path  class="circle percentage-2"  class:circle-hide={hidePercentage2}  stroke-dasharray="{percentage2}, 100"  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                     <path class="circle percentage-3" class:circle-hide={hidePercentage3} stroke-dasharray="{percentage3}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                     <text x="18" y="20.35" class="percentage-text">{percentage1}%</text>
@@ -119,42 +118,54 @@
                     </defs>
                 </svg>
             </div>
-            <div class="show-results-page-button-container">
-                <button class="show-results-page-button" in:fly={{ y: -20, x: 20, duration: 1000 }} on:click={() => {
-                    isShowResultsButtonThrobberVisible = true
-                    goto('/quiz/results')
-                }}>
-                    <svg  class="show-results-throbber" class:throbber-active={isShowResultsButtonThrobberVisible} xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: block; shape-rendering: auto;" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <div class="w-full flex-center flex-wrap-reverse gap-5 mb-[3%] p-3">
+                <div class="w-9/10 max-w-72">
+                    <PopupConfirmation
+                        title="هل أنت متأكد من العودة إلى الصفحة الرئيسية؟"
+                        text="لن تتمكن من رؤية النتائج أو مراجعة أخطائك السابقة."
+                        cancelBtnText="إلغاء"
+                        confirmBtnText="خروج"
+                        callback={() => {
+                            location.href = data.origin + '/quiz'
+                        }}
+                    >
+                        <div 
+                            class="group relative w-full h-16 flex-center bg-secondary-default rounded-lg border-2 border-red-400 
+                                text-white text-lg hover:bg-red-400 hover:text-secondary-default transition z-[8]" 
+                            in:fly={{ y: -20, x: 20, duration: 1000 }} 
+                        >
+                            العودة إلى الصفحة الرئيسية
+                        </div>
+                    </PopupConfirmation>
+                </div>
+                <button 
+                    class="group relative w-9/10 max-w-72 h-16 flex-center bg-secondary-default rounded-lg border-2 border-primary 
+                        text-white text-lg hover:bg-primary hover:text-secondary-default transition z-[8]" 
+                    in:fly={{ y: -20, x: 20, duration: 1000 }} 
+                    on:click={() => {
+                        isShowResultsButtonThrobberVisible = true
+                        goto('/quiz/results')
+                    }}
+                >
+                    <svg 
+                        class="absolute left-4 h-10 opacity-0 transition stroke-primary group-hover:stroke-secondary-default" 
+                        class:opacity-100={isShowResultsButtonThrobberVisible} 
+                        width="40px" height="40px" viewBox="0 0 100 100"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
                         <circle cx="50" cy="50" r="32" stroke-width="8" stroke-dasharray="50.26548245743669 50.26548245743669" fill="none" stroke-linecap="round">
-                        <animateTransform attributeName="transform" type="rotate" dur="0.7s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
+                            <animateTransform attributeName="transform" type="rotate" dur="0.7s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
                         </circle>
                     </svg>
                     أظهر النتائج
                 </button>
             </div>
-            <div class="stars-container">
+            <div class="stars-container absolute top-0 left-0 h-full w-full">
                 <div id="stars"></div>
                 <div id="stars2"></div>
                 <div id="stars3"></div>
             </div>
         </section>
-    {/if}
-    {#if $endQuizWarningTab}
-        <div class="end-quiz-tab-background" transition:fade={{ duration: 200 }} ></div>
-        <div class="end-quiz-tab-container">
-            <div class="end-quiz-tab" in:fly={{ y: -40, x: 40, duration: 400 }} out:fly={{ y: 40, duration: 200 }}>
-                <button class="end-quiz-tab-close-button" on:click={() => endQuizWarningTab.set(false)}>
-                    <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.5439 2L1.99994 19.1568" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18.5957 19.2598L2.05121 2.10348" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                </button>
-                <p>هل انت متأكد من انهاء الإختبار؟</p>
-                <div class="end-quiz-tab-buttons-container">
-                    <button class="end-quiz-tab-button end-quiz-tab-button-cancel" on:click={() => endQuizWarningTab.set(false)}>الرجوع</button>
-                    <button class="end-quiz-tab-button end-quiz-tab-button-close" on:click={endQuiz}>إنهاء</button>
-                </div>
-            </div>
-        </div>
     {/if}
     {#if isLandscape}
         <div class="quiz-landscape-container">
@@ -238,6 +249,48 @@
 </main>
 
 <style lang="sass">
+    @import '$lib/assets/stars.sass'
     :global(html)
         overscroll-behavior: none
+    .radial-gradient
+        background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%)
+
+    .circular-chart 
+        display: block
+        margin: 10px
+        height: 100%
+        width: 100%
+        .circle-bg 
+            fill: url(#gradient)
+        .circle 
+            transform-origin: center
+            fill: none
+            stroke-width: 2.8
+            stroke-linecap: round
+            animation: progress 0.5s ease-in forwards
+            animation-delay: 0s
+            transition: all 0.5s ease-in
+        .percentage-1
+            stroke: #4CC790
+            filter: drop-shadow( 0px 0px 0.8px rgb(76, 199, 144))
+            transform: rotate(0deg)
+        .percentage-2
+            stroke: #ff3838 
+            filter: drop-shadow( 0px 0px 0.8px #ff3838)
+        .percentage-3
+            stroke: #3c9ee5
+            filter: drop-shadow( 0px 0px 0.8px #3c9ee5)
+        .percentage-text
+            fill: #78f8ec
+            font-family: sans-serif
+            font-size: 0.5em
+            text-anchor: middle
+            user-select: all
+        .circle-hide
+            display: none
+        @keyframes progress 
+            0%
+                stroke-dasharray: 0 100
+    .stars-container
+        @include stars()
 </style>

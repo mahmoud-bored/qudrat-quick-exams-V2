@@ -55,15 +55,25 @@ export default {
         '8/10': '80%',
         '9/10': '90%',
       },
+      maxWidth: {
+        'inherit': 'inherit',
+      },
+      
     },
   },
   plugins: [
     function ({ addUtilities }) {
       const newUtilities = {
         '.flex-center': {
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',  
+          'display': 'flex',
+          'justifyContent': 'center',
+          'alignItems': 'center',  
+        },
+        '.translate-center': {
+          'position': 'absolute',
+          'top': '50%',
+          'left': '50%',
+          'transform': 'translate(-50%, -50%)',
         },
         '.outer-shadow': {
           'box-shadow': '5px 5px 16px -3px rgba(0, 0, 0, 0.75)',
@@ -102,7 +112,10 @@ export default {
             '-webkit-appearance': 'none',
             '-moz-appearance': 'textfield',
             'margin': '0',
-          }
+        },
+        '.stroke-linecap-round': {
+          'stroke-linecap': 'round',
+        },
       };
       addUtilities(newUtilities, ['responsive', 'hover']);
     },

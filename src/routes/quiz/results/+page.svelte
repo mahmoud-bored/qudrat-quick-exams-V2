@@ -83,7 +83,7 @@
         </div>
     </nav>
 {/if}
-<main class="container font-messiri text-white" class:container-mobile-view={!isLandscape}>
+<main class="container h-dvh font-messiri text-white" class:container-mobile-view={!isLandscape}>
 
     
     <div class="results-container" class:results-container-mobile-view={!isLandscape}>

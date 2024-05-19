@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { pickAnswer } from "./operations"
-    import { endQuizWarningTab, isQuestionMarked, isNextQuestionReady } from "./quiz-main-stores"
+	import { endQuiz, pickAnswer } from "./operations"
+    import { isQuestionMarked, isNextQuestionReady } from "./quiz-main-stores"
     import TypeWriter from "$lib/assets/TypeWriter.svelte"
 	import { featureFlags } from "$lib/stores";
+	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
 </script>
 
 <div class="controls-container h-[95%] w-full bg-transparent flex justify-center items-end text-white">
@@ -32,13 +33,17 @@
         </button>
     </div>
     <div class="h-full w-[max(10%,150px)] flex-center">
-        <button 
-            class="end-quiz-button p-1 h-9/10 w-8/10 flex-center rounded border-2 border-red-400 bg-red-400/70 
-            text-center text-white text-sm md:text-base transition hover:bg-red-400 " 
-            on:click={() => endQuizWarningTab.set(true)}
+        <PopupConfirmation 
+            title="هل انت متأكد من انهاء الإختبار؟" 
+            callback={endQuiz}
         >
-            إنهاء الإختبار
-        </button>
+            <div 
+                class="end-quiz-button p-1 h-9/10 w-8/10 flex-center rounded border-2 border-red-400 bg-red-400/70 
+                text-center text-white text-sm md:text-base transition hover:bg-red-400 " 
+            >
+                إنهاء الإختبار
+            </div>
+        </PopupConfirmation>
     </div>
 </div>
 

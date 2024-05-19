@@ -108,8 +108,8 @@
             <!-- Next Button -->
             <div class="h-16 w-full flex justify-end items-center">
                 <button 
-                    class="group m-4 mb-10 h-9/10 w-4/10 outer-shadow border-solid border-2 border-primary rounded-lg bg-secondary-default text-primary 
-                    hover:text-secondary-default hover:bg-primary hover:*:stroke-secondary-default text-xl 
+                    class="group m-4 mb-10 h-9/10 w-4/10 outer-shadow border-solid border-2 border-primary rounded-lg bg-secondary-default 
+                    text-primary hover:text-secondary-default hover:bg-primary hover:*:stroke-secondary-default text-xl 
                     font-bold flex-center pointer button-transition"
                     class:w-full={isNextButtonFullsize}
                     bind:this={nextButtonElement}
@@ -121,7 +121,9 @@
                         <svg 
                             class="absolute left-10 h-10 transition stroke-primary group-hover:stroke-secondary-default opacity-0" 
                             class:opacity-100={isQuizStartThrobberVisible} 
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; display: block; shape-rendering: auto;" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"
+                            style="margin: auto; display: block; shape-rendering: auto;" width="40px" height="40px" 
+                            viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"
+                            xmlns="http://www.w3.org/2000/svg"
                         >
                             <circle cx="50" cy="50" r="32" stroke-width="8" stroke-dasharray="50.26548245743669 50.26548245743669" fill="none" stroke-linecap="round">
                                 <animateTransform attributeName="transform" type="rotate" dur="0.7s" repeatCount="indefinite" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
