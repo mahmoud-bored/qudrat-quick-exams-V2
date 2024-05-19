@@ -96,6 +96,9 @@ export default {
         '.scrollbar-primary': {
           'scrollbar-color': '#057b4a #333',
         },
+        '.scrollbar-beige': {
+          'scrollbar-color': '#ae9c73 #e5d4b9',
+        },
         '.checkbox-input': {
           'box-sizing': 'border-box',
           'appearance': 'none',

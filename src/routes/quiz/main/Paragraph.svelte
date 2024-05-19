@@ -19,7 +19,13 @@
     <input type="range" bind:value={inputValue}>
     <div class="paragraph-field-container">
         {#key paragraphText}
-            <p in:fly={{ y:-20, x: 40, duration: 300 }} out:fly={{ x: -40, duration: $questionOutTransitionDuration }} style="font-size: {paragraphFontSize}em">{paragraphText ? paragraphText : ""}</p>
+            <span 
+                in:fly={{ y:-20, x: 40, duration: 300 }} 
+                out:fly={{ x: -40, duration: $questionOutTransitionDuration }} 
+                style="font-size: {paragraphFontSize}em"
+            >
+                <p>{paragraphText ?? ""}</p>
+            </span>
         {/key}
         {#if isParagraphEmpty}
             <div class="lock-image-container" in:fly={{ y:-20, x: 40, duration: 300 }} out:fly={{ y: 20, x: -20, duration: $questionOutTransitionDuration }}>
@@ -40,7 +46,7 @@
         border: 2px solid #009759
         height: 95%
         width: 95%
-        padding: 3%
+        padding: 3% 1% 3% 3%
         display: flex
         flex-direction: column
         align-items: center
@@ -60,16 +66,17 @@
             *
                 grid-row: 1 / 1
                 grid-column: 1 / 1
-            p
+            span
                 width: 100%
                 height: calc(100% - 10px)
                 text-align: right
-                direction: rtl
                 overflow-y: auto
                 overflow-x: hidden
                 user-select: text
                 scrollbar-width: thin
                 scrollbar-color: #ae9c73 #e5d4b9
+                p
+                    padding-right: 10px
             .lock-image-container
                 position: absolute
                 top: 0
