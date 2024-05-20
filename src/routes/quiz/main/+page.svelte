@@ -22,7 +22,6 @@
         questionOutTransitionDuration, 
         skipState, 
         questionInTransitionDuration, 
-        endQuizWarningTab, 
 		isShowResultsVisible
     } from "./quiz-main-stores.ts"
 	import { goto } from "$app/navigation";

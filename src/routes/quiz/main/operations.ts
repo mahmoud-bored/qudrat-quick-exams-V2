@@ -102,24 +102,6 @@ const questionTimer = setInterval(() => timer.update((time) => {
 const quizTimer = setInterval(() => totalTimer.update(time => time + 1), 1000)
 
 let currentQuestionsMap = new Map()
-const mock = {	"question-oEl2OewD0Px8doKGI1S6": {
-    "state": "shared",
-    "linkedCollections": {
-        "collection-6e6188cdf7f5d5c00ea4e4791d42ae2eaf34f43e": {
-            "exam-b56324e8f5bdc26d0d3": 4
-        }
-    },
-    "questionCategoryID": "category-10abd86d71",
-    "questionParagraphID": "paragraph-gJUNFrgzruBZLQJDyYiz",
-    "questionHint": "",
-    "answerExplination": "",
-    "questionHead": "كيف يمكن معالجة السمنة ؟",
-    "questionAnswers": {
-        "0": "زيادة الوعي الصحي"
-    },
-    "correctAnswer": "زيادة الوعي الصحي",
-    "lastUpdateDate": ""
-},}
 
 const getLastItemInMap = (map: Map<number, QuestionsContainer>) => [...map][map.size-1]
 function isLastQuestionLong() {

@@ -2,7 +2,7 @@ import { activeExamsIDs, maxQuestionAmount, globalQuestionsAmount, questionNoRep
 
 let localMaxQuestionAmount: number
 let localGlobalQuestionsAmount: number
-let localActiveExamsIDs: number[]
+let localActiveExamsIDs: { [collectionID: number]: number[]}
 let noRepeat: boolean
 
 activeExamsIDs.subscribe((value) => localActiveExamsIDs = value)
@@ -11,10 +11,10 @@ globalQuestionsAmount.subscribe((value) => localGlobalQuestionsAmount = value)
 questionNoRepeat.subscribe((value) => noRepeat = value)
 
 export function isExamListValid() {
-    if(localActiveExamsIDs.length === 0){
-        return false
+    for(const [key, value] of Object.entries(localActiveExamsIDs)){
+        if(value.length > 0) return true
     }
-    return true
+    return false
 }
 
 export function isExamQuestionAmountValid() {

@@ -1,20 +1,46 @@
 <script lang="ts">
-	import { fade, fly } from "svelte/transition"
-    import closeIconSrc from '$lib/assets/close-icon.svg'
-    import { isExamsCutomizationTabVisible, isSelectAllButtonActive } from "$lib/stores"
-    import type { Collection, CollectionsContainer, CollectionInfo, Exams } from '$lib/stores'
-    import { toggleAllExamsListInCustomizationTab } from "./activeExamsList"
+	import { fly } from "svelte/transition"
+    import { activeExamsIDs, isExamsCutomizationTabVisible } from "$lib/stores"
+    import type { CollectionsContainer, CollectionInfo } from '$lib/stores'
     import ExamCard from "./ExamCard.svelte"
+	import { mergeArraysUnique } from "$lib/app";
 
     export let collections: CollectionsContainer
-    export let collectionObj: CollectionInfo
-    console.log(collectionObj)
-    let selectAllState: boolean
-    isSelectAllButtonActive.subscribe((value)=> selectAllState = value)
+    export let collectionObj: { [collectionID: number]: CollectionInfo }
 
-    const examsOrder = collectionObj.examsOrder;
-    const exams = collectionObj.exams
+    const collectionID = parseInt(Object.keys(collectionObj)[0])
+    const examsOrder = collectionObj[collectionID].examsOrder;
+    const exams = collectionObj[collectionID].exams
+    let isAllExamsChecked: boolean
 
+    $:{
+        let active = true
+        for(const examID of examsOrder){
+            if(examID) {
+                if(!$activeExamsIDs[collectionID]?.includes(examID)){
+                    active = false
+                    break
+                }
+            }
+        }
+        if(active) isAllExamsChecked = true
+            else isAllExamsChecked = false
+    }
+
+    function toggleAllExamsList(){
+        if(!isAllExamsChecked){
+            activeExamsIDs.update((collections) => {
+                if(!collections[collectionID]) collections[collectionID] = []
+                collections[collectionID] = mergeArraysUnique(collections[collectionID], examsOrder)
+                return collections
+            })
+        } else {
+            activeExamsIDs.update((collections) => {
+                collections[collectionID] = []
+                return collections
+            })
+        }
+    }
     function closeTab(){
         isExamsCutomizationTabVisible.set(false)
     }
@@ -38,16 +64,16 @@
             <button 
                 class="flex justify-start items-center gap-2" 
                 transition:fly={{ x: 20, duration: 600 }}
-                on:click={() => toggleAllExamsListInCustomizationTab(collections) } 
+                on:click={() => toggleAllExamsList() } 
             >
-                <p class="text-xl transition" class:active={selectAllState}>تحديد الكل</p>
-                <input class="outer-shadow checkbox-input checked:border-primary" type="checkbox" bind:checked={selectAllState}>
+                <p class="text-xl transition" class:text-primary={isAllExamsChecked}>تحديد الكل</p>
+                <input class="outer-shadow checkbox-input checked:border-primary" type="checkbox" bind:checked={isAllExamsChecked}>
             </button>
         </div>
         <div class="h-full w-full mt-5 py-4 flex flex-col justify-start items-center gap-5 overflow-y-auto scrollbar-thin" transition:fly={{ x: 40, duration: 500}}>
             {#each examsOrder as examID}
                 {#if examID}
-                    <ExamCard {exams} {examID} {collections} />
+                    <ExamCard {collectionID} {exams} {examID} {collections} />
                 {/if}
             {/each}
         </div>

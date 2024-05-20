@@ -6,62 +6,63 @@
         isExamsCutomizationTabVisible, 
         examsCollectionCustomizeTab, 
         activeExamsIDs, 
-        maxQuestionAmount, 
         globalQuestionsAmount, 
         questionNoRepeat,
-        globalCollections, 
-        globalCollectionsOrder
     } from "$lib/stores"
     import type { CollectionsContainer, CollectionInfo } from '$lib/stores';
-    import { checkActiveExamsList } from "./activeExamsList";
 	import { onMount } from 'svelte';
 
-
+    export let collections: CollectionsContainer
+    export let collectionsOrder: number[]
     export let examListWarning = false
     export let questionsAmountWarning = false
     export let noRepeat = true
-    export let nextButtonElement: HTMLButtonElement
     export let isCollectionsDataReady: boolean | string
-
-    let collections: CollectionsContainer
-    let collectionsOrder: number[]
-
-    $: collections = $globalCollections
-    $: collectionsOrder = $globalCollectionsOrder
+    export let focusNextButtonElmnt: () => void
 
     $: questionNoRepeat.set(noRepeat)
-    $: { if(questionsAmount === undefined) { globalQuestionsAmount.set(0) }
-        else { globalQuestionsAmount.set(questionsAmount) }
-    }
-
+    $: if(questionsAmount === undefined) globalQuestionsAmount.set(0)
+        else globalQuestionsAmount.set(questionsAmount)
 
 
     let questionsAmount = $globalQuestionsAmount
-    onMount(()=> {
+    let questionsAmountInput: HTMLInputElement
+    onMount(() => {
         questionsAmount = $globalQuestionsAmount
-        document.querySelector('.questions-amount-input')?.setAttribute("value", questionsAmount.toString())
-        checkActiveExamsList(collections)
+        questionsAmountInput.setAttribute("value", questionsAmount.toString())
     })
-    let isExamQuestionsCustomizationVisible: boolean
-    let examsCollectionObj: CollectionInfo
-    let localActiveExamsIDs: number[]
-
-    isExamsCutomizationTabVisible.subscribe((value)=> isExamQuestionsCustomizationVisible = value)
-    examsCollectionCustomizeTab.subscribe((value)=> examsCollectionObj = value)
-    activeExamsIDs.subscribe((value)=> localActiveExamsIDs = value)
 
     const selectAll = (e: Event) => {
         (e.target as HTMLInputElement)?.select()
     }
+    function activateExamsListWarning() {
+        examListWarning = true
+        setTimeout(() => examListWarning = false, 1000)
+    }
+
+    let maxQuestionsAmount = 0
+    $: {
+        maxQuestionsAmount = 0
+        for(const [collectionID, collectionExams] of Object.entries($activeExamsIDs)) {
+            if(collectionExams && collectionExams.length > 0) {
+                for(const examID of collectionExams) {
+                    if(examID)
+                        maxQuestionsAmount += collections[collectionID].exams[examID].numberOfQuestions
+                }
+            }
+        }
+    }
 </script>
 
-<svelte:window on:keydown={(e) => {
-    if(e.key === "Enter") nextButtonElement.focus()
-}} />
+<svelte:window 
+    on:keydown={(e) => {
+        if(e.key === "Enter") focusNextButtonElmnt()
+    }} 
+/>
 
 <div class="h-full flex flex-col justify-start gap-7 p-5">
-    {#if isExamQuestionsCustomizationVisible}
-        <ExamsCustomizationTab collectionObj={examsCollectionObj} {collections}/>
+    {#if $isExamsCutomizationTabVisible}
+        <ExamsCustomizationTab collectionObj={$examsCollectionCustomizeTab} {collections}/>
     {/if}
     <div 
         class="min-h-[165px] h-1/2 w-full text-center flex flex-col items-center gap-2" 
@@ -113,7 +114,12 @@
             <div class="w-full flex justify-start items-center gap-3" dir="rtl">
                 <p class="text-2xl">عدد الأسئلة</p>
                     {#if noRepeat}
-                        <p class="text-base text-zinc-400" in:fly={{ y: -5, duration: 500 }} out:fly={{ y: 5, duration: 500 }}>الحد الأقصى: {$maxQuestionAmount}</p>
+                        <p 
+                            class="text-base text-zinc-400" 
+                            in:fly={{ y: -5, duration: 500 }} 
+                            out:fly={{ y: 5, duration: 500 }}>
+                            الحد الأقصى: {maxQuestionsAmount}
+                        </p>
                     {/if}
             </div>
             <div 
@@ -138,14 +144,13 @@
                 </button>
                 <button 
                     class="question-amount-btn"
-                    data-value="{$maxQuestionAmount}" 
-                    class:active={(questionsAmount == $maxQuestionAmount) && (questionsAmount != 0)}
+                    data-value="{maxQuestionsAmount}" 
+                    class:active={(questionsAmount == maxQuestionsAmount) && (questionsAmount != 0)}
                     on:click={()=> {
-                        if($maxQuestionAmount == 0 || $maxQuestionAmount === undefined){
-                            examListWarning = true
-                            setTimeout(() => examListWarning = false, 1000)
+                        if(maxQuestionsAmount == 0 || maxQuestionsAmount === undefined){
+                            activateExamsListWarning()
                         }else {
-                            questionsAmount = $maxQuestionAmount
+                            questionsAmount = maxQuestionsAmount
                         }
                     }}
                 >
@@ -154,8 +159,9 @@
                 <input 
                     lang="en"
                     dir="rtl"
-                    class="questions-amount-input input-hide-arrows w-2/10 h-7/10 px-3 bg-white text-secondary-default rounded-lg"
+                    class="input-hide-arrows w-2/10 h-7/10 px-3 bg-white text-secondary-default rounded-lg"
                     on:focus={selectAll}
+                    bind:this={questionsAmountInput}
                     bind:value={questionsAmount} 
                     type="number" 
                     placeholder="مخصص"

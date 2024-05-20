@@ -28,6 +28,8 @@
 	$: if(tick < 0) tick = 0
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div on:click={() => animation('fwd')}
 		 on:mouseleave={() => animation('rev')}
 		 style:background-color={initialColor}

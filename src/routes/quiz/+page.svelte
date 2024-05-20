@@ -4,7 +4,8 @@
     import QuestionCustomizationTab from './QuestionCustomizationTab.svelte'
     import ThemeCustomizationTab from './ThemeCustomizationTab.svelte'
     import { injectDOMErrorMessage } from './injectDOMErrorMessage.ts'
-    import { featureFlags, isExamCustomized } from '$lib/stores.ts'
+    import { activeExamsIDs, featureFlags, isExamCustomized, questionsObject, paragraphsObject, type CollectionsContainer } from '$lib/stores.ts'
+    import type { Question } from '$lib/databaseInterfaces.ts'
 	import { goto } from '$app/navigation'
     import { isExamListValid, isExamQuestionAmountValid } from './checkInfo.ts'
 	import { onMount } from 'svelte'
@@ -15,14 +16,18 @@
     let isExamThemeCustomizationVisible = false
     featureFlags.set(data.featureFlags)
 
+    let collections: CollectionsContainer
+    let collectionsOrder: number[]
     let isDataReady: boolean | string = false
     onMount(async () => {
         isExamCustomized.set(false)
         await loadDatabase(data.redisDB, data.course_id)
             .then(dbData => {
-                loadDbDataIntoStores(dbData)
-                console.log(dbData)
+                const { collectionsData: data, collectionsOrder: order } = loadDbDataIntoStores(dbData)
+                collections = data
+                collectionsOrder = order
                 isDataReady = true
+                console.log(dbData)
             }).catch((err) => {
                 console.log(err)
                 isDataReady = "Error"
@@ -44,6 +49,9 @@
         setTimeout(() => questionsAmountWarning = false, 1500)
     }
     let nextButtonElement: HTMLButtonElement
+    function focusNextButtonElmnt() {
+        nextButtonElement.focus()
+    }
     let isNextButtonFullsize = false
     function switchToThemeCustomizationTab() {
         isNextButtonFullsize = true
@@ -51,9 +59,39 @@
         isExamQuestionsCustomizationVisible = !isExamQuestionsCustomizationVisible
         isExamThemeCustomizationVisible = !isExamThemeCustomizationVisible
     }
-    
+    function cleanUnusedData() {
+        const usedParagraphsIDs: number[] = []
+        questionsObject.update((questions) => {
+            for(const [questionID, question] of Object.entries($questionsObject) as [string, Question][]) {
+                let isQuestionUsed = false
+                for(const linkedCollectionID in question.linkedCollections) {
+                    for(const linkedExamID in question.linkedCollections[linkedCollectionID]) {
+                        if($activeExamsIDs[linkedCollectionID]?.includes(parseInt(linkedExamID))) {
+                            isQuestionUsed = true
+                        }
+                    }
+                }
+                if(!isQuestionUsed) {
+                    delete questions[parseInt(questionID)]
+                } else {
+                    if(question.questionParagraphID && typeof question.questionParagraphID === 'number') {
+                        usedParagraphsIDs.push(question.questionParagraphID)
+                    }
+                }
+            }
+            return questions
+        })
+        paragraphsObject.update((paragraphs) => {
+            for(const paragraphID in paragraphs) {
+                if(!usedParagraphsIDs[paragraphID]) {
+                    delete paragraphs[paragraphID]
+                }
+            }
+            return paragraphs
+        })
+    }
     let isQuizStartThrobberVisible = false
-    function handlePageNextButton(e: any){
+    function handlePageNextButton(){
         if(isExamQuestionsCustomizationVisible){
             // Check if still in questions customization tab
             if(isExamListValid() && isExamQuestionAmountValid()) {
@@ -67,6 +105,7 @@
         } else {
             // Check if in theme customization tab
             isQuizStartThrobberVisible = true
+            cleanUnusedData()
             goto('/quiz/main')
         }
     }
@@ -74,10 +113,7 @@
 
 <main class="h-dvh w-[100%] text-white font-messiri">
 
-    <div 
-        class="dotted-bg h-full w-full flex justify-center items-end bg-secondary-default" 
-        transition:fade
-    >
+    <div class="dotted-bg h-full w-full flex justify-center items-end bg-secondary-default">
         <div class="relative h-[min(99%,700px)] w-[min(95vw,400px)] bg-secondary-light rounded-tr-xl rounded-tl-xl overflow-hidden">
             <!-- Back Button -->
             {#if isExamThemeCustomizationVisible}
@@ -99,7 +135,14 @@
             <!-- Body -->
             <div class="overflow-y-auto overflow-x-hidden h-[calc(100%-60px)] grid grid-cols-1 grid-rows-1 *:row-start-1 *:col-start-1">
                 {#if isExamQuestionsCustomizationVisible}
-                    <QuestionCustomizationTab {examListWarning} {questionsAmountWarning} isCollectionsDataReady={isDataReady} {nextButtonElement}/>
+                    <QuestionCustomizationTab 
+                        {collections} 
+                        {collectionsOrder} 
+                        {examListWarning} 
+                        {questionsAmountWarning} 
+                        isCollectionsDataReady={isDataReady} 
+                        {focusNextButtonElmnt}
+                    />
                 {/if}
                 {#if isExamThemeCustomizationVisible}
                     <ThemeCustomizationTab/>

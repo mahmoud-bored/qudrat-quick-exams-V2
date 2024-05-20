@@ -38,8 +38,8 @@ export type Exams = Record<number, { name: string, numberOfQuestions: number}>
 export const featureFlags: Writable<{ [key: string]: boolean }> = writable({})
 
 export const isExamsCutomizationTabVisible: Writable<boolean> = writable(false)
-export const examsCollectionCustomizeTab: Writable<CollectionInfo> = writable({} as CollectionInfo)
-export const activeExamsIDs: Writable<number[]> = writable([])
+export const examsCollectionCustomizeTab: Writable<{ [collectionID: number]: CollectionInfo }> = writable({})
+export const activeExamsIDs: Writable<{ [collectionID: number]: number[] }> = writable({})
 export const globalCollections: Writable<CollectionsContainer> = writable({} as CollectionsContainer)
 export const globalCollectionsOrder: Writable<number[]> = writable([])
 
@@ -47,7 +47,6 @@ export const globalCollectionsOrder: Writable<number[]> = writable([])
 export const adminID = 'admin-4b392e66de9fd519d0f567117d06b250'
 
 
-export const isSelectAllButtonActive: Writable<boolean> = writable(false)
 export const maxQuestionAmount: Writable<number> = writable(0)
 export const globalQuestionsAmount: Writable<number> = writable(0)
 export const questionNoRepeat: Writable<boolean> = writable(true)

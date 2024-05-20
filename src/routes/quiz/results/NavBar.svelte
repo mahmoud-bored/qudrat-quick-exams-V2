@@ -144,7 +144,7 @@
 
 <style lang="sass">
     .mobile-view
-        @apply top-unset bottom-0 left-1/2 translate-y-0 -translate-x-1/2 flex-row-reverse w-full rounded-t-md
+        @apply bottom-0 left-1/2 translate-y-0 -translate-x-1/2 flex-row-reverse w-full rounded-t-md
         top: unset
         .buttons-container
             @apply flex-row-reverse

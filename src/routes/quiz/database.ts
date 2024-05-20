@@ -1,33 +1,11 @@
+import { mergeArraysUnique } from '$lib/app';
 import type { RedisDB, DbData, CategoriesContainer, ParagraphsContainer, QuestionsContainer, Question } from '$lib/databaseInterfaces';
 import { categoriesObject, type Collection, type CollectionsContainer, globalCollections, globalCollectionsOrder, paragraphsObject, questionsObject } from '$lib/stores';
 
 
 
 
-function mergeArraysUnique(...arrays: any[]) {
-    function mergeTwoArraysUnique(arr1: any[], arr2: any[]){
-        const newArr = arr1.concat(arr2)
-        var a = newArr.concat();
-        for(var i=0; i<a.length; ++i) {
-            for(var j=i+1; j<a.length; ++j) {
-                if(a[i] === a[j])
-                    a.splice(j--, 1);
-            }
-        }
 
-        return a;
-    }
-
-    let mergedArrays = arrays[0]
-    for(let i = 0; i < arrays.length; i++) {
-        const nextArr = arrays[i + 1]
-        if(mergedArrays && nextArr) {
-            mergedArrays = mergeTwoArraysUnique(mergedArrays, nextArr)
-        } else {
-            return mergedArrays
-        }
-    }
-}
 
 
 
