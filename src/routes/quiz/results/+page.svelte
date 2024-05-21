@@ -17,6 +17,7 @@
     import { examTheme, featureFlags } from "$lib/stores"
 	import { beforeNavigate, goto } from "$app/navigation";
 	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
+	import { writable } from "svelte/store";
     export let data
     // Get questions amounts
     const questionsAmount = $generalCurrentQuestionsMap?.size
@@ -26,9 +27,9 @@
     const markedQuestionsAmount = $generalMarkedQuestionsMap?.size
 
     let exitConfirmationOpenBtn: HTMLDivElement
-    let isNavigationIntentional = false
+    const isNavigationIntentional = writable(false)
     beforeNavigate(({ cancel, type }) => {
-        if(!isNavigationIntentional) {
+        if(!$isNavigationIntentional) {
             cancel()
             exitConfirmationOpenBtn.click()
         }
@@ -81,13 +82,13 @@
     cancelBtnText="إلغاء"
     confirmBtnText="خروج"
     callback={() => {
-        isNavigationIntentional = true
+        isNavigationIntentional.set(true) 
         window.location.href = '/quiz'
     }}
 >
     <div class="hidden" bind:this={exitConfirmationOpenBtn}></div>
 </PopupConfirmation>
-<NavBar {isLandscape} {data}/>
+<NavBar {isLandscape} {data} {isNavigationIntentional}/>
 <main class="container h-dvh max-w-inherit font-messiri text-white" class:container-mobile-view={!isLandscape}>    
     <div class="results-container" class:results-container-mobile-view={!isLandscape}>
         <h1 class="text-3xl mt-8">تقرير الإختبار</h1>

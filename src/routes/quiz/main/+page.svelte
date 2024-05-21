@@ -12,7 +12,7 @@
     import { examTheme } from "$lib/stores"
 	import { onMount } from "svelte"
 	import { fly } from "svelte/transition"
-    import { getQuestion } from "./operations.ts"
+    import { getQuestion, isNavigationIntentional } from "./operations.ts"
     import { 
         questionParagraph, 
         question, 
@@ -35,12 +35,11 @@
 	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
     
     let exitConfirmationOpenBtn: HTMLDivElement
-    let isNavigationIntentional = false
     beforeNavigate(({ cancel, type }) => {
-        if(type !== 'goto' && !isNavigationIntentional) {
-            if(!isNavigationIntentional) cancel()
+        if(type !== 'goto' && !$isNavigationIntentional) {
+            if(!$isNavigationIntentional) cancel()
             if(type !== 'leave' && type !== "link") {
-                if(!isNavigationIntentional) exitConfirmationOpenBtn.click()
+                if(!$isNavigationIntentional) exitConfirmationOpenBtn.click()
             }
         }
     })
@@ -110,11 +109,11 @@
 />
 <PopupConfirmation
     title="هل أنت متأكد من الخروج؟"
-    text="سيتم فقدان جميع النتائج ولن تتمكن من العودة إلى هذه الصفحة."
+    text="سيتم فقدان جميع الأجوبة ولن تتمكن من مراجعة الأسئلة."
     cancelBtnText="إلغاء"
     confirmBtnText="خروج"
     callback={() => {
-        isNavigationIntentional = true
+        isNavigationIntentional.set(true)
         window.location.href = '/quiz'
     }}
 >
@@ -148,11 +147,14 @@
             <div class="w-full flex-center flex-wrap-reverse gap-5 mb-[3%] p-3">
                 <div class="w-9/10 max-w-72">
                     <PopupConfirmation
-                        title="هل أنت متأكد من العودة إلى الصفحة الرئيسية؟"
-                        text="لن تتمكن من رؤية النتائج أو مراجعة أخطائك السابقة."
+                        title="هل أنت متأكد من الخروج؟"
+                        text="سيتم فقدان جميع الأجوبة ولن تتمكن من مراجعة الأسئلة."
                         cancelBtnText="إلغاء"
                         confirmBtnText="خروج"
-                        callback={() => goto('/quiz')}
+                        callback={() => {
+                            isNavigationIntentional.set(true)
+                            window.location.href = '/quiz'
+                        }}
                     >
                         <div 
                             class="group relative w-full h-16 flex-center bg-secondary-default rounded-lg border-2 border-red-400 

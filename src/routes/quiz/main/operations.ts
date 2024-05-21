@@ -28,7 +28,9 @@ import {
     generalSkippedQuestionsMap,
     generalMarkedQuestionsMap    
 } from "../quiz-stores";
+import { writable } from "svelte/store"
 
+export const isNavigationIntentional = writable(false)
 // source: https://stackoverflow.com/questions/45336281/javascript-find-by-value-deep-in-a-nested-object-array
 function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
     // Base case
@@ -267,14 +269,19 @@ export function endQuiz() {
 
     clearInterval(questionTimer)
     clearInterval(quizTimer)
-    isShowResultsVisible.set(true)
-
+    
     let questionsAmount = allQuestionsMap.size
     let correctQuestionsAmount = correctQuestionsMap.size
     let incorrectQuestionsAmount = incorrectQuestionsMap.size
     const percentage1 = Math.round(correctQuestionsAmount * 100 / questionsAmount)
     const percentage2 = Math.round(incorrectQuestionsAmount * 100 / questionsAmount)
-
+    if(percentage2 && percentage1) {
+        isShowResultsVisible.set(true)
+    } else {
+        isNavigationIntentional.set(true)
+        window.location.href = '/quiz'
+    }  
+    
     setTimeout(()=>{
         (document.querySelector('.percentage-2') as SVGPathElement)?.style.setProperty('transform', `rotate(${360 * percentage1 / 100}deg)`);
         (document.querySelector('.percentage-3') as SVGPathElement)?.style.setProperty('transform', `rotate(${360 * (percentage2 + percentage1) / 100}deg)`);
