@@ -5,34 +5,52 @@
     import ThemeCustomizationTab from './ThemeCustomizationTab.svelte'
     import { injectDOMErrorMessage } from './injectDOMErrorMessage.ts'
     import { activeExamsIDs, featureFlags, isExamCustomized, questionsObject, paragraphsObject, type CollectionsContainer, globalQuestionsAmount } from '$lib/stores.ts'
-    import type { Question } from '$lib/databaseInterfaces.ts'
+    import type { RedisDB, Question } from '$lib/databaseInterfaces.ts'
 	import { goto } from '$app/navigation'
     import { isExamListValid, isExamQuestionAmountValid } from './checkInfo.ts'
-	import { afterUpdate, onMount } from 'svelte'
-	import { loadDatabase, loadDbDataIntoStores } from './database.ts';
+	import { onMount } from 'svelte'
+	import { loadDatabase, loadDbDataIntoStores, loadInitialDbDataIntoStores } from './database.ts';
     export let data
-    
+    const redisDB: RedisDB = data.redisDB
     let isExamQuestionsCustomizationVisible = true
     let isExamThemeCustomizationVisible = false
     featureFlags.set(data.featureFlags)
 
     let collections: CollectionsContainer
     let collectionsOrder: number[]
-    let isDataReady: boolean | string = false
-
+    let isInitialDataReady: boolean | 'Error' = false
+    let isDataReady: boolean | 'Error' = false
     onMount(async () => {
         globalQuestionsAmount.set(0)
-        await loadDatabase(data.redisDB, data.course_id)
-        .then(dbData => {
-            const { collectionsData: data, collectionsOrder: order } = loadDbDataIntoStores(dbData)
-            collections = data
-            collectionsOrder = order
-            isDataReady = true
-            console.log(dbData)
-        }).catch((err) => {
-            console.log(err)
-            isDataReady = "Error"
-        })
+        const initialTables = {
+            exam: redisDB.exam,
+            collection: redisDB.collection,
+            deleted_record: redisDB.deleted_record,
+        }
+        const initialDbDataLoad = await loadDatabase(initialTables, data.course_id)
+            .then(initialDbData => {
+                const { collectionsData: data, collectionsOrder: order } = loadInitialDbDataIntoStores(initialDbData)
+
+                // const { collectionsData: data, collectionsOrder: order } = loadDbDataIntoStores(dbData)
+                collections = data
+                collectionsOrder = order
+                isInitialDataReady = true
+                console.log(initialDbData)
+                console.log(data, order)
+            }).catch((err) => {
+                console.log(err)
+                isInitialDataReady = "Error"
+            })
+        const fullDataTables = { ...redisDB }
+        delete fullDataTables['collection']
+        const fullDbDataLoad = await loadDatabase(fullDataTables, data.course_id)
+            .then(dbData => {
+                loadDbDataIntoStores(dbData)
+                isDataReady = true
+            }).catch((err) => {
+                console.log(err)
+                isDataReady = "Error"
+            })
     })
     let examListWarning = false
     function handleExamListError(){
@@ -92,8 +110,16 @@
         resetPage()
     }
     function resetPage() {
-        isDataReady = false
+        isInitialDataReady = false
         activeExamsIDs.set({})
+    }
+    let waitingForDb = false
+    $: if(isDataReady === 'Error') {
+        isQuizStartThrobberVisible = false
+        injectDOMErrorMessage('حدث خطأ، يرجى إعادة تحميل الصفحة أو المحاولة لاحقا.', true)
+    } else if (isDataReady && waitingForDb) {
+        cleanUnusedData()
+        goto('/quiz/main')
     }
     let isQuizStartThrobberVisible = false
     function handlePageNextButton(){
@@ -109,9 +135,15 @@
             }
         } else {
             // Check if in theme customization tab
-            isQuizStartThrobberVisible = true
-            cleanUnusedData()
-            goto('/quiz/main')
+            if(!isQuizStartThrobberVisible) {
+                isQuizStartThrobberVisible = true
+                if(isDataReady) {
+                    cleanUnusedData()
+                    goto('/quiz/main')
+                } else {
+                    waitingForDb = true
+                }
+            }
         }
     }
 </script>
@@ -145,7 +177,7 @@
                         {collectionsOrder} 
                         {examListWarning} 
                         {questionsAmountWarning} 
-                        isCollectionsDataReady={isDataReady} 
+                        isCollectionsDataReady={isInitialDataReady} 
                         {focusNextButtonElmnt}
                     />
                 {/if}

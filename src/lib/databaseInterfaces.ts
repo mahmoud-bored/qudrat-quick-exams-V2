@@ -11,7 +11,8 @@ export type DbData = {
             exam_name: string,
             exam_order: number,
             course_id: number,
-            collection_id: number
+            collection_id: number,
+            number_of_questions: number
         }
     };
     course: {

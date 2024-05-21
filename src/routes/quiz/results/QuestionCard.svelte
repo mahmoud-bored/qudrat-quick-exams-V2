@@ -194,6 +194,8 @@
                 display: flex
                 flex-direction: column
                 gap: 7px
+                text-align: right
+                margin-right: 10px
             .question-body-choices-container
                 width: 100%
                 display: flex

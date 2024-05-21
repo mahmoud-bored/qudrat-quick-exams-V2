@@ -11,8 +11,8 @@
     import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.webp'
     import { examTheme } from "$lib/stores"
 	import { onMount } from "svelte"
-	import { fade, fly } from "svelte/transition"
-    import { endQuiz, getQuestion } from "./operations.ts"
+	import { fly } from "svelte/transition"
+    import { getQuestion } from "./operations.ts"
     import { 
         questionParagraph, 
         question, 
@@ -35,30 +35,21 @@
 	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
     
     let exitConfirmationOpenBtn: HTMLDivElement
+    let isNavigationIntentional = false
     beforeNavigate(({ cancel, type }) => {
-        if(type !== 'goto') {
-            cancel()
+        if(type !== 'goto' && !isNavigationIntentional) {
+            if(!isNavigationIntentional) cancel()
             if(type !== 'leave' && type !== "link") {
-                exitConfirmationOpenBtn.click()
+                if(!isNavigationIntentional) exitConfirmationOpenBtn.click()
             }
         }
     })
 
-    function resetPage() {
-        isShowResultsVisible.set(false)
-        questionParagraph.set(undefined)
-        generalAllQuestionsMap.set(new Map())
-        generalCorrectQuestionsMap.set(new Map())
-        generalIncorrectQuestionsMap.set(new Map())
-        generalSkippedQuestionsMap.set(new Map())
-        generalMarkedQuestionsMap.set(new Map())
-    }
     let themeSrc: string
     let questionColor: string
     let paragraphColor: string
     let isWoodMode: boolean = false
     onMount(() => {
-        resetPage()
         // Set Theme: Dark, Light or Wood
         if ($examTheme == 'ليلي'){
             themeSrc = darkModeImgSrc
@@ -119,10 +110,13 @@
 />
 <PopupConfirmation
     title="هل أنت متأكد من الخروج؟"
-    text="لن تتمكن من العودة إلى هذه الصفحة أو مراجعة الإجابات لاحقا."
+    text="سيتم فقدان جميع النتائج ولن تتمكن من العودة إلى هذه الصفحة."
     cancelBtnText="إلغاء"
     confirmBtnText="خروج"
-    callback={() => goto('/quiz')}
+    callback={() => {
+        isNavigationIntentional = true
+        window.location.href = '/quiz'
+    }}
 >
     <div class="hidden" bind:this={exitConfirmationOpenBtn}></div>
 </PopupConfirmation>

@@ -69,7 +69,7 @@
             span
                 width: 100%
                 height: calc(100% - 10px)
-                direction: rtl
+                direction: ltr
                 text-align: right
                 overflow-y: auto
                 overflow-x: hidden

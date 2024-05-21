@@ -468,10 +468,72 @@ export async function loadDatabase(redisDB: RedisDB, course_id: number): Promise
 }
 
 
+export function loadInitialDbDataIntoStores(data: DbData) {
+    const collectionQuestionsCount: CollectionsCounter = {}
+    
+    const collectionsOrder = getCollectionsOrder()
+    const collectionsData = getCollectionsData()
+    globalCollectionsOrder.set(collectionsOrder)
+    globalCollections.set(collectionsData)
+    
+    return { collectionsData, collectionsOrder }
+    
+    type CollectionsCounter = {
+        [key: number]: { exams: number; questions: number}
+    }
+    function getCollectionsData() {
+        const examTable = data.exam
+        const collectionsTable = data.collection
+        const resultCollections: CollectionsContainer = {}
+        const examsObj = {} as { [key: number]: Collection['exams']}
+        const examsOrder: { [key: number]: number[] } = {}
+        for(const [id, examRecord] of Object.entries(examTable)) {
+            const examID = parseInt(id)
+            const collectionID = examRecord.collection_id
+            // Get Collection's exam-question Count
+            const examsCount = collectionQuestionsCount[collectionID]?.exams || 0
+            const currentQuestionsCount = collectionQuestionsCount[collectionID]?.questions || 0
+            collectionQuestionsCount[collectionID] = {
+                exams: examsCount + 1,
+                questions: currentQuestionsCount + examTable[examID].number_of_questions
+            }
+            // Get Collection's exams Info
+            if(!examsObj[collectionID]) examsObj[collectionID] = {}
+            examsObj[collectionID][examID] = {
+                name: examRecord.exam_name,
+                numberOfQuestions: examTable[examID].number_of_questions
+            }
+            // Get Collection's exams Order
+            const examOrder = examRecord.exam_order
+            if(!examsOrder[collectionID]) examsOrder[collectionID] = []
+            examsOrder[collectionID][examOrder] = examID
+        }
+        for(const collectionID in collectionsTable) {
+            resultCollections[collectionID] = {
+                info: {
+                    numberOfQuestions: collectionQuestionsCount[collectionID]?.questions || 0,
+                    numberOfExams: collectionQuestionsCount[collectionID]?.exams || 0,
+                    collectionName: collectionsTable[collectionID].collection_name,
+                },
+                examsOrder: examsOrder[collectionID] || [],
+                exams: examsObj[collectionID] || {}
+            }
+            
+        }
+        return resultCollections
+    }
+    function getCollectionsOrder() {
+        const resultCollectionsOrder: number[] = []
+        const collectionsTable = data.collection
+        for(const [collectionID, collectionRecord] of Object.entries(collectionsTable)) {
+            const collectionOrder = collectionRecord.collection_order
+            resultCollectionsOrder[collectionOrder] = parseInt(collectionID)
+        }
+        return resultCollectionsOrder
+    }
+}
 export function loadDbDataIntoStores(data: DbData){
     const examTable = data.exam
-    const examQuestionsCount: { [key: number]: number } = {}
-    const collectionQuestionsCount: CollectionsCounter = {}
     const answersTable = data.answer
     const questionExamTable = data.question_exam
     const resultQuestions: QuestionsContainer = {}
@@ -479,18 +541,11 @@ export function loadDbDataIntoStores(data: DbData){
     const paragraphsData = getParagraphsData()
     const questionsData = getQuestionsData()
     const categoriesData = getCategoriesData()
-    const collectionsData = getCollectionsData()
-    const collectionsOrder = getCollectionsOrder()
 
     paragraphsObject.set(paragraphsData)
     questionsObject.set(questionsData)
     categoriesObject.set(categoriesData)
-    globalCollections.set(collectionsData)
-    globalCollectionsOrder.set(collectionsOrder)
     
-    
-    return { collectionsData, collectionsOrder }
-
     function getParagraphsData() {
         const resultParagraphs: ParagraphsContainer = {}
         const paragraphTable = data.paragraph
@@ -519,7 +574,6 @@ export function loadDbDataIntoStores(data: DbData){
         }
         for(const [answerID, answerRecord] of Object.entries(answersTable)) {
             const questionID = answerRecord.question_id
-            let answerPositionFound = false
             // Add correctAnswer
             if(answerRecord.is_correct) resultQuestions[questionID].correctAnswer = answerRecord.answer_text
             // Add questionAnswers
@@ -535,9 +589,6 @@ export function loadDbDataIntoStores(data: DbData){
             if(!resultQuestions[questionID].linkedCollections) resultQuestions[questionID].linkedCollections = {}
             if(!resultQuestions[questionID].linkedCollections[collectionID]) resultQuestions[questionID].linkedCollections[collectionID] = {}
             resultQuestions[questionID].linkedCollections[collectionID][examID] = questionOrder
-            // Setup question Counter
-            if(!examQuestionsCount[examID]) examQuestionsCount[examID] = 0
-            examQuestionsCount[examID]++
         }
         return resultQuestions
     }
@@ -552,58 +603,6 @@ export function loadDbDataIntoStores(data: DbData){
         }
         return resultCategories
     }
-    type CollectionsCounter = {
-        [key: number]: { exams: number; questions: number}
-    }
-    function getCollectionsData() {
-        const resultCollections: CollectionsContainer = {}
-        const collectionsTable = data.collection
-        const examsObj = {} as { [key: number]: Collection['exams']}
-        const examsOrder: { [key: number]: number[] } = {}
-        for(const [id, examRecord] of Object.entries(examTable)) {
-            const examID = parseInt(id)
-            const collectionID = examRecord.collection_id
-            // Get Collection's exam-question Count
-            const examsCount = collectionQuestionsCount[collectionID]?.exams || 0
-            const currentQuestionsCount = collectionQuestionsCount[collectionID]?.questions || 0
-            collectionQuestionsCount[collectionID] = {
-                exams: examsCount + 1,
-                questions: currentQuestionsCount + examQuestionsCount[examID]
-            }
-            // Get Collection's exams Info
-            if(!examsObj[collectionID]) examsObj[collectionID] = {}
-            examsObj[collectionID][examID] = {
-                name: examRecord.exam_name,
-                numberOfQuestions: examQuestionsCount[examID]
-            }
-            // Get Collection's exams Order
-            const examOrder = examRecord.exam_order
-            if(!examsOrder[collectionID]) examsOrder[collectionID] = []
-            examsOrder[collectionID][examOrder] = examID
-        }
-        for(const [id, collectionRecord] of Object.entries(collectionsTable)) {
-            const collectionID = parseInt(id)
-            resultCollections[collectionID] = {
-                info: {
-                    numberOfQuestions: collectionQuestionsCount[collectionID]?.questions || 0,
-                    numberOfExams: collectionQuestionsCount[collectionID]?.exams || 0,
-                    collectionName: collectionsTable[collectionID].collection_name,
-                },
-                examsOrder: examsOrder[collectionID] || [],
-                exams: examsObj[collectionID] || {}
-            }
-            
-        }
-        return resultCollections
-    }
-    function getCollectionsOrder() {
-        const resultCollectionsOrder: number[] = []
-        const collectionsTable = data.collection
-        for(const [id, collectionRecord] of Object.entries(collectionsTable)) {
-            const collectionID = parseInt(id)
-            const collectionOrder = collectionRecord.collection_order
-            resultCollectionsOrder[collectionOrder] = collectionID
-        }
-        return resultCollectionsOrder
-    }
+
+
 }
