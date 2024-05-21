@@ -15,6 +15,8 @@
 	import QuestionCard from "./QuestionCard.svelte";
 	import { onMount } from "svelte";
     import { examTheme, featureFlags } from "$lib/stores"
+	import { beforeNavigate, goto } from "$app/navigation";
+	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
         export let data
     // Get questions amounts
     const questionsAmount = $generalCurrentQuestionsMap?.size
@@ -23,8 +25,16 @@
     const skippedQuestionsAmount = $generalSkippedQuestionsMap?.size
     const markedQuestionsAmount = $generalMarkedQuestionsMap?.size
 
-
-    let cardSettings: { bg: string, color: string } = {bg: "", color: ""}
+    let exitConfirmationOpenBtn: HTMLDivElement
+    beforeNavigate(({ cancel, type }) => {
+        if(type !== 'goto') {
+            cancel()
+            if(type !== 'leave' && type !== "link") {
+                exitConfirmationOpenBtn.click()
+            }
+        }
+    })
+    let cardSettings = { bg: "", color: "" }
     onMount(async () => {
         // Set Question background Theme: Dark, Light or Wood
         if ($examTheme == 'عادي'){
@@ -66,7 +76,13 @@
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
-
+<!-- <PopupConfirmation
+    title="هل أنت متأكد من الخروج؟"
+    text="سيتم فقدان جميع النتائج ولن تتمكن من العودة إلى هذه الصفحة."
+    callback={() => goto('/quiz')}
+>
+    <div class="hidden" bind:this={exitConfirmationOpenBtn}></div>
+</PopupConfirmation> -->
 <NavBar {isLandscape} {data}/>
 <main class="container h-dvh max-w-inherit font-messiri text-white" class:container-mobile-view={!isLandscape}>    
     <div class="results-container" class:results-container-mobile-view={!isLandscape}>

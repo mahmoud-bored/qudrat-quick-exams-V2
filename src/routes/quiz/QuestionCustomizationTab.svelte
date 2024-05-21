@@ -20,18 +20,15 @@
     export let isCollectionsDataReady: boolean | string
     export let focusNextButtonElmnt: () => void
 
-    $: questionNoRepeat.set(noRepeat)
-    $: if(questionsAmount === undefined) globalQuestionsAmount.set(0)
-        else globalQuestionsAmount.set(questionsAmount)
-
-
-    let questionsAmount = $globalQuestionsAmount
-    let questionsAmountInput: HTMLInputElement
+    
+    
+    let questionsAmount: number
     onMount(() => {
         questionsAmount = $globalQuestionsAmount
-        questionsAmountInput.setAttribute("value", questionsAmount.toString())
     })
-
+    $: if(questionsAmount !== undefined) globalQuestionsAmount.set(questionsAmount)
+    $: questionNoRepeat.set(noRepeat)
+    
     const selectAll = (e: Event) => {
         (e.target as HTMLInputElement)?.select()
     }
@@ -47,7 +44,7 @@
             if(collectionExams && collectionExams.length > 0) {
                 for(const examID of collectionExams) {
                     if(examID)
-                        maxQuestionsAmount += collections[collectionID].exams[examID].numberOfQuestions
+                        maxQuestionsAmount += collections?.[collectionID].exams[examID].numberOfQuestions ?? 0
                 }
             }
         }
@@ -160,11 +157,10 @@
                     lang="en"
                     dir="rtl"
                     class="input-hide-arrows w-2/10 h-7/10 px-3 bg-white text-secondary-default rounded-lg"
-                    on:focus={selectAll}
-                    bind:this={questionsAmountInput}
-                    bind:value={questionsAmount} 
                     type="number" 
                     placeholder="مخصص"
+                    on:focus={selectAll}
+                    bind:value={questionsAmount} 
                 >
             </div>
         </div>

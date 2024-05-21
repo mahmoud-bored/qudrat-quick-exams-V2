@@ -40,8 +40,6 @@
                 const vElmntWidth = elmnt.offsetWidth
                 const { width } = getInnerDimensions(answersContainer)
                 const availableWidth = width / 2 - 20
-                console.log(width)
-                console.log(`A: ${availableWidth}, V: ${vElmntWidth}, ${vElmntWidth > availableWidth}`)
                 if ((vElmntWidth) > availableWidth) {
                     alignment = 'column'
                 }

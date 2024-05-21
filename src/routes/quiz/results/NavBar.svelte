@@ -3,6 +3,7 @@
     import { featureFlags } from "$lib/stores";
 	import { fade, fly } from "svelte/transition";
     import { activeQuestionsSection } from "./quiz-results-stores";
+	import { goto } from "$app/navigation";
     export let data
     export let isLandscape: boolean
     let isAllActive:boolean , isCorrectActive: boolean, isIncorrectActive: boolean, isMarkedActive: boolean, isSkippedActive: boolean
@@ -28,9 +29,9 @@
     }
 </script>
 
-{#if isPopupOpen}
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- {#if isPopupOpen}
 <div class="fixed top-0 left-0 h-full w-full z-[100]">
     <div 
         class="fixed top-0 left-0 h-dvh w-full bg-black/40 z-[101]" 
@@ -59,7 +60,7 @@
                 class="w-3/10 h-10 flex-center rounded-md bg-red-500 hover:bg-red-500/80 transition" 
                 on:click={() => {
                     isPopupOpen = false
-                    location.href = data.origin + '/quiz'
+                    goto('/quiz')
                 }}
             >
                 خروج
@@ -74,7 +75,7 @@
     </div>
 
 </div>
-{/if}
+{/if} -->
 <nav 
     class="fixed top-1/2 right-0 left-auto -translate-x-0 -translate-y-1/2 
     flex-center flex-col gap-3 h-max w-fit p-3 rounded-tr-none rounded-l-md bg-secondary-light"
@@ -131,7 +132,10 @@
     <div>
         <button 
             class="group w-12 h-12 flex-center rounded-full border-2 border-red-500 bg-secondary-default hover:bg-red-500 transition"
-            on:click={() => isPopupOpen = true}    
+            on:click={() => {
+                // isPopupOpen = true
+                window.location.href = '/quiz'
+            }}    
         >
             <svg class="w-6/10 h-6/10 mb-[2px] mr-[6px] rotate-180 *:stroke-red-500 group-hover:*:stroke-white transition" width="129" height="125" viewBox="0 0 129 125" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M83 30V21C83 12.1634 75.8366 5 67 5H21C12.1634 5 5 12.1634 5 21V104C5 112.837 12.1634 120 21 120H67C75.8366 120 83 112.837 83 104V94" stroke="white" stroke-width="10" stroke-linecap="round"/>

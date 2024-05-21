@@ -24,17 +24,41 @@
         questionInTransitionDuration, 
 		isShowResultsVisible
     } from "./quiz-main-stores.ts"
-	import { goto } from "$app/navigation";
-	import { generalAllQuestionsMap, generalCorrectQuestionsMap, generalIncorrectQuestionsMap, generalSkippedQuestionsMap } from "../quiz-stores.ts";
+	import { beforeNavigate, goto } from "$app/navigation";
+	import { 
+        generalAllQuestionsMap, 
+        generalCorrectQuestionsMap, 
+        generalIncorrectQuestionsMap, 
+        generalMarkedQuestionsMap, 
+        generalSkippedQuestionsMap 
+    } from "../quiz-stores.ts";
 	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
-    export let data
+    
+    let exitConfirmationOpenBtn: HTMLDivElement
+    beforeNavigate(({ cancel, type }) => {
+        if(type !== 'goto') {
+            cancel()
+            if(type !== 'leave' && type !== "link") {
+                exitConfirmationOpenBtn.click()
+            }
+        }
+    })
 
+    function resetPage() {
+        isShowResultsVisible.set(false)
+        questionParagraph.set(undefined)
+        generalAllQuestionsMap.set(new Map())
+        generalCorrectQuestionsMap.set(new Map())
+        generalIncorrectQuestionsMap.set(new Map())
+        generalSkippedQuestionsMap.set(new Map())
+        generalMarkedQuestionsMap.set(new Map())
+    }
     let themeSrc: string
     let questionColor: string
     let paragraphColor: string
     let isWoodMode: boolean = false
-
     onMount(() => {
+        resetPage()
         // Set Theme: Dark, Light or Wood
         if ($examTheme == 'ليلي'){
             themeSrc = darkModeImgSrc
@@ -51,7 +75,7 @@
             paragraphColor = '#fff'
         }
         getQuestion()
-    })
+    });
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
     let screenWidth: number
@@ -87,11 +111,21 @@
         if(percentage2 == 0) { hidePercentage2 = true } else { hidePercentage2 = false }
         if(percentage3 == 0) { hidePercentage3 = true } else { hidePercentage3 = false }
     }
-
 </script>
 
-<svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
-
+<svelte:window 
+    bind:innerWidth={screenWidth} 
+    bind:innerHeight={screenHeight}
+/>
+<PopupConfirmation
+    title="هل أنت متأكد من الخروج؟"
+    text="لن تتمكن من العودة إلى هذه الصفحة أو مراجعة الإجابات لاحقا."
+    cancelBtnText="إلغاء"
+    confirmBtnText="خروج"
+    callback={() => goto('/quiz')}
+>
+    <div class="hidden" bind:this={exitConfirmationOpenBtn}></div>
+</PopupConfirmation>
 <main 
     class="container w-full h-dvh flex-center gap-5 bg-cover bg-no-repeat max-w-inherit font-messiri" 
     class:container-mobile-view={!isLandscape} 
@@ -124,9 +158,7 @@
                         text="لن تتمكن من رؤية النتائج أو مراجعة أخطائك السابقة."
                         cancelBtnText="إلغاء"
                         confirmBtnText="خروج"
-                        callback={() => {
-                            location.href = data.origin + '/quiz'
-                        }}
+                        callback={() => goto('/quiz')}
                     >
                         <div 
                             class="group relative w-full h-16 flex-center bg-secondary-default rounded-lg border-2 border-red-400 

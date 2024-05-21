@@ -27,7 +27,7 @@
     on:click={setActiveTheme}
 >   
     <div>
-        <enhanced:img class="aspect-[1340/750] w-full rounded-t-lg" {src} alt="">
+        <img class="aspect-[1340/750] w-full rounded-t-lg" {src} alt="">
 
     </div>
     <div class="h-full w-full py-1 flex-center">

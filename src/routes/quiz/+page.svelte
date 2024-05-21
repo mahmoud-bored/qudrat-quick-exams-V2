@@ -4,11 +4,11 @@
     import QuestionCustomizationTab from './QuestionCustomizationTab.svelte'
     import ThemeCustomizationTab from './ThemeCustomizationTab.svelte'
     import { injectDOMErrorMessage } from './injectDOMErrorMessage.ts'
-    import { activeExamsIDs, featureFlags, isExamCustomized, questionsObject, paragraphsObject, type CollectionsContainer } from '$lib/stores.ts'
+    import { activeExamsIDs, featureFlags, isExamCustomized, questionsObject, paragraphsObject, type CollectionsContainer, globalQuestionsAmount } from '$lib/stores.ts'
     import type { Question } from '$lib/databaseInterfaces.ts'
 	import { goto } from '$app/navigation'
     import { isExamListValid, isExamQuestionAmountValid } from './checkInfo.ts'
-	import { onMount } from 'svelte'
+	import { afterUpdate, onMount } from 'svelte'
 	import { loadDatabase, loadDbDataIntoStores } from './database.ts';
     export let data
     
@@ -19,21 +19,21 @@
     let collections: CollectionsContainer
     let collectionsOrder: number[]
     let isDataReady: boolean | string = false
+
     onMount(async () => {
-        isExamCustomized.set(false)
+        globalQuestionsAmount.set(0)
         await loadDatabase(data.redisDB, data.course_id)
-            .then(dbData => {
-                const { collectionsData: data, collectionsOrder: order } = loadDbDataIntoStores(dbData)
-                collections = data
-                collectionsOrder = order
-                isDataReady = true
-                console.log(dbData)
-            }).catch((err) => {
-                console.log(err)
-                isDataReady = "Error"
-            })
+        .then(dbData => {
+            const { collectionsData: data, collectionsOrder: order } = loadDbDataIntoStores(dbData)
+            collections = data
+            collectionsOrder = order
+            isDataReady = true
+            console.log(dbData)
+        }).catch((err) => {
+            console.log(err)
+            isDataReady = "Error"
+        })
     })
-    
     let examListWarning = false
     function handleExamListError(){
         injectDOMErrorMessage('يجب اختيار اختبار واحد على الأقل')
@@ -89,6 +89,11 @@
             }
             return paragraphs
         })
+        resetPage()
+    }
+    function resetPage() {
+        isDataReady = false
+        activeExamsIDs.set({})
     }
     let isQuizStartThrobberVisible = false
     function handlePageNextButton(){
@@ -182,7 +187,7 @@
     </div>
 </main>
 
-<style>
+<style lang="postcss">
     :global(html) {
         overscroll-behavior: auto
     }

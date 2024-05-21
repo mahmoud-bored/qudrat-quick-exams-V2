@@ -16,6 +16,9 @@ export default {
 			utils: true,
 			strict: true
 		}),
+        files: {
+            lib: './src/lib'
+        }
 	},
 	onwarn: (warning, handler) => {
         if (warning.code === 'css-unused-selector') {
