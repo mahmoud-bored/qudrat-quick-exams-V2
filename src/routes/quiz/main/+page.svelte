@@ -6,9 +6,6 @@
     import Controls from "./Controls.svelte"
     import Paragraph from "./Paragraph.svelte"
     import ProgressBar from "./ProgressBar.svelte"
-    import darkModeImgSrc from '$lib/assets/quizThemeDarkBg.webp'
-    import lightModeImgSrc from '$lib/assets/quizThemeLightBg.webp'
-    import woodModeImgSrc from '$lib/assets/quizThemeWoodBg.webp'
     import { examTheme } from "$lib/stores"
 	import { onMount } from "svelte"
 	import { fly } from "svelte/transition"
@@ -51,15 +48,15 @@
     onMount(() => {
         // Set Theme: Dark, Light or Wood
         if ($examTheme == 'ليلي'){
-            themeSrc = darkModeImgSrc
+            themeSrc = '/images/quizThemeDarkBg.webp'
             questionColor = 'rgb(236 236 236)'
             paragraphColor = '#fff'
         } else if ($examTheme == 'عادي'){
-            themeSrc = lightModeImgSrc
+            themeSrc = '/images/quizThemeLightBg.webp'
             questionColor = '#000'
             paragraphColor = '#000'
         } else if ($examTheme == 'Wood(Beta)'){
-            themeSrc = woodModeImgSrc
+            themeSrc = '/images/quizThemeWoodBg.jpg'
             isWoodMode = true
             questionColor = '#000'
             paragraphColor = '#fff'

@@ -37,12 +37,12 @@
     let cardSettings = { bg: "", color: "" }
     onMount(async () => {
         // Set Question background Theme: Dark, Light or Wood
-        if ($examTheme == 'عادي'){
-            cardSettings['bg'] = (await import('$lib/assets/quizThemeLightBg.webp')).default
-            cardSettings['color'] = '#000'
-        }else {
-            cardSettings['bg'] = (await import('$lib/assets/quizThemeDarkBg.webp')).default
+        if ($examTheme == 'ليلي'){
+            cardSettings['bg'] = '/images/quizThemeDarkBg.webp'
             cardSettings['color'] = '#fff'
+        }else {
+            cardSettings['bg'] = '/images/quizThemeLightBg.webp'
+            cardSettings['color'] = '#000'
         }
         // Set Question Percentage Color
         if(correctQuestionsPercentage < 60) {

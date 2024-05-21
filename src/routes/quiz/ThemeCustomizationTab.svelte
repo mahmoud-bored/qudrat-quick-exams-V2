@@ -1,9 +1,6 @@
 <script lang="ts">
     import { fly } from 'svelte/transition';
     import ThemeCard from './ThemeCard.svelte'
-    import examThemeDarkImgSrc from '$lib/assets/quiz-theme-dark.webp'
-    import examThemeLightImgSrc from '$lib/assets/quiz-theme-light.webp'
-    import examThemeWoodImgSrc from '$lib/assets/quiz-theme-wood.webp'
 </script>
 
 <div class="exam-theme-container h-[calc(100%-20px)] p-5 w-full flex-center flex-col gap-2" transition:fly={{ x: 200, duration: 600 }}>
@@ -14,9 +11,9 @@
             overflow-y-auto scrollbar-thin scrollbar-primary flex flex-col gap-2 inner-shadow" 
         transition:fly={{ x: 200, duration: 600 }}
     >
-        <ThemeCard themeName="عادي" src='{examThemeLightImgSrc}'/>
-        <ThemeCard themeName="ليلي" src={examThemeDarkImgSrc}/>
-        <ThemeCard themeName="Wood(Beta)" src={examThemeWoodImgSrc}/>
+        <ThemeCard themeName="عادي" src='/images/quiz-theme-light.jpg'/>
+        <ThemeCard themeName="ليلي" src='/images/quiz-theme-dark.jpg'/>
+        <ThemeCard themeName="Wood(Beta)" src='/images/quiz-theme-wood.jpg'/>
     </div>
 </div>
 
