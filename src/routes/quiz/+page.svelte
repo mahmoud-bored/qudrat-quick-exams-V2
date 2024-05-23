@@ -36,7 +36,6 @@
                 collectionsOrder = order
                 isInitialDataReady = true
                 console.log(initialDbData)
-                console.log(data, order)
             }).catch((err) => {
                 console.log(err)
                 isInitialDataReady = "Error"
@@ -46,6 +45,7 @@
         const fullDbDataLoad = await loadDatabase(fullDataTables, data.course_id)
             .then(dbData => {
                 loadDbDataIntoStores(dbData)
+                console.log(dbData)
                 isDataReady = true
             }).catch((err) => {
                 console.log(err)

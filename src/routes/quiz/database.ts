@@ -541,7 +541,9 @@ export function loadDbDataIntoStores(data: DbData){
     const paragraphsData = getParagraphsData()
     const questionsData = getQuestionsData()
     const categoriesData = getCategoriesData()
-
+    
+    console.log(categoriesData)
+    
     paragraphsObject.set(paragraphsData)
     questionsObject.set(questionsData)
     categoriesObject.set(categoriesData)

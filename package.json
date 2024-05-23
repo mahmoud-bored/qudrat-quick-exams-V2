@@ -37,7 +37,6 @@
 	"dependencies": {
 		"@supabase/supabase-js": "^2.43.1",
 		"@sveltech/routify": "^1.9.10",
-		"firebase": "^10.5.0",
 		"redis": "^4.6.13"
 	},
 	"homepage": "https://mahmoud-bored.github.io/qudrat-quick-exams-V2/"

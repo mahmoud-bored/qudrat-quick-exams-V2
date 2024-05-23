@@ -14,13 +14,9 @@
             isPopupOpen = false
         }
     }
-    $: if(isPopupOpen) {
-        window.addEventListener('keydown', escapeBtnListener)
-    } else {
-        window.removeEventListener('keydown', escapeBtnListener)
-    }
-</script>
 
+</script>
+<svelte:window on:keydown={escapeBtnListener}/>
 <button class="w-full h-full flex-center *:pointer-events-auto" on:click={() => isPopupOpen = true}>
     <slot/>
 </button>
