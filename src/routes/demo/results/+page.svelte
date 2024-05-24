@@ -83,7 +83,7 @@
     <div class="hidden" bind:this={exitConfirmationOpenBtn}></div>
 </PopupConfirmation>
 <NavBar {isLandscape} {isNavigationIntentional}/>
-<main class="container h-dvh max-w-inherit font-messiri text-white" class:container-mobile-view={!isLandscape}>    
+<main class="container h-full-vh supports-dvh:h-dvh max-w-inherit font-messiri text-white" class:container-mobile-view={!isLandscape}>    
     <div class="results-container" class:results-container-mobile-view={!isLandscape}>
         <h1 class="text-3xl mt-8">تقرير الإختبار</h1>
         <section class="results-summary-container" class:results-summary-container-mobile={!isLandscape}>

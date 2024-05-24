@@ -6,6 +6,9 @@ export default {
   },
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
+    supports: {
+      dvh: 'height: 100dvh'
+    },
     extend: {
       fontFamily: {
         'messiri': ['El Messiri', 'sans-serif']
@@ -43,6 +46,7 @@ export default {
         '7/10': '70%',
         '8/10': '80%',
         '9/10': '90%',
+        'full-vh': '100vh',
       },
       width: {
         '1/10': '10%',

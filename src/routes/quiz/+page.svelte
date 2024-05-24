@@ -148,7 +148,7 @@
     }
 </script>
 
-<main class="h-dvh w-[100%] text-white font-messiri">
+<main class="h-full-vh supports-dvh:h-dvh w-[100%] text-white font-messiri">
 
     <div class="dotted-bg h-full w-full flex justify-center items-end bg-secondary-default">
         <div class="relative h-[min(99%,700px)] w-[min(95vw,400px)] bg-secondary-light rounded-tr-xl rounded-tl-xl overflow-hidden">

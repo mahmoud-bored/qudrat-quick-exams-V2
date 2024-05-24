@@ -7,7 +7,7 @@
     let isBackThrobberVisible = false
 </script>
 
-<section class="w-full h-dvh flex-center bg-[#c1d5e8]">
+<section class="w-full h-full-vh supports-dvh:h-dvh flex-center bg-[#c1d5e8]">
     <div class="loader absolute top-0 left-0 w-full h-5 bg-[#ffbb05] overflow-hidden"></div>
     <div class="loader absolute bottom-0 left-0 w-full h-5 bg-[#ffbb05] overflow-hidden"></div>
 

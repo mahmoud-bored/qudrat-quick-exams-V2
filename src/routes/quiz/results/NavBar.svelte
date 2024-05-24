@@ -38,7 +38,7 @@
 {#if isPopupOpen}
 <div class="fixed top-0 left-0 h-full w-full z-[100]">
     <div 
-        class="fixed top-0 left-0 h-dvh w-full bg-black/40 z-[101]" 
+        class="fixed top-0 left-0 h-full-vh supports-dvh:h-dvh w-full bg-black/40 z-[101]" 
         transition:fade={{ duration: 200 }} 
         on:click={() => isPopupOpen = false }
     />

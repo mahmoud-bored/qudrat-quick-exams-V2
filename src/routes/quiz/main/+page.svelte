@@ -117,13 +117,13 @@
     <div class="hidden" bind:this={exitConfirmationOpenBtn}></div>
 </PopupConfirmation>
 <main 
-    class="container w-full h-dvh flex-center gap-5 bg-cover bg-no-repeat max-w-inherit font-messiri" 
+    class="container w-full h-full-vh supports-dvh:h-dvh flex-center gap-5 bg-cover bg-no-repeat max-w-inherit font-messiri" 
     class:container-mobile-view={!isLandscape} 
     style="background-image: url({themeSrc}); color: {questionColor}"
 >
     {#if $isShowResultsVisible}
         <section 
-            class="radial-gradient absolute top-0 left-0 flex flex-col justify-between items-center overflow-hidden z-[7] h-dvh w-full" 
+            class="radial-gradient absolute top-0 left-0 flex flex-col justify-between items-center overflow-hidden z-[7] h-full-vh supports-dvh:h-dvh w-full" 
             in:fly={{ y: -600, duration: 200 }}
         >
             <div class="mt-[min(15%,100px)] w-72 h-72 rounded-full flex-center p-2">

@@ -7,7 +7,7 @@
 </script>
 
 <section 
-    class="radial-gradient absolute top-0 left-0 py-[3%] h-dvh w-full flex flex-col justify-between items-center overflow-hidden z-[7] font-messiri" 
+    class="radial-gradient absolute top-0 left-0 py-[3%] h-full-vh supports-dvh:h-dvh w-full flex flex-col justify-between items-center overflow-hidden z-[7] font-messiri" 
     in:fly={{ y: -600, duration: 200 }}
 >
     <div class="w-full flex flex-center flex-col pt-[min(7%,50px)]">
