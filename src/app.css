@@ -6,4 +6,5 @@
     font-family: 'El Messiri';
     src: url('/fonts/ElMessiri-VariableFont_wght.ttf');
     font-weight: 800;
+    font-display: swap;
 }
