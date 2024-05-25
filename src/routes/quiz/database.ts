@@ -425,9 +425,9 @@ export async function loadDatabase(redisDB: RedisDB, course_id: number): Promise
     }
     return new Promise((resolve, reject) => {
         IDBrequest.onerror = async () => {
-            console.log('Error')
+            console.log('IDBError')
             await fullLoadFromSupabase(table_list, course_id)
-                .then((result: DbData) => resolve(closeDb(result)))
+                .then((result: DbData) => resolve(result))
                 .catch((err: Error) => reject(err))
         }
         IDBrequest.onupgradeneeded = () => buildDatabase(db())
@@ -541,9 +541,7 @@ export function loadDbDataIntoStores(data: DbData){
     const paragraphsData = getParagraphsData()
     const questionsData = getQuestionsData()
     const categoriesData = getCategoriesData()
-    
-    console.log(categoriesData)
-    
+        
     paragraphsObject.set(paragraphsData)
     questionsObject.set(questionsData)
     categoriesObject.set(categoriesData)
