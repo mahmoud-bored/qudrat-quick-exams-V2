@@ -87,9 +87,9 @@
         window.location.href = '/quiz'
     }}
 >
-    <div class="hidden" bind:this={exitConfirmationOpenBtn}></div>
+    <div id="results-page-back-button_GTAG" class="hidden" bind:this={exitConfirmationOpenBtn}></div>
 </PopupConfirmation>
-<NavBar {isLandscape} {data} {isNavigationIntentional}/>
+<NavBar {isLandscape} {isNavigationIntentional}/>
 <main class="container h-full-vh supports-dvh:h-dvh max-w-inherit font-messiri text-white" class:container-mobile-view={!isLandscape}>    
     <div class="results-container" class:results-container-mobile-view={!isLandscape}>
         <h1 class="text-3xl mt-8">تقرير الإختبار</h1>

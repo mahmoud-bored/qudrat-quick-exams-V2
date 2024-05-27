@@ -28,6 +28,7 @@
         <div class="w-full flex-center flex-wrap-reverse gap-[max(20px,5%)]">
             <div class="w-9/10 max-w-72">
                 <button 
+                    id="demo_login_GTAG"
                     class="group relative w-full h-16 flex-center bg-secondary-default rounded-lg border-2 border-amber-400
                         text-white text-lg hover:bg-amber-400 hover:text-secondary-default transition z-[8]" 
                     in:fly={{ y: -20, x: 20, duration: 1000 }}
@@ -52,6 +53,7 @@
             </div>
             <div class="w-9/10 max-w-72">
                 <button 
+                    id="demo-start__GTAG"
                     class="group relative w-full h-16 flex-center bg-secondary-default rounded-lg border-2 border-primary 
                         text-white text-lg hover:bg-primary hover:text-secondary-default transition z-[8]" 
                     in:fly={{ y: -20, x: 20, duration: 1000 }} 

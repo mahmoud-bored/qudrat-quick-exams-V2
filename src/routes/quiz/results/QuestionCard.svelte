@@ -52,6 +52,7 @@
 </script>
 <div class="question-container">
     <button 
+        id="results-question-card-open-close-button_GTAG"
         class="question-card-container"
         class:question-card-red-border={isRedBorderActive}
         class:question-card-green-border={isGreenBorderActive}
@@ -69,6 +70,7 @@
     </button>
 
     <button 
+        id="results-question-card-open-close-button_GTAG"
         class="question-body-container" 
         class:question-body-container-active={isQuestionBodyVisible} 
         style="background-image: url('{cardSettings['bg']}'); color: {cardSettings['color']}"

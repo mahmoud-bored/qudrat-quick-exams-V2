@@ -91,7 +91,7 @@
         window.location.href = '/demo'
     }}
 >
-    <div class="hidden" bind:this={exitConfirmationOpenBtn}></div>
+    <div id="quiz-page-back-button_GTAG" class="hidden" bind:this={exitConfirmationOpenBtn}></div>
 </PopupConfirmation>
 <main 
     class="container w-full h-full-vh supports-dvh:h-dvh flex-center gap-5 bg-cover bg-no-repeat max-w-inherit font-messiri" 
@@ -130,6 +130,7 @@
                         }}
                     >
                         <div 
+                            id="goto-home-page-open-popup-button_GTAG"
                             class="group relative w-full h-16 flex-center bg-secondary-default rounded-lg border-2 border-red-400 
                                 text-white text-lg hover:bg-red-400 hover:text-secondary-default transition z-[8]" 
                             in:fly={{ y: -20, x: 20, duration: 1000 }} 
@@ -139,6 +140,7 @@
                     </PopupConfirmation>
                 </div>
                 <button 
+                    id="goto-results-page-button_GTAG"
                     class="group relative w-9/10 max-w-72 h-16 flex-center bg-secondary-default rounded-lg border-2 border-primary 
                         text-white text-lg hover:bg-primary hover:text-secondary-default transition z-[8]" 
                     in:fly={{ y: -20, x: 20, duration: 1000 }} 

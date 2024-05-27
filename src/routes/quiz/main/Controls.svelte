@@ -12,10 +12,11 @@
     {/if}
     <div class="w-[95%] max-w-[660px] h-full flex items-center ">
         <button 
-        class="group mark-question-button h-9/10 w-[98%] flex-center rounded border-2 border-yellow-400 transition bg-yellow-400/50 
-        gap-2 text-center flex justify-between items-center hover:bg-yellow-400 hover:text-white" 
-        class:mark-question-button-active={$isQuestionMarked} 
-        on:click={() => isQuestionMarked.update(state => !state)}
+            id="quiz-mark-question-button_GTAG"
+            class="group mark-question-button h-9/10 w-[98%] flex-center rounded border-2 border-yellow-400 transition bg-yellow-400/50 
+            gap-2 text-center flex justify-between items-center hover:bg-yellow-400 hover:text-white" 
+            class:mark-question-button-active={$isQuestionMarked} 
+            on:click={() => isQuestionMarked.update(state => !state)}
         >
         <svg class=" h-8/10 *:transition" width="70" height="127" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path class="group-hover:fill-[#FFE784]" d="M18.1895 11C18.1895 4.92487 23.1143 0 29.1895 0H80.1895C86.2646 0 91.1895 4.92487 91.1895 11V78H18.1895V11Z" fill="#FFCD00"/>
@@ -38,6 +39,7 @@
             callback={endQuiz}
         >
             <div 
+                id="quiz-exit-open-popup-button_GTAG"
                 class="end-quiz-button p-1 h-9/10 w-8/10 flex-center rounded border-2 border-red-400 bg-red-400/70 
                 text-center text-white text-sm md:text-base transition hover:bg-red-400 " 
             >

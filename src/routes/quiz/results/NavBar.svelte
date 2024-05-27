@@ -1,12 +1,9 @@
 <script lang="ts">
-	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
     import { featureFlags } from "$lib/stores";
 	import { fade, fly } from "svelte/transition";
     import { activeQuestionsSection } from "./quiz-results-stores";
-	import { goto } from "$app/navigation";
 	import type { Writable } from "svelte/store";
 
-    export let data
     export let isLandscape: boolean
     export let isNavigationIntentional: Writable<boolean>
 
@@ -36,49 +33,49 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 {#if isPopupOpen}
-<div class="fixed top-0 left-0 h-full w-full z-[100]">
-    <div 
-        class="fixed top-0 left-0 h-full-vh supports-dvh:h-dvh w-full bg-black/40 z-[101]" 
-        transition:fade={{ duration: 200 }} 
-        on:click={() => isPopupOpen = false }
-    />
-    <div 
-        class="fixed translate-center w-[min(90vw,600px)] flex-center flex-col p-7 rounded-lg text-white gap-2 
-            bg-secondary-default border-4 border-secondary-light font-messiri z-[102]" 
-        in:fly={{ y: -20, x: 40, duration: 400 }} 
-        out:fly={{ y: 40, duration: 200 }}
-    >
-        <button 
-            class="fixed top-2 right-2 w-7 h-7 flex-center rounded-full bg-red-500 hover:bg-red-400 transition" 
-            on:click={() => isPopupOpen = false}
+    <div class="fixed top-0 left-0 h-full w-full z-[100]">
+        <div 
+            class="fixed top-0 left-0 h-full-vh supports-dvh:h-dvh w-full bg-black/40 z-[101]" 
+            transition:fade={{ duration: 200 }} 
+            on:click={() => isPopupOpen = false }
+        />
+        <div 
+            class="fixed translate-center w-[min(90vw,600px)] flex-center flex-col p-7 rounded-lg text-white gap-2 
+                bg-secondary-default border-4 border-secondary-light font-messiri z-[102]" 
+            in:fly={{ y: -20, x: 40, duration: 400 }} 
+            out:fly={{ y: 40, duration: 200 }}
         >
-            <svg class="w-4/10" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.5439 2L1.99994 19.1568" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18.5957 19.2598L2.05121 2.10348" stroke="white" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-        </button>
-    
-            <p class="text-lg text-center" dir="rtl">هل أنت متأكد من الخروج؟</p>
-            <p class="text-base text-center w-full p-2 mt-1" dir="rtl">سيتم فقدان جميع النتائج ولن تتمكن من العودة إلى هذه الصفحة.</p>
-        <div class="w-full flex justify-evenly mt-2">
             <button 
-                class="w-3/10 h-10 flex-center rounded-md bg-red-500 hover:bg-red-500/80 transition" 
-                on:click={() => {
-                    isNavigationIntentional.set(true)
-                    window.location.href = '/quiz'
-            }}
+                class="fixed top-2 right-2 w-7 h-7 flex-center rounded-full bg-red-500 hover:bg-red-400 transition" 
+                on:click={() => isPopupOpen = false}
             >
-                خروج
+                <svg class="w-4/10" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.5439 2L1.99994 19.1568" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18.5957 19.2598L2.05121 2.10348" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg>
             </button>
-            <button 
-                class="w-3/10 h-10 flex-center rounded-md bg-secondary-light hover:bg-secondary-light/60 transition" 
-                on:click={() => isPopupOpen = false }
-            >
-                الغاء
-            </button>
+        
+                <p class="text-lg text-center" dir="rtl">هل أنت متأكد من الخروج؟</p>
+                <p class="text-base text-center w-full p-2 mt-1" dir="rtl">سيتم فقدان جميع النتائج ولن تتمكن من العودة إلى هذه الصفحة.</p>
+            <div class="w-full flex justify-evenly mt-2">
+                <button 
+                    class="w-3/10 h-10 flex-center rounded-md bg-red-500 hover:bg-red-500/80 transition" 
+                    on:click={() => {
+                        isNavigationIntentional.set(true)
+                        window.location.href = '/quiz'
+                }}
+                >
+                    خروج
+                </button>
+                <button 
+                    class="w-3/10 h-10 flex-center rounded-md bg-secondary-light hover:bg-secondary-light/60 transition" 
+                    on:click={() => isPopupOpen = false }
+                >
+                    الغاء
+                </button>
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 {/if}
 <nav 
     class="fixed top-1/2 right-0 left-auto -translate-x-0 -translate-y-1/2 

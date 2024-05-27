@@ -17,9 +17,10 @@
     }
     let isPopupOpen = false
 
+    let popupCancelBtn: HTMLButtonElement
     function escapeBtnListener(e: KeyboardEvent) {
         if (e.key === 'Escape' || e.key === 'Esc') {
-            isPopupOpen = false
+            popupCancelBtn.click()
         }
     }
     $: if(isPopupOpen) {
@@ -32,49 +33,54 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 {#if isPopupOpen}
-<div class="fixed top-0 left-0 h-full w-full z-[100]">
-    <div 
-        class="fixed top-0 left-0 h-full-vh supports-dvh:h-dvh w-full bg-black/40 z-[101]" 
-        transition:fade={{ duration: 200 }} 
-        on:click={() => isPopupOpen = false }
-    />
-    <div 
-        class="fixed translate-center w-[min(90vw,600px)] flex-center flex-col p-7 rounded-lg text-white gap-2 
-            bg-secondary-default border-4 border-secondary-light font-messiri z-[102]" 
-        in:fly={{ y: -20, x: 40, duration: 400 }} 
-        out:fly={{ y: 40, duration: 200 }}
-    >
-        <button 
-            class="fixed top-2 right-2 w-7 h-7 flex-center rounded-full bg-red-500 hover:bg-red-400 transition" 
-            on:click={() => isPopupOpen = false}
+    <div class="fixed top-0 left-0 h-full w-full z-[100]">
+        <div 
+            id="popup-cancel-button-GTAG"
+            class="fixed top-0 left-0 h-full-vh supports-dvh:h-dvh w-full bg-black/40 z-[101]" 
+            transition:fade={{ duration: 200 }} 
+            on:click={() => isPopupOpen = false }
+        />
+        <div 
+            class="fixed translate-center w-[min(90vw,600px)] flex-center flex-col p-7 rounded-lg text-white gap-2 
+                bg-secondary-default border-4 border-secondary-light font-messiri z-[102]" 
+            in:fly={{ y: -20, x: 40, duration: 400 }} 
+            out:fly={{ y: 40, duration: 200 }}
         >
-            <svg class="w-4/10" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.5439 2L1.99994 19.1568" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18.5957 19.2598L2.05121 2.10348" stroke="white" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-        </button>
-    
-            <p class="text-lg text-center" dir="rtl">هل أنت متأكد من الخروج؟</p>
-            <p class="text-base text-center w-full p-2 mt-1" dir="rtl">سيتم فقدان جميع النتائج ولن تتمكن من العودة إلى هذه الصفحة.</p>
-        <div class="w-full flex justify-evenly mt-2">
             <button 
-                class="w-3/10 h-10 flex-center rounded-md bg-red-500 hover:bg-red-500/80 transition" 
-                on:click={() => {
-                    isNavigationIntentional.set(true)
-                    window.location.href = '/demo'
-            }}
+                id="popup-cancel-button-GTAG"
+                class="fixed top-2 right-2 w-7 h-7 flex-center rounded-full bg-red-500 hover:bg-red-400 transition" 
+                bind:this={popupCancelBtn}
+                on:click={() => isPopupOpen = false}
             >
-                خروج
+                <svg class="w-4/10" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.5439 2L1.99994 19.1568" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18.5957 19.2598L2.05121 2.10348" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg>
             </button>
-            <button 
-                class="w-3/10 h-10 flex-center rounded-md bg-secondary-light hover:bg-secondary-light/60 transition" 
-                on:click={() => isPopupOpen = false }
-            >
-                الغاء
-            </button>
+        
+                <p class="text-lg text-center" dir="rtl">هل أنت متأكد من الخروج؟</p>
+                <p class="text-base text-center w-full p-2 mt-1" dir="rtl">سيتم فقدان جميع النتائج ولن تتمكن من العودة إلى هذه الصفحة.</p>
+            <div class="w-full flex justify-evenly mt-2">
+                <button 
+                    id="popup-confirm-button-GTAG"
+                    class="w-3/10 h-10 flex-center rounded-md bg-red-500 hover:bg-red-500/80 transition" 
+                    on:click={() => {
+                        isNavigationIntentional.set(true)
+                        window.location.href = '/demo'
+                }}
+                >
+                    خروج
+                </button>
+                <button 
+                    id="popup-cancel-button-GTAG"
+                    class="w-3/10 h-10 flex-center rounded-md bg-secondary-light hover:bg-secondary-light/60 transition" 
+                    on:click={() => isPopupOpen = false }
+                >
+                    الغاء
+                </button>
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 {/if}
 <nav 
     class="fixed top-1/2 right-0 left-auto -translate-x-0 -translate-y-1/2 
@@ -83,13 +89,15 @@
 >
     <div class="buttons-container flex flex-col gap-2">
         <button 
+            id="results-questions-filter-all_GTAG"
             class="w-12 h-12 flex-center rounded border-2 border-secondary-default bg-secondary-light hover:bg-secondary-default transition" 
             class:bg-secondary-default={isAllActive} 
             on:click={()=> activeQuestionsSection.set('all')}
         >
             <p class="text-lg text-cyan-200 font-messiri">الكل</p>
         </button>
-        <button 
+        <button  
+            id="results-questions-filter-correct_GTAG"
             class="w-12 h-12 flex-center rounded border-2 border-secondary-default bg-secondary-light hover:bg-secondary-default transition" 
             class:bg-secondary-default={isCorrectActive} 
             on:click={()=> activeQuestionsSection.set('correct')}
@@ -98,7 +106,8 @@
                 <path d="M210.75 6.7959L249.792 45.9089L114.814 180.641C105.042 190.395 89.2124 190.38 79.4582 180.608L58.0782 159.189L210.75 6.7959Z" fill="#A5EB78"/><path d="M237.191 33L250.024 45.8563L110.861 184.766C103.76 191.853 92.259 191.843 85.1716 184.742V184.742L237.191 33Z" fill="#95D46C"/><rect x="7.18359" y="108.787" width="53.2178" height="90" transform="rotate(-45.2399 7.18359 108.787)" fill="#A5EB78"/><path d="M69 94.5L90 116.5C91.1667 117.5 94 119.5 96 119.5C98 119.5 101.167 117.5 102.5 116.5L213.5 5L252 43L221 74" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M210 86L118.5 177.5C115.333 180.667 106.5 187.2 96.5 188C86.5 188.8 77.3333 181.333 74 177.5L5 107.5L43 70L56.5 83.5" stroke="black" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </button>
-        <button 
+        <button  
+            id="results-questions-filter-incorrect_GTAG"
             class="w-12 h-12 flex-center rounded border-2 border-secondary-default bg-secondary-light hover:bg-secondary-default transition" 
             class:bg-secondary-default={isIncorrectActive}
             on:click={()=> activeQuestionsSection.set('incorrect')}
@@ -107,7 +116,8 @@
                 <path d="M155.758 7L99 63.5636L41.871 7L7 41.7515L64.129 98.3152L7 155.248L41.871 190L99 133.436L155.758 189.63L190.629 154.879L133.5 97.9455L191 41.7515L155.758 7Z" fill="#F74354" stroke="black" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </button>
-        <button 
+        <button  
+            id="results-questions-filter-marked_GTAG"
             class="w-12 h-12 flex-center rounded border-2 border-secondary-default bg-secondary-light hover:bg-secondary-default transition" 
             class:bg-secondary-default={isMarkedActive} 
             on:click={()=> activeQuestionsSection.set('marked')}
@@ -120,6 +130,7 @@
     <hr class="w-full h-0 border-zinc-500 border"/>
     <div>
         <button 
+            id="results-page-exit-button_GTAG"
             class="group w-12 h-12 flex-center rounded-full border-2 border-red-500 bg-secondary-default hover:bg-red-500 transition"
             on:click={() => {
                 isPopupOpen = true

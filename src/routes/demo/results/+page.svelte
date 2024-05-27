@@ -80,7 +80,7 @@
         window.location.href = '/demo'
     }}
 >
-    <div class="hidden" bind:this={exitConfirmationOpenBtn}></div>
+    <div id="results-page-back-button_GTAG" class="hidden" bind:this={exitConfirmationOpenBtn}></div>
 </PopupConfirmation>
 <NavBar {isLandscape} {isNavigationIntentional}/>
 <main class="container h-full-vh supports-dvh:h-dvh max-w-inherit font-messiri text-white" class:container-mobile-view={!isLandscape}>    

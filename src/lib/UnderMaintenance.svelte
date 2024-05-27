@@ -16,6 +16,7 @@
         <img src="/images/under-maintenance.png" alt="Under Maintenance">
         <div class="w-full max-w-md flex-center">
             <button 
+                id="maintenance-page-back-button_GTAG"
                 class="group relative w-full h-14 flex-center text-white font-messiri rounded-md bg-[#20243b] border-2 
                     border-amber-400 hover:bg-amber-400 transition"
                 on:click={() => {
