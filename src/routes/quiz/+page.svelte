@@ -36,7 +36,6 @@
                 collectionsOrder = order
                 isInitialDataReady = true
                 console.log(initialDbData)
-                console.log(data, order)
             }).catch((err) => {
                 console.log(err)
                 isInitialDataReady = "Error"
@@ -46,6 +45,7 @@
         const fullDbDataLoad = await loadDatabase(fullDataTables, data.course_id)
             .then(dbData => {
                 loadDbDataIntoStores(dbData)
+                console.log(dbData)
                 isDataReady = true
             }).catch((err) => {
                 console.log(err)
@@ -148,7 +148,7 @@
     }
 </script>
 
-<main class="h-dvh w-[100%] text-white font-messiri">
+<main class="h-full-vh supports-dvh:h-dvh w-[100%] text-white font-messiri">
 
     <div class="dotted-bg h-full w-full flex justify-center items-end bg-secondary-default">
         <div class="relative h-[min(99%,700px)] w-[min(95vw,400px)] bg-secondary-light rounded-tr-xl rounded-tl-xl overflow-hidden">

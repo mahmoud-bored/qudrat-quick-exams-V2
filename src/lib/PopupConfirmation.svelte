@@ -9,18 +9,14 @@
 
     let isPopupOpen = false
 
+    let popupCancelBtn: HTMLButtonElement
     function escapeBtnListener(e: KeyboardEvent) {
         if (e.key === 'Escape' || e.key === 'Esc') {
-            isPopupOpen = false
+            popupCancelBtn.click()
         }
     }
-    $: if(isPopupOpen) {
-        window.addEventListener('keydown', escapeBtnListener)
-    } else {
-        window.removeEventListener('keydown', escapeBtnListener)
-    }
 </script>
-
+<svelte:window on:keydown={escapeBtnListener}/>
 <button class="w-full h-full flex-center *:pointer-events-auto" on:click={() => isPopupOpen = true}>
     <slot/>
 </button>
@@ -29,6 +25,7 @@
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div 
+        id="popup-cancel-button-GTAG"
         class="fixed top-0 left-0 h-full w-full bg-black/40 z-[100]" 
         transition:fade={{ duration: 150 }} 
         on:click={() => isPopupOpen = false }
@@ -40,7 +37,9 @@
         out:fly={{ y: 40, duration: 200 }}
     >
         <button 
+            id="popup-cancel-button-GTAG"
             class="absolute top-2 right-2 w-7 h-7 flex-center rounded-full bg-red-500 hover:bg-red-400 transition" 
+            bind:this={popupCancelBtn}
             on:click={() => isPopupOpen = false}
         >
             <svg class="w-4/10" width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,6 +55,7 @@
         {/if}
         <div class="w-full flex justify-evenly mt-2">
             <button 
+                id="popup-confirm-button-GTAG"
                 class="w-3/10 h-10 flex-center rounded-md bg-red-500 hover:bg-red-500/80 transition" 
                 on:click={() => {
                     isPopupOpen = false
@@ -65,6 +65,7 @@
                 {confirmBtnText}
             </button>
             <button 
+                id="popup-cancel-button-GTAG"
                 class="w-3/10 h-10 flex-center rounded-md bg-secondary-light hover:bg-secondary-light/60 transition" 
                 on:click={() => isPopupOpen = false }
             >

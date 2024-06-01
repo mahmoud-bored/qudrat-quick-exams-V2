@@ -1,15 +1,11 @@
 <script lang="ts">
-	import { endQuiz, pickAnswer } from "./operations"
-    import { isQuestionMarked, isNextQuestionReady } from "./quiz-main-stores"
+	import { endQuiz } from "./operations"
+    import { isQuestionMarked } from "./quiz-main-stores"
     import TypeWriter from "$lib/assets/TypeWriter.svelte"
-	import { featureFlags } from "$lib/stores";
 	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
 </script>
 
 <div class="controls-container h-[95%] w-full bg-transparent flex justify-center items-end text-white">
-    {#if $featureFlags.skipQuestionButton}
-        <button class="skip-question-button" data-value="skip" on:click={(e) => { if($isNextQuestionReady){ pickAnswer(e) } }}>تخطي</button>
-    {/if}
     <div class="w-[95%] max-w-[660px] h-full flex items-center ">
         <button 
             id="quiz-mark-question-button_GTAG"
@@ -18,7 +14,7 @@
             class:mark-question-button-active={$isQuestionMarked} 
             on:click={() => isQuestionMarked.update(state => !state)}
         >
-        <svg class=" h-8/10 *:transition" width="70" height="127" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class=" h-8/10 *:transition" width="70" height="127" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path class="group-hover:fill-[#FFE784]" d="M18.1895 11C18.1895 4.92487 23.1143 0 29.1895 0H80.1895C86.2646 0 91.1895 4.92487 91.1895 11V78H18.1895V11Z" fill="#FFCD00"/>
                 <path class="group-hover:fill-[#FFE784]" d="M28.5056 105.542C24.7704 109.46 18.1654 106.819 18.1626 101.405L18.1458 68.6781C18.144 65.2931 20.9411 62.5768 24.3245 62.6777L54.7996 63.586C60.057 63.7427 62.5827 70.1069 58.8635 73.826L56.1895 76.5L28.5056 105.542Z" fill="#FFCD00"/>
                 <path class="group-hover:fill-[#FFE784]" d="M80.9455 105.127C84.7007 108.998 91.2589 106.335 91.2521 100.942L91.2111 68.7028C91.2068 65.3231 88.4133 62.6138 85.0351 62.713L54.6915 63.6037C49.4935 63.7562 46.9376 69.998 50.5356 73.7525L52.6895 76L80.9455 105.127Z" fill="#FFCD00"/>

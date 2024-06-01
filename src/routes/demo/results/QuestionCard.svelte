@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { ParagraphsContainer, Question } from "$lib/databaseInterfaces"
 	import { onMount } from "svelte"
-    import { paragraphsObject } from "$lib/stores"
-    
+    import { mainParagraphsObject } from "../quiz/operations";   
     export let cardSettings: { bg: string, color: string }
     export let questionObject: Question | undefined
     
@@ -24,7 +23,7 @@
     // return the paragraph text if it exists
     function getParagraphText(){
         if(typeof localQuestionObject['questionParagraphID'] === 'number') {
-            return $paragraphsObject[localQuestionObject['questionParagraphID']]['paragraphText']
+            return mainParagraphsObject[localQuestionObject['questionParagraphID']]['paragraphText']
         }else {
             return ""
         }
@@ -78,7 +77,9 @@
         >
 
         <p style="max-width: 95%;">{getParagraphText()}</p>
-        {#if getParagraphText().length !== 0} <hr> {/if}
+        {#if getParagraphText().length > 0}
+            <hr>
+        {/if}
         <p style="max-width: 95%;">س: {localQuestionObject['questionHead']}</p>
         <div class="question-body-answers-container">
             {#if localQuestionObject.questionAnswers[0]}

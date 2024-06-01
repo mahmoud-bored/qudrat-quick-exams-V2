@@ -36,3 +36,34 @@ export function mergeArraysUnique(...arrays: any[]) {
         }
     }
 }
+
+// source: https://stackoverflow.com/questions/45336281/javascript-find-by-value-deep-in-a-nested-object-array
+export function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
+    // Base case
+    if (obj[key] === value) {
+        if(baseKey !== null){
+            return [obj, baseKey];
+        }else {
+            return obj
+        }
+    } else {
+        var keys = Object.keys(obj); // add this line to iterate over the keys
+    
+        for (var i = 0; i < keys.length; i++) {
+            var k = keys[i]; // use this key for iteration, instead of index "i"
+            
+            // add "obj[k] &&" to ignore null values
+            if (obj[k] && typeof obj[k] == 'object') {
+                var found: any = findNestedValue(obj[k], key, value, k);
+                if (found) {
+                    // If the object was found in the recursive call, bubble it up.
+                    if(baseKey !== null){
+                        return [found, baseKey];
+                    }else {
+                        return found
+                    }
+                }
+            }
+        }
+    }
+}

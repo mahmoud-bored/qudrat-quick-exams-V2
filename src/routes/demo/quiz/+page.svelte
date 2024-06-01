@@ -6,7 +6,6 @@
     import Controls from "./Controls.svelte"
     import Paragraph from "./Paragraph.svelte"
     import ProgressBar from "./ProgressBar.svelte"
-    import { examTheme } from "$lib/stores"
 	import { onMount } from "svelte"
 	import { fly } from "svelte/transition"
     import { getQuestion, isNavigationIntentional } from "./operations.ts"
@@ -16,9 +15,9 @@
         answers,  
         correctState, 
         incorrectState, 
+        questionInTransitionDuration, 
         questionOutTransitionDuration, 
         skipState, 
-        questionInTransitionDuration, 
 		isShowResultsVisible
     } from "./quiz-main-stores.ts"
 	import { beforeNavigate, goto } from "$app/navigation";
@@ -27,42 +26,24 @@
         generalCorrectQuestionsMap, 
         generalIncorrectQuestionsMap, 
         generalMarkedQuestionsMap, 
-        generalSkippedQuestionsMap 
+         
     } from "../quiz-stores.ts";
 	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
     
     let exitConfirmationOpenBtn: HTMLDivElement
     beforeNavigate(({ cancel, type }) => {
         if(type !== 'goto' && !$isNavigationIntentional) {
-            cancel()
+            if(!$isNavigationIntentional) cancel()
             if(type !== 'leave' && type !== "link") {
-                exitConfirmationOpenBtn.click()
+                if(!$isNavigationIntentional) exitConfirmationOpenBtn.click()
             }
         }
     })
 
-    let themeSrc: string
     let questionColor: string
     let paragraphColor: string
     let isWoodMode: boolean = false
-    onMount(() => {
-        // Set Theme: Dark, Light or Wood
-        if ($examTheme == 'ليلي'){
-            themeSrc = '/images/quizThemeDarkBg.webp'
-            questionColor = 'rgb(236 236 236)'
-            paragraphColor = '#fff'
-        } else if ($examTheme == 'عادي'){
-            themeSrc = '/images/quizThemeLightBg.webp'
-            questionColor = '#000'
-            paragraphColor = '#000'
-        } else if ($examTheme == 'Wood(Beta)'){
-            themeSrc = '/images/quizThemeWoodBg.jpg'
-            isWoodMode = true
-            questionColor = '#000'
-            paragraphColor = '#fff'
-        }
-        getQuestion()
-    });
+    onMount(() => getQuestion());
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
     let screenWidth: number
@@ -79,24 +60,20 @@
     let questionsAmount = $generalAllQuestionsMap.size
     let correctQuestionsAmount = $generalCorrectQuestionsMap.size
     let incorrectQuestionsAmount = $generalIncorrectQuestionsMap.size
-    let skippedQuestionsAmount = $generalSkippedQuestionsMap.size
 
-    let [percentage1, percentage2, percentage3] = Array(3).fill(0)
+    let [percentage1, percentage2] = Array(2).fill(0)
     let [hidePercentage1, hidePercentage2, hidePercentage3] = Array(3).fill(false)
     // get questions amounts percentages
     $: {
         questionsAmount = $generalAllQuestionsMap.size
         correctQuestionsAmount = $generalCorrectQuestionsMap.size
         incorrectQuestionsAmount = $generalIncorrectQuestionsMap.size
-        skippedQuestionsAmount = $generalSkippedQuestionsMap.size
         
         percentage1 = Math.round(correctQuestionsAmount * 100 / questionsAmount)
         percentage2 = Math.round(incorrectQuestionsAmount * 100 / questionsAmount)
-        percentage3 = Math.round(skippedQuestionsAmount * 100 / questionsAmount)
         
         if(percentage1 == 0) { hidePercentage1 = true } else { hidePercentage1 = false }
         if(percentage2 == 0) { hidePercentage2 = true } else { hidePercentage2 = false }
-        if(percentage3 == 0) { hidePercentage3 = true } else { hidePercentage3 = false }
     }
 </script>
 
@@ -111,7 +88,7 @@
     confirmBtnText="خروج"
     callback={() => {
         isNavigationIntentional.set(true)
-        window.location.href = '/quiz'
+        window.location.href = '/demo'
     }}
 >
     <div id="quiz-page-back-button_GTAG" class="hidden" bind:this={exitConfirmationOpenBtn}></div>
@@ -119,7 +96,7 @@
 <main 
     class="container w-full h-full-vh supports-dvh:h-dvh flex-center gap-5 bg-cover bg-no-repeat max-w-inherit font-messiri" 
     class:container-mobile-view={!isLandscape} 
-    style="background-image: url({themeSrc}); color: {questionColor}"
+    style="background-image: url(/images/quizThemeLightBg.webp); color: {questionColor}"
 >
     {#if $isShowResultsVisible}
         <section 
@@ -131,7 +108,6 @@
                     <path class="circle-bg fill-[url(#gradient)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                     <path  class="circle origin-center percentage-1"  class:circle-hide={hidePercentage1}  stroke-dasharray="{percentage1}, 100"  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
                     <path  class="circle percentage-2"  class:circle-hide={hidePercentage2}  stroke-dasharray="{percentage2}, 100"  d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path class="circle percentage-3" class:circle-hide={hidePercentage3} stroke-dasharray="{percentage3}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                     <text x="18" y="20.35" class="percentage-text">{percentage1}%</text>
                     <defs>
                         <linearGradient id="gradient">
@@ -150,7 +126,7 @@
                         confirmBtnText="خروج"
                         callback={() => {
                             isNavigationIntentional.set(true)
-                            window.location.href = '/quiz'
+                            window.location.href = '/demo'
                         }}
                     >
                         <div 
@@ -170,7 +146,7 @@
                     in:fly={{ y: -20, x: 20, duration: 1000 }} 
                     on:click={() => {
                         isShowResultsButtonThrobberVisible = true
-                        goto('/quiz/results')
+                        goto('/demo/results')
                     }}
                 >
                     <svg 

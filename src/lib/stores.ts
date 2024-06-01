@@ -1,4 +1,3 @@
-import { writeBatch } from "firebase/firestore";
 import { writable } from "svelte/store"
 import type { Writable } from "svelte/store";
 import type { CategoriesContainer, ParagraphsContainer, QuestionsContainer } from "./databaseInterfaces";

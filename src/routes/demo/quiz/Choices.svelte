@@ -1,10 +1,5 @@
 <script lang="ts">
-    import { questionAlignment } from './quiz-main-stores.ts';
-    import { getHTMLElement } from '$lib/app'
-    import columnAlignImgSrc from '$lib/assets/column-align-icon.svg'
-    import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
 	import type { QuestionAnswers } from '$lib/databaseInterfaces.ts';
-	import { featureFlags } from '$lib/stores.ts';
 	import ChoiceButton from './ChoiceButton.svelte';
     
     export let isWoodMode: boolean
@@ -22,27 +17,9 @@
         answer4 = answers[3] ?? ""
     }
 
-    function changeQuestionAlighnment(align: string){
-        questionAlignment.set(align)
-        const buttons = document.querySelectorAll('.question-align-container > button')
-        buttons.forEach((button) => {
-            getHTMLElement(button).style.setProperty('background-color', 'transparent')
-        })
-        getHTMLElement(document.querySelector(`button[data-value="${align}"]`)).style.setProperty('background-color', '#5272F230')
-    }
 </script>
 
 <div class="container">
-    {#if $featureFlags.switchAnswersLayoutButtons}
-        <div class="question-align-container">
-            <button class="column-align-container" data-value="column" on:click={()=> changeQuestionAlighnment('column')}>
-                <img src={columnAlignImgSrc} alt="align column">
-            </button>
-            <button class="row-align-container" data-value="row" on:click={()=> changeQuestionAlighnment('row')}>
-                <img src={rowAlignImgSrc} alt="align row">
-            </button>
-        </div>
-    {/if}
     <div class="choices-container" class:isWoodMode>
         <ChoiceButton {isLandscape} dataValue={answer1} text="أ" />
         <ChoiceButton {isLandscape} dataValue={answer2} text="ب" />
@@ -96,4 +73,5 @@
             align-items: center
             color: #fff
             gap: 3%
+
 </style>

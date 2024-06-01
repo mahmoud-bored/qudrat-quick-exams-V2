@@ -1,4 +1,3 @@
-import { categoriesObject, globalQuestionsAmount, paragraphsObject, questionsObject } from "$lib/stores"
 import type { CategoriesContainer, ParagraphsContainer, Question, QuestionsContainer } from "$lib/databaseInterfaces.ts"
 import { 
     question, 
@@ -25,62 +24,302 @@ import {
     generalAllQuestionsMap,
     generalCorrectQuestionsMap,
     generalIncorrectQuestionsMap,
-    generalSkippedQuestionsMap,
     generalMarkedQuestionsMap    
 } from "../quiz-stores";
 import { writable } from "svelte/store"
+import { findNestedValue } from "$lib/app"
 
 export const isNavigationIntentional = writable(false)
-// source: https://stackoverflow.com/questions/45336281/javascript-find-by-value-deep-in-a-nested-object-array
-function findNestedValue(obj: any, key: any, value: any, baseKey: any = null) {
-    // Base case
-    if (obj[key] === value) {
-        if(baseKey !== null){
-            return [obj, baseKey];
-        }else {
-            return obj
+
+
+type TempQuestionsContainer = {
+    [questionID: number]: {
+        answerExplination: string | null,
+        correctAnswer: string,
+        lastUpdateDate: string,
+        questionAnswers: {
+            [answerID: number]: string
         }
-    } else {
-        var keys = Object.keys(obj); // add this line to iterate over the keys
-    
-        for (var i = 0; i < keys.length; i++) {
-            var k = keys[i]; // use this key for iteration, instead of index "i"
-            
-            // add "obj[k] &&" to ignore null values
-            if (obj[k] && typeof obj[k] == 'object') {
-                var found: any = findNestedValue(obj[k], key, value, k);
-                if (found) {
-                    // If the object was found in the recursive call, bubble it up.
-                    if(baseKey !== null){
-                        return [found, baseKey];
-                    }else {
-                        return found
-                    }
-                }
-            }
-        }
+        questionCategoryID: number,
+        questionHead: string,
+        questionHint: string | null,
+        questionParagraphID: number | null,
+        state?: string, //=||>
+        isQuestionMarked?: boolean, //=||>
+        skipState?: boolean, //=||>
+        correctState?: boolean, //=||>
+        incorrectState?: boolean, //=||>
+        pickedAnswer?: string, //=||>
+
     }
 }
+export const mainParagraphsObject: ParagraphsContainer = {
+    1: {
+        paragraphTitle: null,
+        paragraphText: 'حقٌّ على الإنسان أن يتحرّى بغاية جهده مصاحبة الأخيار ومجالستهم، فهي قد تجعل الشرّير خيّرًا. كما أن صحبة الأشرار قد تجعل الخيّر شرّيرًا'
+    }
+}
+const mainQuestionsObject: TempQuestionsContainer = {
+    1: {
+        questionHead: '"حقُّ على الإنسان "  هذه العبارة تعني :',
+        questionParagraphID: 1,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'يجب عليه',
+        questionAnswers: {
+            0: 'يجوز له',
+            1: 'يحق له',
+            2: 'يجب عليه',
+            3: 'يصدق عليه'
+        },
+        questionCategoryID: 5,
+        questionHint: null
+    },
+    2: {
+        questionHead: 'بحسب السياق ، أي المعاني التالية لا يدل على معنى " يتحرّى " ؟',
+        questionParagraphID: 1,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'ينتظر',
+        questionAnswers: {
+            0: 'ينتظر',
+            1: 'يحرص',
+            2: 'يجتهد',
+            3: 'يقصد'
+        },
+        questionCategoryID: 5,
+        questionHint: null
+    },
+    3: {
+        questionHead: 'المراد بالجهد في " غاية جهده " :',
+        questionParagraphID: 1,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'الوسع',
+        questionAnswers: {
+            0: 'الصعوبة',
+            1: 'الوسع',
+            2: 'المشقة',
+            3: 'الصبر'
+        },
+        questionCategoryID: 5,
+        questionHint: null
+    },
+    4: {
+        questionHead: 'تمثل عبارة (صحبة الاشرار قد تجعل الخير شريرا ) لما قبلها : ',
+        questionParagraphID: 1,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'ايضاحا وتأكيدا',
+        questionAnswers: {
+            0: 'اكمالا وايجازا',
+            1: 'اقرارا',
+            2: 'تكرارا',
+            3: 'ايضاحا وتأكيدا'
+        },
+        questionCategoryID: 5,
+        questionHint: null
+    },
+    5: {
+        questionHead: 'أي العبارات لا تتوافق مع النص : ',
+        questionParagraphID: 1,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'الخير والشر ضدان',
+        questionAnswers: {
+            0: 'المرء على دين خليله',
+            1: 'الصاحب ساحب',
+            2: 'الخير والشر ضدان',
+            3: 'كل قرين بالمقارن يقتدي'
+        },
+        questionCategoryID: 5,
+        questionHint: null
+    },
+    6: {
+        questionHead: 'السماء الغائمة في فصل الشتاء تؤذن بزوال المطر.',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'بزوال',
+        questionAnswers: {
+            0: 'السماء',
+            1: 'الغائمة',
+            2: 'الشتاء',
+            3: 'بزوال'
+        },
+        questionCategoryID: 4,
+        questionHint: null
+    },
+    7: {
+        questionHead: 'إن للتعلم مرارة لن يذوقها إلا من ذاق مرارته.',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'مرارة',
+        questionAnswers: {
+            0: 'مرارة',
+            1: 'يذوقها',
+            2: 'ذاق',
+            3: 'مرارته'
+        },
+        questionCategoryID: 4,
+        questionHint: null
+    },
+    8: {
+        questionHead: 'الجهل أبو الشرور ؛ وأسوأ مصائب الجهل أن يعرف الجاهل أنه جاهل.',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'يعرف',
+        questionAnswers: {
+            0: 'الشرور',
+            1: 'أسوأ',
+            2: 'الجهل',
+            3: 'يعرف'
+        },
+        questionCategoryID: 4,
+        questionHint: null
+    },
+    9: {
+        questionHead: 'إني أشفق على البخيل بماله فإنه ينشغل في الدنيا على ....... ويحاسب في الآخرة على .....',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'جمعه- منعه',
+        questionAnswers: {
+            0: 'أمد – الطموح',
+            1: 'البخل- الشحيح',
+            2: 'جمعه- منعه',
+            3: 'شوكها – حرّها'
+        },
+        questionCategoryID: 3,
+        questionHint: null
+    },
+    10: {
+        questionHead: 'الكريم........إذا استعطفته ، واللئيم.............إذا لاطفته.',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'يلين - يقسو',
+        questionAnswers: {
+            0: 'يفرح - يعطى',
+            1: 'يلين - يقسو',
+            2: 'يعطف - يرق',
+            3: 'يعظم - يتمرد'
+        },
+        questionCategoryID: 3,
+        questionHint: null
+    },
+    11: {
+        questionHead: 'لن يراك الناس…….اذا تجاهلت السفهاء ولكن قد. ……بينكم عندما تحاول مواجهتهم.',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'متكبرا – يخلطون',
+        questionAnswers: {
+            0: 'متكبرا – يخلطون',
+            1: 'متغطرسًا – يميزون',
+            2: 'متواضعًا -يمزجون',
+        },
+        questionCategoryID: 3,
+        questionHint: null
+    },
+    12: {
+        questionHead: 'إهمال : إخفاق',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'تسويف: تراكم',
+        questionAnswers: {
+            0: 'تسويف: تراكم',
+            1: 'تعاون : تكاتف',
+            2: 'تقدم : تراجع',
+            3: 'تهاون : تكاسل'
+        },
+        questionCategoryID: 1,
+        questionHint: null
+    },
+    13: {
+        questionHead: 'ورقة : غصن',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'سعادة :شعور',
+        questionAnswers: {
+            0: 'مدرسية : ملعب',
+            1: 'سعادة :شعور',
+            2: 'طاولة :سبورة',
+            3: 'حديقة : مظلة'
+        },
+        questionCategoryID: 1,
+        questionHint: null
+    },
+    14: {
+        questionHead: 'فول : بقوليات',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'حافلة : مركبات',
+        questionAnswers: {
+            0: 'مدارس : جامعات',
+            1: 'طماطم : فاكهة',
+            2: 'بيض : بروتين',
+            3: 'حافلة : مركبات'
+        },
+        questionCategoryID: 1,
+        questionHint: null
+    },
+    15: {
+        questionHead: 'العاجلة : الآخرة',
+        questionParagraphID: null,
+        answerExplination: null,
+        lastUpdateDate: '2020-05-06 15:05:00.063400+00',
+        correctAnswer: 'الدنيا : الآجلة',
+        questionAnswers: {
+            0: 'البعث : القيامة',
+            1: 'الموت : النشور',
+            2: 'الحياة - العمل',
+            3: 'الدنيا : الآجلة'
+        },
+        questionCategoryID: 1,
+        questionHint: null
+    },
+}
+const mainCategoriesObject: CategoriesContainer = {
+    1: {
+        name: 'التناظر اللفظي',
+        type: 'short'
+    },
+    3: {
+        name: 'إكمال الجمل',
+        type: 'short'
+    },
+    4: {
+        name: 'الخطأ السياقي',
+        type: 'short'
+    },
+    5: {
+        name: 'إستيعاب المقروء',
+        type: 'long'
+    },
+    6: {
+        name: 'المفردة الشاذة',
+        type: 'short'
+    }
+}
+const localQuestionsAmount: number = 14
 
-
-
-let mainParagraphsObject: ParagraphsContainer
-let mainQuestionsObject: QuestionsContainer = {}
-let mainCategoriesObject: CategoriesContainer = {}
 let localCorrectAnswer: string
 let localQuestionID: number
-let localQuestionsAmount: number
 let localQuestionCounter: number
 let localQuestionOutTransitionDuration: number
 let localQuestionInTransitionDuration: number
 let localIsQuestionMarked: boolean
 let localTimer: number
-paragraphsObject.subscribe(data => mainParagraphsObject = data)
-questionsObject.subscribe(data => mainQuestionsObject = data)
-categoriesObject.subscribe(data => mainCategoriesObject = data)
+
+
 correctAnswer.subscribe(data => localCorrectAnswer = data)
 questionID.subscribe(data => localQuestionID = data)
-globalQuestionsAmount.subscribe(data => localQuestionsAmount = data)
 questionCounter.subscribe(data => localQuestionCounter = data)
 questionOutTransitionDuration.subscribe(data => localQuestionOutTransitionDuration = data)
 questionInTransitionDuration.subscribe(data => localQuestionInTransitionDuration = data)
@@ -244,11 +483,9 @@ export function pickAnswer(e: Event) {
 
 
 export function endQuiz() {
-
     let allQuestionsMap: Map<number, Question> = new Map()
     let correctQuestionsMap: Map<number, Question> = new Map()
     let incorrectQuestionsMap: Map<number, Question> = new Map()
-    let skippedQuestionsMap: Map<number, Question> = new Map()
     let markedQuestionsMap: Map<number, Question> = new Map()
 
     for(const [count, question] of currentQuestionsMap) {
@@ -258,13 +495,11 @@ export function endQuiz() {
             if (questionObject['isQuestionMarked'] === true) { markedQuestionsMap.set(count, questionObject) }
             if (questionObject['correctState'] === true) { correctQuestionsMap.set(count, questionObject) }
             if (questionObject['incorrectState'] === true) { incorrectQuestionsMap.set(count, questionObject) }
-            if (questionObject['skipState'] === true) { skippedQuestionsMap.set(count, questionObject) }
         }
     }
     generalAllQuestionsMap.set(allQuestionsMap)
     generalCorrectQuestionsMap.set(correctQuestionsMap)
     generalIncorrectQuestionsMap.set(incorrectQuestionsMap)
-    generalSkippedQuestionsMap.set(skippedQuestionsMap)
     generalMarkedQuestionsMap.set(markedQuestionsMap)
 
     clearInterval(questionTimer)
@@ -279,8 +514,8 @@ export function endQuiz() {
         isShowResultsVisible.set(true)
     } else {
         isNavigationIntentional.set(true)
-        window.location.href = '/quiz'
-    }  
+        window.location.href = '/demo'
+    }
     
     setTimeout(()=>{
         (document.querySelector('.percentage-2') as SVGPathElement)?.style.setProperty('transform', `rotate(${360 * percentage1 / 100}deg)`);

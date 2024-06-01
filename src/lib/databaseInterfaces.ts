@@ -40,7 +40,7 @@ export type DbData = {
     category: {
         [category_id: number]: {
             category_name: string,
-            category_type: string,
+            category_type: 'long' | 'short',
             course_id: number
         }
     };
@@ -90,7 +90,7 @@ export type DbData = {
 export interface CategoriesContainer {
     [categoryID: number]: {
         name: string,
-        type: string,
+        type: 'long' | 'short',
     }
 }
 export interface ParagraphsContainer {
