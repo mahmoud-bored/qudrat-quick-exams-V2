@@ -18,7 +18,6 @@ const redisClient = await createClient({
 }).connect();
 
 export async function load() {
-    throw redirect(308, '/demo')
     const redisDB: any = await redisClient.json.get(`version:${course_id}`)
     const featureFlags: any = await redisClient.json.get(`feature-flag`)
     return { course_id, redisDB, featureFlags }
