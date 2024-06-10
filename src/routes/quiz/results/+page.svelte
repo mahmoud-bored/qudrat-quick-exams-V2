@@ -18,7 +18,7 @@
 	import { beforeNavigate, goto } from "$app/navigation";
 	import PopupConfirmation from "$lib/PopupConfirmation.svelte";
 	import { writable } from "svelte/store";
-    export let data
+
     // Get questions amounts
     const questionsAmount = $generalCurrentQuestionsMap?.size
     const correctQuestionsAmount = $generalCorrectQuestionsMap?.size

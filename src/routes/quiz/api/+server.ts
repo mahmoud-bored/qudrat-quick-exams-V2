@@ -33,7 +33,7 @@ export async function POST({ request }) {
             .eq('course_id', data.course_id)
             .gt('timestamp', data.timestamp)
 
-        console.log(supabaseData, error)
+        console.log(error)
         return json({ data: supabaseData, table_name: data.table_name })
     }
 
