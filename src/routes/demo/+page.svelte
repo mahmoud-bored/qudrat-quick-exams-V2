@@ -17,7 +17,7 @@
             </svg>
                 
             <h1 class="text-white text-2xl md:text-3xl text-wrap text-center">
-                تدريبات قرطاس 
+                منصة قرطاس 
                 <span class="text-nowrap">( <span class="text-amber-400">تجريبي</span> )</span>
             </h1>
         </div>
