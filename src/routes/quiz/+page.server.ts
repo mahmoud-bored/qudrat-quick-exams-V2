@@ -5,6 +5,7 @@ import {
     PRIVATE_REDIS_HOST,
     PRIVATE_REDIS_PASSWORD
 } from '$env/static/private';
+import { redirect } from '@sveltejs/kit';
 
 
 const course_id = 1
@@ -17,6 +18,7 @@ const redisClient = await createClient({
 }).connect();
 
 export async function load() {
+    throw redirect(308, '/demo')
     const redisDB: any = await redisClient.json.get(`version:${course_id}`)
     const featureFlags: any = await redisClient.json.get(`feature-flag`)
     return { course_id, redisDB, featureFlags }
