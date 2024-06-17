@@ -40,12 +40,22 @@
             }
         }
     })
+    
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
 
     let themeSrc: string
     let questionColor: string
     let paragraphColor: string
     let isWoodMode: boolean = false
+
     onMount(() => {
+        toggleFullScreen()
         // Set Theme: Dark, Light or Wood
         if ($examTheme == 'ليلي'){
             themeSrc = '/images/quizThemeDarkBg.webp'
