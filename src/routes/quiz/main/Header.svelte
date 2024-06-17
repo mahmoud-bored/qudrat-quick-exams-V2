@@ -69,8 +69,8 @@
                 class:streak-active-2={isYellowStreakActive} 
                 class:streak-active-3={isRedStreakActive}
                 class:streak-jump={streakJump}
-                width="224" 
-                height="294" 
+                width="40" 
+                height="50" 
                 viewBox="0 0 224 294" 
                 fill="none" 
                 xmlns="http://www.w3.org/2000/svg"

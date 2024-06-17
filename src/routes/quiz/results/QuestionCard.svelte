@@ -43,10 +43,12 @@
     else if( answer3 == correctAnswer ) { isCCorrect = true }
     else if( answer4 == correctAnswer ) { isDCorrect = true }
 
-    if( pickedAnswer == answer1 ) { isAIncorrect = true}
-    else if( pickedAnswer == answer2 ) { isBIncorrect = true}
-    else if( pickedAnswer == answer3 ) { isCCorrect = true}
-    else if( pickedAnswer == answer4 ) { isDCorrect = true}
+    if( pickedAnswer !== correctAnswer) {
+        if( pickedAnswer == answer1 ) { isAIncorrect = true }
+        else if( pickedAnswer == answer2 ) { isBIncorrect = true }
+        else if( pickedAnswer == answer3 ) { isCIncorrect = true }
+        else if( pickedAnswer == answer4 ) { isDIncorrect = true }
+    }
 
 
 </script>
