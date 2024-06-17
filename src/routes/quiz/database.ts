@@ -565,7 +565,7 @@ export function loadDbDataIntoStores(data: DbData){
             resultQuestions[questionID] = {
                 answerExplination: answerRecord.question_answer_explination,
                 lastUpdateDate: answerRecord.timestamp,
-                questionCategoryID: answerRecord.catigory_id,
+                questionCategoryID: answerRecord.category_id,
                 questionHead: answerRecord.question_text,
                 questionHint: answerRecord.question_hint || null,
                 questionParagraphID: answerRecord.paragraph_id || null,

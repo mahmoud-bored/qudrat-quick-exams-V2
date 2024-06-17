@@ -65,7 +65,7 @@ export type DbData = {
             question_hint: string | null,
             question_answer_explination: string | null,
             is_hidden: boolean,
-            catigory_id: number,
+            category_id: number,
             paragraph_id: number | null,
             timestamp: string,
             course_id: number,
