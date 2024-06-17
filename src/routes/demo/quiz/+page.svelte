@@ -40,10 +40,21 @@
         }
     })
 
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+
     let questionColor: string
     let paragraphColor: string
     let isWoodMode: boolean = false
-    onMount(() => getQuestion());
+    onMount(() => {
+        toggleFullScreen()
+        getQuestion()
+    });
     // Set Mode: Desktop or Mobile
     let isLandscape: boolean
     let screenWidth: number
