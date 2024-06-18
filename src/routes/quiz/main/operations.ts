@@ -236,9 +236,10 @@ export function pickAnswer(e: Event) {
 
     if(localQuestionCounter >= localQuestionsAmount){
         setTimeout(endQuiz, localQuestionInTransitionDuration + 200)
+    } else {
+        setTimeout(() => isNextQuestionReady.set(true), localQuestionInTransitionDuration + 200)
+        setTimeout(getQuestion,  localQuestionInTransitionDuration + 200)
     }
-    setTimeout(() => isNextQuestionReady.set(true), localQuestionInTransitionDuration + 200)
-    setTimeout(getQuestion,  localQuestionInTransitionDuration + 200)
 }
 
 

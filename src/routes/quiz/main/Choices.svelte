@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { questionAlignment } from './quiz-main-stores.ts';
+    import { isShowResultsVisible, questionAlignment } from './quiz-main-stores.ts';
     import { getHTMLElement } from '$lib/app'
     import columnAlignImgSrc from '$lib/assets/column-align-icon.svg'
     import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
@@ -9,7 +9,6 @@
 	import { isNextQuestionReady } from "./quiz-main-stores";
 
     export let isWoodMode: boolean
-    export let isLandscape: boolean
     export let answers: QuestionAnswers
 
     let answer1: string 
@@ -68,7 +67,9 @@
             class:opacity-30={!$isNextQuestionReady} 
             data-value={answer1} 
             on:click={(e) => { 
-                if($isNextQuestionReady) pickAnswer(e)
+                if(!$isShowResultsVisible) {
+                    if($isNextQuestionReady) pickAnswer(e)
+                }
             }}
             bind:this={buttonA}
         >
@@ -81,8 +82,9 @@
             class:opacity-30={!$isNextQuestionReady} 
             data-value={answer2} 
             on:click={(e) => { 
-                if($isNextQuestionReady) pickAnswer(e)
-            }}
+                if(!$isShowResultsVisible) {
+                    if($isNextQuestionReady) pickAnswer(e)
+                }            }}
             bind:this={buttonB}
         >
             ب
@@ -94,8 +96,9 @@
             class:opacity-30={!$isNextQuestionReady} 
             data-value={answer3} 
             on:click={(e) => { 
-                if($isNextQuestionReady) pickAnswer(e)
-            }}
+                if(!$isShowResultsVisible) {
+                    if($isNextQuestionReady) pickAnswer(e)
+                }            }}
             bind:this={buttonC}
         >
             ج
@@ -107,8 +110,9 @@
             class:opacity-30={!$isNextQuestionReady} 
             data-value={answer4} 
             on:click={(e) => { 
-                if($isNextQuestionReady) pickAnswer(e)
-            }}
+                if(!$isShowResultsVisible) {
+                    if($isNextQuestionReady) pickAnswer(e)
+                }            }}
             bind:this={buttonD}
         >
             د

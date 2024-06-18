@@ -237,7 +237,7 @@
                                 
                             <Question {isWoodMode} questionHead={ $question ? $question : "" } answers={$answers} /> 
                         </div>
-                        <div class="quiz-choices-container"> <Choices {isWoodMode} {isLandscape} answers={$answers} /> </div> 
+                        <div class="quiz-choices-container"> <Choices {isWoodMode} answers={$answers} /> </div> 
                     </div>
                     <div class="quiz-controls-container text-white"> <Controls /> </div>
                 </div>
@@ -276,7 +276,7 @@
                 </div>
                 <div class="mobile-quiz-body-container" style="color: {paragraphColor}">
                     <Paragraph paragraphText={ $questionParagraph ? $questionParagraph : null } /> 
-                    <Choices {isWoodMode} {isLandscape} answers={$answers} /> </div>
+                    <Choices {isWoodMode} answers={$answers} /> </div>
                 <div class="mobile-quiz-controls-container"> <Controls /> </div>
             </div>
         </div>

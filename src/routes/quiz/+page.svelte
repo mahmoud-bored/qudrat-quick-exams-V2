@@ -101,7 +101,7 @@
         })
         paragraphsObject.update((paragraphs) => {
             for(const paragraphID in paragraphs) {
-                if(!usedParagraphsIDs[paragraphID]) {
+                if(!usedParagraphsIDs.includes(parseInt(paragraphID))) {
                     delete paragraphs[paragraphID]
                 }
             }
