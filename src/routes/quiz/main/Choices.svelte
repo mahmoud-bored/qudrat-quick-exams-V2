@@ -5,8 +5,9 @@
     import rowAlignImgSrc from '$lib/assets/row-align-icon.svg'
 	import type { QuestionAnswers } from '$lib/databaseInterfaces.ts';
 	import { featureFlags } from '$lib/stores.ts';
-	import ChoiceButton from './ChoiceButton.svelte';
-    
+    import { pickAnswer } from "./operations";
+	import { isNextQuestionReady } from "./quiz-main-stores";
+
     export let isWoodMode: boolean
     export let isLandscape: boolean
     export let answers: QuestionAnswers
@@ -22,6 +23,10 @@
         answer4 = answers[3] ?? ""
     }
 
+    let buttonA: HTMLButtonElement, 
+        buttonB: HTMLButtonElement, 
+        buttonC: HTMLButtonElement, 
+        buttonD: HTMLButtonElement
     function changeQuestionAlighnment(align: string){
         questionAlignment.set(align)
         const buttons = document.querySelectorAll('.question-align-container > button')
@@ -30,8 +35,19 @@
         })
         getHTMLElement(document.querySelector(`button[data-value="${align}"]`)).style.setProperty('background-color', '#5272F230')
     }
+    function pressKeyboardKey(e: KeyboardEvent) {
+        if(e.code == 'KeyA' || e.code == 'Digit1') {
+            buttonA.click()
+        } else if (e.code == 'KeyS' || e.code == 'Digit2') {
+            buttonB.click()
+        } else if(e.code == "KeyD" || e.code == "Digit3") {
+            buttonC.click()
+        } else if(e.code == "KeyF" || e.code == "Digit4") {
+            buttonD.click()
+        }
+    }
 </script>
-
+<svelte:window on:keydown={pressKeyboardKey}/>
 <div class="container">
     {#if $featureFlags.switchAnswersLayoutButtons}
         <div class="question-align-container">
@@ -43,11 +59,60 @@
             </button>
         </div>
     {/if}
+
     <div class="choices-container" class:isWoodMode>
-        <ChoiceButton {isLandscape} dataValue={answer1} text="أ" />
-        <ChoiceButton {isLandscape} dataValue={answer2} text="ب" />
-        <ChoiceButton {isLandscape} dataValue={answer3} text="ج" />
-        <ChoiceButton {isLandscape} dataValue={answer4} text="د" />
+        <button 
+            id="question-choice_GTAG"
+            class="h-full w-full rounded bg-[#5eee2530] border border-[#5eee25] flex-center opacity-100 
+                select-none transition hover:text-white hover:bg-[#5eee2590]" 
+            class:opacity-30={!$isNextQuestionReady} 
+            data-value={answer1} 
+            on:click={(e) => { 
+                if($isNextQuestionReady) pickAnswer(e)
+            }}
+            bind:this={buttonA}
+        >
+            أ
+        </button>
+        <button 
+            id="question-choice_GTAG"
+            class="h-full w-full rounded bg-[#5eee2530] border border-[#5eee25] flex-center opacity-100 
+                select-none transition hover:text-white hover:bg-[#5eee2590]" 
+            class:opacity-30={!$isNextQuestionReady} 
+            data-value={answer2} 
+            on:click={(e) => { 
+                if($isNextQuestionReady) pickAnswer(e)
+            }}
+            bind:this={buttonB}
+        >
+            ب
+        </button>
+        <button 
+            id="question-choice_GTAG"
+            class="h-full w-full rounded bg-[#5eee2530] border border-[#5eee25] flex-center opacity-100 
+                select-none transition hover:text-white hover:bg-[#5eee2590]" 
+            class:opacity-30={!$isNextQuestionReady} 
+            data-value={answer3} 
+            on:click={(e) => { 
+                if($isNextQuestionReady) pickAnswer(e)
+            }}
+            bind:this={buttonC}
+        >
+            ج
+        </button>
+        <button 
+            id="question-choice_GTAG"
+            class="h-full w-full rounded bg-[#5eee2530] border border-[#5eee25] flex-center opacity-100 
+                select-none transition hover:text-white hover:bg-[#5eee2590]" 
+            class:opacity-30={!$isNextQuestionReady} 
+            data-value={answer4} 
+            on:click={(e) => { 
+                if($isNextQuestionReady) pickAnswer(e)
+            }}
+            bind:this={buttonD}
+        >
+            د
+        </button>
     </div>
 </div>
 
