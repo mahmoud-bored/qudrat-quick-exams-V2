@@ -25,11 +25,13 @@
         fragmentColor = "#0d6efd"
     }
     // animate the fragment being added to the progress bar
+    let fragment: HTMLSpanElement
     onMount(()=> {
-        setTimeout(() => (document.getElementById(fragmentID) as HTMLSpanElement)?.style.setProperty('width', width), 50)
+        setTimeout(() => fragment.style.setProperty('width', width))
     })
     // mix colors between the current fragment and the last one
-    const lastColor = (document.querySelector('.progress-bar-container')?.lastElementChild as HTMLSpanElement)?.getAttribute('data-bg-color')
+    const lastFragment = document.querySelector('.progress-bar-container')?.lastElementChild as (HTMLSpanElement | null)
+    const lastColor = lastFragment?.getAttribute('data-bg-color')
     if(lastColor) {
         bgColorStyle = `linear-gradient(to right, ${lastColor}, ${fragmentColor}, ${fragmentColor})`
     } else {
@@ -37,15 +39,11 @@
     }
 </script>
 
-<span class:span-radius={isBorderActive} class="progress-bar-fragment" data-bg-color="{fragmentColor}" id="{fragmentID}" style="background: {bgColorStyle}"></span>
-
-<style lang="sass">
-    .progress-bar-fragment
-        height: 100%
-        width: 0
-        display: block
-        transition: all 0.2s ease
-    .span-radius
-        border-top-right-radius: 5px
-        border-bottom-right-radius: 5px
-</style>
+<span 
+    bind:this={fragment}
+    class:rounded-r-md={isBorderActive} 
+    class="h-full w-0 transition-all" 
+    data-bg-color="{fragmentColor}" 
+    id="{fragmentID}" 
+    style="background: {bgColorStyle}"
+></span>
