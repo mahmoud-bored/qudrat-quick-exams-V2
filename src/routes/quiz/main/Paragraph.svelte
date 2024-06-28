@@ -7,24 +7,31 @@
     let paragraphFontSize: number
     $: paragraphFontSize = inputValue / 100 + 0.8
 
+    let formattedParagraphText: string
     let isParagraphEmpty: boolean
     $: if(!paragraphText || paragraphText.length === 0){
         isParagraphEmpty = true
     }else {
         isParagraphEmpty = false
+        // Adds a new line to every New Paragraph Section.
+        // RegexExpression match Examples: 1- , 2 - , (1) or (2 )... 
+        let rgxExp = /\d+\s?-|\(+\s?(\d)+\s?\)/;
+        formattedParagraphText = paragraphText.replace(rgxExp, (x, y) => '\n' + x)
+        console.log(formattedParagraphText)
     }
+
 </script>
 
 <div class="container">
     <input type="range" bind:value={inputValue}>
     <div class="paragraph-field-container">
-        {#key paragraphText}
+        {#key formattedParagraphText}
             <span 
                 in:fly={{ y:-20, x: 40, duration: 300 }} 
                 out:fly={{ x: -40, duration: $questionOutTransitionDuration }} 
                 style="font-size: {paragraphFontSize}em"
             >
-                <p>{paragraphText ?? ""}</p>
+                <p class="whitespace-pre-line">{formattedParagraphText ?? ""}</p>
             </span>
         {/key}
         {#if isParagraphEmpty}
