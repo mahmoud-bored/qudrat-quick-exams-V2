@@ -14,8 +14,8 @@
     }else {
         isParagraphEmpty = false
         // Adds a new line to every New Paragraph Section.
-        // RegexExpression match Examples: 1- , 2 - , (1) or (2 )... 
-        let rgxExp = /\d+\s?-|\(+\s?(\d)+\s?\)/;
+        // RegexExpression match Examples: 1- , 2 - , (1) , (2 ) , 1. or 2 . 
+        let rgxExp = /\d+\s?-|\(+\s?(\d)+\s?\)|\d+\s?\./;
         formattedParagraphText = paragraphText.replace(rgxExp, (x, y) => '\n' + x)
     }
 
