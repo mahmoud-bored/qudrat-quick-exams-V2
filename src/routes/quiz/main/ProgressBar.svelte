@@ -2,6 +2,12 @@
 </script>
 
 <div class="progress-bar-container">
+    <div class="progress-bar-overlay">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 </div>
 
 <style lang="sass">
@@ -17,7 +23,18 @@
         border-top-right-radius: 5px
         border-bottom-right-radius: 5px
         animation: gradient 15s ease infinite
-        
+        .progress-bar-overlay
+            position: absolute
+            top: 0
+            width: 100%
+            height: 100%
+            display: flex
+            justify-content: space-evenly
+            align-items: center
+            span
+                width: 3px
+                height: 100%
+                background-color: #fff    
     @keyframes gradient 
         0% 
             background-position: 0% 50%
