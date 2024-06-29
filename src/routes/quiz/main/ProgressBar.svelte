@@ -32,7 +32,7 @@
             justify-content: space-evenly
             align-items: center
             span
-                width: 3px
+                width: 1px
                 height: 100%
                 background-color: #fff    
     @keyframes gradient 
