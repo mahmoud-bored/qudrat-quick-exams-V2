@@ -11,8 +11,10 @@
 
     let popupCancelBtn: HTMLButtonElement
     function escapeBtnListener(e: KeyboardEvent) {
-        if (e.key === 'Escape' || e.key === 'Esc') {
-            popupCancelBtn.click()
+        if(isPopupOpen) {
+            if (e.key === 'Escape' || e.key === 'Esc') {
+                popupCancelBtn.click()
+            }
         }
     }
 </script>
