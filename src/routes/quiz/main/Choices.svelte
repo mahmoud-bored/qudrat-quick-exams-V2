@@ -34,9 +34,13 @@
         })
         getHTMLElement(document.querySelector(`button[data-value="${align}"]`)).style.setProperty('background-color', '#5272F230')
     }
-    let isControlDown = false
+
+    let isKeyboardActionsDisabled = false
     function keyboardKeyDown(e: KeyboardEvent) {
-        if(!isControlDown) {
+        if(e.key == "Tab") {
+            isKeyboardActionsDisabled = !isKeyboardActionsDisabled
+        }
+        if(!isKeyboardActionsDisabled) {
             if(e.code == 'KeyA' || e.code == 'Digit1') {
                 buttonA.click()
             } else if (e.code == 'KeyS' || e.code == 'Digit2') {
@@ -45,18 +49,11 @@
                 buttonC.click()
             } else if(e.code == "KeyF" || e.code == "Digit4") {
                 buttonD.click()
-            } else if (e.key == "Control") {
-                isControlDown = true
             }
         }
     }
-    function keyboardKeyUp(e: KeyboardEvent) {
-        if(e.key == "Control") {
-            isControlDown = false
-        }
-    }
 </script>
-<svelte:window on:keydown={keyboardKeyDown} on:keyup={keyboardKeyUp}/>
+<svelte:window on:keydown={keyboardKeyDown}/>
 <div class="container">
     {#if $featureFlags.switchAnswersLayoutButtons}
         <div class="question-align-container">
