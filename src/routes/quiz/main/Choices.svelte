@@ -64,11 +64,11 @@
             id="question-choice_GTAG"
             class="h-full w-full rounded bg-[#5eee2530] border border-[#5eee25] flex-center opacity-100 
                 select-none transition hover:text-white hover:bg-[#5eee2590]" 
-            class:opacity-30={!$isNextQuestionReady} 
+            class:opacity-30={!$isNextQuestionReady || answer1.length < 1} 
             data-value={answer1} 
             on:click={(e) => { 
                 if(!$isShowResultsVisible) {
-                    if($isNextQuestionReady) pickAnswer(e)
+                    if($isNextQuestionReady && answer1.length > 1) pickAnswer(e)
                 }
             }}
             bind:this={buttonA}
@@ -79,12 +79,13 @@
             id="question-choice_GTAG"
             class="h-full w-full rounded bg-[#5eee2530] border border-[#5eee25] flex-center opacity-100 
                 select-none transition hover:text-white hover:bg-[#5eee2590]" 
-            class:opacity-30={!$isNextQuestionReady} 
+            class:opacity-30={!$isNextQuestionReady || answer2.length < 1} 
             data-value={answer2} 
             on:click={(e) => { 
                 if(!$isShowResultsVisible) {
-                    if($isNextQuestionReady) pickAnswer(e)
-                }            }}
+                    if($isNextQuestionReady && answer2.length > 1) pickAnswer(e)
+                }            
+            }}
             bind:this={buttonB}
         >
             ب
@@ -93,12 +94,13 @@
             id="question-choice_GTAG"
             class="h-full w-full rounded bg-[#5eee2530] border border-[#5eee25] flex-center opacity-100 
                 select-none transition hover:text-white hover:bg-[#5eee2590]" 
-            class:opacity-30={!$isNextQuestionReady} 
+            class:opacity-30={!$isNextQuestionReady || answer3.length < 1} 
             data-value={answer3} 
             on:click={(e) => { 
                 if(!$isShowResultsVisible) {
-                    if($isNextQuestionReady) pickAnswer(e)
-                }            }}
+                    if($isNextQuestionReady && answer3.length > 1) pickAnswer(e)
+                }            
+            }}
             bind:this={buttonC}
         >
             ج
@@ -107,12 +109,13 @@
             id="question-choice_GTAG"
             class="h-full w-full rounded bg-[#5eee2530] border border-[#5eee25] flex-center opacity-100 
                 select-none transition hover:text-white hover:bg-[#5eee2590]" 
-            class:opacity-30={!$isNextQuestionReady} 
+            class:opacity-30={!$isNextQuestionReady || answer4.length < 1} 
             data-value={answer4} 
             on:click={(e) => { 
                 if(!$isShowResultsVisible) {
-                    if($isNextQuestionReady) pickAnswer(e)
-                }            }}
+                    if($isNextQuestionReady && answer4.length > 1) pickAnswer(e)
+                }            
+            }}
             bind:this={buttonD}
         >
             د
