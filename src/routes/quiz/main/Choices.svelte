@@ -34,19 +34,29 @@
         })
         getHTMLElement(document.querySelector(`button[data-value="${align}"]`)).style.setProperty('background-color', '#5272F230')
     }
-    function pressKeyboardKey(e: KeyboardEvent) {
-        if(e.code == 'KeyA' || e.code == 'Digit1') {
-            buttonA.click()
-        } else if (e.code == 'KeyS' || e.code == 'Digit2') {
-            buttonB.click()
-        } else if(e.code == "KeyD" || e.code == "Digit3") {
-            buttonC.click()
-        } else if(e.code == "KeyF" || e.code == "Digit4") {
-            buttonD.click()
+    let isControlDown = false
+    function keyboardKeyDown(e: KeyboardEvent) {
+        if(!isControlDown) {
+            if(e.code == 'KeyA' || e.code == 'Digit1') {
+                buttonA.click()
+            } else if (e.code == 'KeyS' || e.code == 'Digit2') {
+                buttonB.click()
+            } else if(e.code == "KeyD" || e.code == "Digit3") {
+                buttonC.click()
+            } else if(e.code == "KeyF" || e.code == "Digit4") {
+                buttonD.click()
+            } else if (e.key == "Control") {
+                isControlDown = true
+            }
+        }
+    }
+    function keyboardKeyUp(e: KeyboardEvent) {
+        if(e.key == "Control") {
+            isControlDown = false
         }
     }
 </script>
-<svelte:window on:keydown={pressKeyboardKey}/>
+<svelte:window on:keydown={keyboardKeyDown} on:keyup={keyboardKeyUp}/>
 <div class="container">
     {#if $featureFlags.switchAnswersLayoutButtons}
         <div class="question-align-container">
