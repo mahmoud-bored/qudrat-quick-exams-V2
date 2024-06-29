@@ -17,7 +17,6 @@
         // RegexExpression match Examples: 1- , 2 - , (1) or (2 )... 
         let rgxExp = /\d+\s?-|\(+\s?(\d)+\s?\)/;
         formattedParagraphText = paragraphText.replace(rgxExp, (x, y) => '\n' + x)
-        console.log(formattedParagraphText)
     }
 
 </script>
