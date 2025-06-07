@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { ParagraphsContainer, Question } from "$lib/databaseInterfaces"
 	import { onMount } from "svelte"
-    import { paragraphsObject } from "$lib/stores"
+    import { globalCollections, paragraphsObject } from "$lib/stores"
     
     export let cardSettings: { bg: string, color: string }
     export let questionObject: Question | undefined
@@ -9,6 +9,7 @@
     let localQuestionObject: Question
     if(questionObject){
         localQuestionObject = questionObject
+        console.log(localQuestionObject)
     }
 
     let [isRedBorderActive, isGreenBorderActive, isYellowBorderActive, isBlueBorderActive] = Array(4).fill(false)
@@ -47,8 +48,7 @@
     else if( pickedAnswer == answer2 ) { isBIncorrect = true }
     else if( pickedAnswer == answer3 ) { isCIncorrect = true }
     else if( pickedAnswer == answer4 ) { isDIncorrect = true }
-
-
+    console.log($globalCollections)
 </script>
 <div class="question-container">
     <button 
@@ -75,10 +75,15 @@
         class:question-body-container-active={isQuestionBodyVisible} 
         style="background-image: url('{cardSettings['bg']}'); color: {cardSettings['color']}"
         on:click={() => isQuestionBodyVisible = !isQuestionBodyVisible}
-        >
+    >
 
         <p style="max-width: 95%;">{getParagraphText()}</p>
-        {#if getParagraphText().length !== 0} <hr> {/if}
+    
+        {#if getParagraphText().length !== 0} 
+            <hr> 
+        {/if}
+    
+        <div></div>
         <p style="max-width: 95%;">س: {localQuestionObject['questionHead']}</p>
         <div class="question-body-answers-container">
             {#if localQuestionObject.questionAnswers[0]}
